@@ -1,0 +1,17 @@
+.left {
+  display: flex;
+  position: sticky !important;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  flex-direction: column;
+  min-height: 90vh;
+  justify-content: space-between;
+  width: 270px !important;
+  background-color: #fff;
+}

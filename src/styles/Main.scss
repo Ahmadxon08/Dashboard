@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: rgba(236, 235, 234, 0.747) !important;
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: hidden;
+}
+
+.container {
+  padding: 0 30px;
+  padding-right: 70px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+}
+select,
+input {
+  outline: none;
+}
