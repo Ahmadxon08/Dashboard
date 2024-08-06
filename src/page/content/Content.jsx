@@ -1,4 +1,7 @@
+import { Button, TextField } from "@mui/material";
 import "./Content.scss";
+import Table1 from "../../components/table/Table";
+// import  { useState } from 'react';
 
 const ContentBody = () => {
   return (
@@ -6,55 +9,95 @@ const ContentBody = () => {
       <section className="content_header">
         <div className="items">
           <div className="item">
-            <label htmlFor="product">Product name:</label>
-            <input type="text" />
+            <label htmlFor="name">Product name:</label>
+            <TextField
+              id="filled-basic"
+              variant="filled"
+              name="name"
+              InputProps={{
+                style: {
+                  height: "40px",
+                },
+              }}
+            />
           </div>
 
           <div className="item">
-            <label htmlFor="produuct">Store name:</label>
-            <input type="text" />
+            <label htmlFor="store">Store name:</label>
+            <TextField
+              id="filled-basic"
+              variant="filled"
+              name="store"
+              InputProps={{
+                style: {
+                  height: "40px",
+                },
+              }}
+            />
           </div>
         </div>
         <div className="items">
           <div className="item">
             <label htmlFor="product">Price:</label>
-            <input type="text" />
+            <TextField
+              id="filled-basic"
+              variant="filled"
+              name="price"
+              InputProps={{
+                style: {
+                  height: "40px",
+                },
+              }}
+            />
           </div>
 
           <div className="item">
-            <label htmlFor="produuct">Order By:</label>
-            <input type="text" />
+            <label htmlFor="order">Order By:</label>
+            <TextField
+              id="filled-basic"
+              variant="filled"
+              name="order"
+              InputProps={{
+                style: {
+                  height: "40px",
+                },
+              }}
+            />
           </div>
         </div>
         <div className="items">
           <div className="item">
             <label htmlFor="product">...</label>
-            <input type="text" />
+            <TextField
+              id="filled-basic"
+              variant="filled"
+              InputProps={{
+                style: {
+                  height: "40px",
+                },
+              }}
+            />
           </div>
 
           <div className="item">
             <label htmlFor="produuct">...</label>
-            <input type="text" />
+            <TextField
+              id="filled-basic"
+              variant="filled"
+              InputProps={{
+                style: {
+                  height: "40px",
+                },
+              }}
+            />
           </div>
         </div>
-        <div className="btn">
-          <button>Search</button>
+        <div className="btn1">
+          <Button varinat="text">Search</Button>
         </div>
       </section>
       <section className="content_body">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
-          beatae necessitatibus non neque quis aliquam sequi dignissimos animi
-          porro atque, eveniet quaerat eius saepe dolor consequatur! Harum
-          ratione facere natus magnam suscipit soluta nam voluptatibus eveniet
-          delectus nesciunt ullam laborum explicabo quaerat alias, ad animi
-          eligendi. Alias illo quasi quidem debitis quia dignissimos dolorem
-          aperiam corrupti nesciunt vel hic praesentium soluta, maiores natus
-          iste repellat eligendi accusantium fugit esse omnis dolores optio?
-          Praesentium reprehenderit, exercitationem ipsa in id iure dolorum quam
-          ratione, architecto ipsam assumenda illum. Vitae facilis culpa animi
-          eveniet at magnam, officia alias. Recusandae nisi odio dolore ratione?
-        </p>
+        <Table1 />
       </section>
     </div>
   );

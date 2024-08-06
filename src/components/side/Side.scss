@@ -5,8 +5,6 @@
   top: 0;
   bottom: 0;
 
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
   flex-direction: column;
@@ -14,4 +12,30 @@
   justify-content: space-between;
   width: 270px !important;
   background-color: #fff;
+  .first {
+    width: 100%;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      cursor: pointer;
+      border: 0;
+      text-transform: none;
+      border-radius: 3px;
+      width: inherit;
+      height: 35px;
+      gap: 30px;
+      padding-left: 20px;
+      font-family: Inter;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 14.52px;
+      text-align: left;
+      color: #000;
+      background-color: inherit;
+      &:focus {
+        background: #ccc;
+      }
+    }
+  }
 }
