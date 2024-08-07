@@ -1,39 +1,63 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
-import "./Login.scss";
-import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosClose } from "react-icons/io";
+import "./Login.scss";
 
 const login = "./assets/img/login.jpg";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
 
-  const handleClear = (setter) => () => {
-    setter("");
+  const navigate = useNavigate();
+
+  const handleClear = (field) => () => {
+    setFormData((prevCredentials) => ({
+      ...prevCredentials,
+      [field]: "",
+    }));
   };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevCredentials) => ({
+      ...prevCredentials,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    localStorage.setItem("isLogened", JSON.stringify(formData));
+
+    navigate("/");
+  };
+
   return (
     <div className="login">
       <div className="img">
         <img src={login} alt="" />
       </div>
       <div className="loginForm">
-        <form>
+        <form onSubmit={handleSubmit}>
           <h1>Login</h1>
           <TextField
             type="text"
-            id="outlined-basic"
+            name="username"
             label="Username"
             variant="outlined"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={formData.username}
+            onChange={handleChange}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    onClick={handleClear(setUsername)}
+                    onClick={handleClear("username")}
                     edge="end"
                     size="small">
                     <IoIosClose size={22} />
@@ -48,16 +72,16 @@ const Login = () => {
           />
           <TextField
             type="password"
-            id="outlined-basic"
+            name="password"
             label="Password"
             variant="outlined"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    onClick={handleClear(setEmail)}
+                    onClick={handleClear("password")}
                     edge="end"
                     size="small">
                     <IoIosClose size={22} />
@@ -70,13 +94,11 @@ const Login = () => {
               width: "80%",
             }}
           />
-
           <Button type="submit" variant="contained">
             Login
           </Button>
           <div className="singUp">
             <span>Don't have an account?</span>
-
             <Link to={"/register"}>Sign Up</Link>
           </div>
         </form>

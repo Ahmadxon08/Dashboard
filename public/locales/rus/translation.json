@@ -1,0 +1,22 @@
+{
+  "selectPleceholder": "Выберите...",
+  "INN": "ИНН",
+  "manufacturer": "Производитель",
+  "tradeNameUz": "Торговое наименование (узбекский)",
+  "tradeNameRu": "Торговое наименование (русский)",
+  "tradeNameEn": "Торговое наименование (английский)",
+  "vacationConditions": "Условия отпуска",
+  "btnAdd": "Добавить",
+  "btnClear": "Очистить",
+  "btnSearch": "Поиск",
+  "dosegaForm": "Лекарственная форма",
+  "dosage": "Дозировка",
+  "tradeName": "Торговое наименование",
+  "regCertificate": "Регистрационное свидетельство",
+  "selectFromList": "Выберите из списка",
+  "onlyValidEntries": "Только действительные записи",
+  "additionalFilters": "Дополнительные фильтры",
+  "authorationHolder": "Держатель авторизации",
+  "registrationYear": "Год регистрации",
+  "GTINode": "GTINode"
+}

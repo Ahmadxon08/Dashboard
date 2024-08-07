@@ -1,0 +1,22 @@
+{
+  "selectPleceholder": "Tanlang...",
+  "INN": "INN",
+  "manufacturer": "Ishlab chiqaruvchi",
+  "tradeNameUz": "Savdo nomi (o'zbekcha)",
+  "tradeNameRu": "Savdo nomi (ruscha)",
+  "tradeNameEn": "Savdo nomi (inglizcha)",
+  "vacationConditions": "Ta'til shartlari",
+  "btnAdd": "Qo'shish",
+  "btnClear": "Tozalash",
+  "btnSearch": "Izlash",
+  "dosegaForm": "Dori shakli",
+  "dosage": "Doza",
+  "tradeName": "Savdo nomi",
+  "regCertificate": "Ro'yxatga olish guvohnomasi",
+  "selectFromList": "Ro'yxatdan tanlang",
+  "onlyValidEntries": "Faqat amal qiluvchi yozuvlar",
+  "additionalFilters": "Qo'shimcha filtrlar",
+  "authorationHolder": "Ruxsatnoma egasi",
+  "registrationYear": "Ro'yxatga olish yili",
+  "GTINode": "GTINode"
+}

@@ -1,0 +1,22 @@
+{
+  "selectPleceholder": "Select...",
+  "INN": "INN",
+  "manufacturer": "Manufacturer",
+  "tradeNameUz": "Trade Name (Uzbek)",
+  "tradeNameRu": "Trade Name (Russian)",
+  "tradeNameEn": "Trade Name (English)",
+  "vacationConditions": "Vacation Conditions",
+  "btnAdd": "Add",
+  "btnClear": "Clear",
+  "btnSearch": "Search",
+  "dosegaForm": "Dosage Form",
+  "dosage": "Dosage",
+  "tradeName": "Trade Name",
+  "regCertificate": "Registration Certificate",
+  "selectFromList": "Select from List",
+  "onlyValidEntries": "Only Valid Entries",
+  "additionalFilters": "Additional Filters",
+  "authorationHolder": "Authorization Holder",
+  "registrationYear": "Registration Year",
+  "GTINode": "GTINode"
+}
