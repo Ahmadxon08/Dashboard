@@ -36,10 +36,11 @@
       flex-direction: column;
       justify-content: center;
       padding: 10px 0;
-      width: 44%;
-      height: 65%;
+      width: 48%;
+      height: 75%;
       border-radius: 4px;
       gap: 15px;
+      padding: 30px 0;
       background: rgba(248, 247, 247, 0.8);
       backdrop-filter: blur(5px);
       z-index: 1;
@@ -51,8 +52,25 @@
         font-weight: 700;
         color: #000;
       }
-      input {
-        outline: none;
+      .input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 100%;
+
+        span {
+          width: 80%;
+          position: relative;
+          top: -12px;
+          font-family: Roboto;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 18px;
+          text-decoration: none;
+          color: red;
+          padding-bottom: 15px;
+        }
       }
       button {
         width: 80%;

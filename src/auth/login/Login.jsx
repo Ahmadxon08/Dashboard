@@ -58,7 +58,7 @@ const Login = () => {
       </div>
       <div className="loginForm">
         <form onSubmit={handleSubmit}>
-          <h1>Sign In</h1>
+          <h1>Log In</h1>
           <div className="input">
             <TextField
               type="text"
@@ -100,7 +100,7 @@ const Login = () => {
             </span>
           </div>
           <Button type="submit" variant="contained">
-            Sign In
+            Log In
           </Button>
 
           <div className="singUp">

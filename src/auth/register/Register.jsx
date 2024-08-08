@@ -1,33 +1,58 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import "./Register.scss";
-import { Link } from "react-router-dom";
-import { IoIosClose } from "react-icons/io";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
+import { useFormik } from "formik";
+import * as Yup from "yup";
 const register = "./assets/img/register.jpg";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .required("Username is required")
+        .matches(
+          /^[a-zA-Z0-9]+$/,
+          "Username must contain only alphanumeric characters"
+        ),
+      email: Yup.string()
+        .required("Email is required")
+        .email("Email must be a valid email address"),
+
+      password: Yup.string()
+        .required("Password is required")
+        .min(8, "Password must be at least 8 characters long")
+        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+        .matches(/[0-9]/, "Password must contain at least one number")
+        .matches(
+          /[@$!%*?&]/,
+          "Password must contain at least one special character"
+        ),
+      confirmPassword: Yup.string()
+        .required("Confirm Password is required")
+        .oneOf([Yup.ref("password"), null], "Passwords must match"),
+    }),
+    onSubmit: (values) => {
+      if (values) {
+        localStorage.setItem("user", JSON.stringify(values));
+        console.log(values);
+        navigate("/login");
+      } else {
+        navigate("/register");
+      }
+    },
   });
-
-  const handleClear = (field) => () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [field]: "",
-    }));
-  };
-
-  const handleChange = (field) => (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [field]: e.target.value,
-    }));
-  };
+  const { values, handleChange, handleSubmit, handleBlur, errors, touched } =
+    formik;
 
   return (
     <div className="login">
@@ -35,104 +60,82 @@ const Register = () => {
         <img src={register} alt="" />
       </div>
       <div className="loginForm">
-        <form>
+        <form onSubmit={handleSubmit}>
           <h1>Register</h1>
-          <TextField
-            type="text"
-            id="username"
-            label="Username"
-            variant="outlined"
-            value={formData.username}
-            onChange={handleChange("username")}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClear("username")}
-                    edge="end"
-                    size="small">
-                    <IoIosClose size={22} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            style={{
-              marginBottom: "20px",
-              width: "80%",
-            }}
-          />
-          <TextField
-            type="text"
-            id="email"
-            label="Email"
-            variant="outlined"
-            value={formData.email}
-            onChange={handleChange("email")}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClear("email")}
-                    edge="end"
-                    size="small">
-                    <IoIosClose size={22} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            style={{
-              marginBottom: "20px",
-              width: "80%",
-            }}
-          />
-          <TextField
-            type="password"
-            id="password"
-            label="Password"
-            variant="outlined"
-            value={formData.password}
-            onChange={handleChange("password")}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClear("password")}
-                    edge="end"
-                    size="small">
-                    <IoIosClose size={22} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            style={{
-              marginBottom: "20px",
-              width: "80%",
-            }}
-          />
-          <TextField
-            type="password"
-            id="confirmPassword"
-            label="Confirm Password"
-            variant="outlined"
-            value={formData.confirmPassword}
-            onChange={handleChange("confirmPassword")}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClear("confirmPassword")}
-                    edge="end"
-                    size="small">
-                    <IoIosClose size={22} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            style={{
-              marginBottom: "20px",
-              width: "80%",
-            }}
-          />
+          <div className="input">
+            <TextField
+              type="text"
+              id="username"
+              label="Username"
+              variant="outlined"
+              onBlur={handleBlur}
+              value={values.username}
+              onChange={handleChange}
+              style={{
+                marginBottom: "20px",
+                width: "80%",
+              }}
+            />
+            <span className="err">
+              {touched.username && errors.username && errors.username}
+            </span>
+          </div>
+          <div className="input">
+            <TextField
+              type="text"
+              id="email"
+              label="Email"
+              variant="outlined"
+              value={values.email}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              style={{
+                marginBottom: "20px",
+                width: "80%",
+              }}
+            />
+            <span className="err">
+              {touched.email && errors.email && errors.email}
+            </span>
+          </div>
+          <div className="input">
+            <TextField
+              type="password"
+              id="password"
+              label="Password"
+              variant="outlined"
+              value={values.password}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              style={{
+                marginBottom: "20px",
+                width: "80%",
+              }}
+            />{" "}
+            <span className="err">
+              {touched.password && errors.password && errors.password}
+            </span>
+          </div>
+          <div className="input">
+            <TextField
+              type="password"
+              id="confirmPassword"
+              label="Confirm Password"
+              variant="outlined"
+              onBlur={handleBlur}
+              value={values.confirmPassword}
+              onChange={handleChange}
+              style={{
+                marginBottom: "20px",
+                width: "80%",
+              }}
+            />{" "}
+            <span className="err">
+              {touched.confirmPassword &&
+                errors.confirmPassword &&
+                errors.confirmPassword}
+            </span>{" "}
+          </div>
 
           <Button type="submit" variant="contained">
             Register
