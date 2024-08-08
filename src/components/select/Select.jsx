@@ -1,25 +1,39 @@
+import { MenuItem, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import NativeSelect from "@mui/material/NativeSelect";
+// import InputLabel from "@mui/material/InputLabel";
+// import FormControl from "@mui/material/FormControl";
+// import NativeSelect from "@mui/material/NativeSelect";
+
+const currencies = [
+  {
+    value: "English",
+    label: "English",
+  },
+  {
+    value: "Russian",
+    label: "Russian",
+  },
+  {
+    value: "Uzbek",
+    label: "Uzbek",
+  },
+  // Add more languages as needed
+];
 const Select1 = () => {
   return (
     <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel variant="standard" htmlFor="uncontrolled-native">
-          Languages
-        </InputLabel>
-        <NativeSelect
-          defaultValue={30}
-          inputProps={{
-            name: "age",
-            id: "uncontrolled-native",
-          }}>
-          <option value={10}>Russian</option>
-          <option value={20}>China</option>
-          <option value={30}>Uzbek</option>
-        </NativeSelect>
-      </FormControl>
+      <TextField
+        id="standard-select-currency"
+        select
+        label="Languages"
+        defaultValue="English"
+        variant="standard">
+        {currencies.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
     </Box>
   );
 };

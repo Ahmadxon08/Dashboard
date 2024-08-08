@@ -1,14 +1,18 @@
-// import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useApiContext } from "../../context/Context";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const { show, handleClose } = useApiContext();
-  //   const [show, setShow] = useState(false);
+  const isLoggedOut = JSON.parse(localStorage.getItem("isLogened"));
 
-  //   const handleClose = () => setShow(false);
-  //   const handleShow = () => setShow(true);
+  const handleLogOut = () => {
+    localStorage.removeItem("isLogened");
+    navigate("/login");
+    handleClose();
+  };
 
   return (
     <>
@@ -17,15 +21,21 @@ const Profile = () => {
           <Modal.Title>User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>User Name: John Doe</h4>
-          <p>Email: johndoe@example.com</p>
+          {isLoggedOut ? (
+            <>
+              <p>Email: {isLoggedOut.username}</p>
+              <h4>Password: {isLoggedOut.password}</h4>
+            </>
+          ) : (
+            <p>User is not logged in.</p>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="primary" onClick={handleLogOut}>
+            Log Out
           </Button>
         </Modal.Footer>
       </Modal>
