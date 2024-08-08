@@ -10,7 +10,7 @@
   );
   background-size: 200% 200%;
   background-position: 0% 0%;
-  height: 100vh;
+  height: 100vh !important;
   width: 100%;
   animation: backgroundDiagonalMove 10s infinite alternate;
   .img {
@@ -35,8 +35,9 @@
       flex-direction: column;
       justify-content: center;
       padding: 10px 0;
-      width: 40%;
+      width: 47%;
       height: 50%;
+
       border-radius: 4px;
       gap: 15px;
       background: rgba(248, 247, 247, 0.8);
@@ -50,8 +51,25 @@
         font-weight: 700;
         color: #000;
       }
-      input {
-        outline: none;
+      .input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 100%;
+
+        span {
+          width: 80%;
+          position: relative;
+          top: -12px;
+          font-family: Roboto;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 18px;
+          text-decoration: none;
+          color: red;
+          padding-bottom: 15px;
+        }
       }
       button {
         width: 80%;
