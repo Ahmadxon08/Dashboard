@@ -1,0 +1,24 @@
+{
+  "header": {
+    "logout": "Выйти",
+    "account": "Мой аккаунт",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "userInfo": "Пользователь"
+  },
+  "sidebar": {
+    "home": "Главная",
+    "categories": "Категории",
+    "settings": "Настройки"
+  },
+  "MainContent": {
+    "ProductName": "Название продукта",
+    "StoreName": "Название магазина",
+    "Price": "Цена",
+    "OrderBy": "Сортировать по",
+    "Search": "Поиск"
+  },
+  "pagination": {
+    "pageOf": "Страница {{currentPage}} из {{totalPages}}"
+  }
+}

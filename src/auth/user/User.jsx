@@ -8,8 +8,13 @@ import { useApiContext } from "../../context/Context";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import Profile from "../profile/Profile";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const User = () => {
+  ///////////////Translator///
+  const { t } = useTranslation();
+
+  //////////////// Log Out funtionality///////////////////////
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const handleLogOut = () => {
@@ -20,7 +25,7 @@ const User = () => {
   };
   const { handleShow, anchorEl, open, handleCloser, handleClick } =
     useApiContext();
-
+  /////////////////////////////////////////////////////
   return (
     <div>
       <Button
@@ -43,11 +48,11 @@ const User = () => {
         TransitionComponent={Fade}>
         <MenuItem onClick={handleShow} style={{ gap: "5px" }}>
           {" "}
-          <MdManageAccounts size={20} /> <span>My account</span>
+          <MdManageAccounts size={20} /> <span>{t("header.account")}</span>
         </MenuItem>
         <MenuItem onClick={handleLogOut} style={{ gap: "5px" }}>
           <RiLogoutCircleRLine size={20} />
-          <span> Logout</span>
+          <span> {t("header.logout")}</span>
         </MenuItem>
       </Menu>
       <Profile />

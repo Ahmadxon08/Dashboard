@@ -1,15 +1,18 @@
 import { Button, TextField } from "@mui/material";
 import "./Content.scss";
 import Table1 from "../../components/table/Table";
+import { useTranslation } from "react-i18next";
 // import  { useState } from 'react';
 
 const ContentBody = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="content">
       <section className="content_header">
         <div className="items">
           <div className="item">
-            <label htmlFor="name">Product name:</label>
+            <label htmlFor="name">{t("MainContent.ProductName")} :</label>
             <TextField
               id="filled-basic"
               variant="filled"
@@ -23,7 +26,7 @@ const ContentBody = () => {
           </div>
 
           <div className="item">
-            <label htmlFor="store">Store name:</label>
+            <label htmlFor="store">{t("MainContent.StoreName")} :</label>
             <TextField
               id="filled-basic"
               variant="filled"
@@ -38,7 +41,7 @@ const ContentBody = () => {
         </div>
         <div className="items">
           <div className="item">
-            <label htmlFor="product">Price:</label>
+            <label htmlFor="product">{t("MainContent.Price")} :</label>
             <TextField
               id="filled-basic"
               variant="filled"
@@ -52,7 +55,7 @@ const ContentBody = () => {
           </div>
 
           <div className="item">
-            <label htmlFor="order">Order By:</label>
+            <label htmlFor="order">{t("MainContent.OrderBy")} :</label>
             <TextField
               id="filled-basic"
               variant="filled"
@@ -93,7 +96,7 @@ const ContentBody = () => {
           </div>
         </div>
         <div className="btn1">
-          <Button varinat="text">Search</Button>
+          <Button varinat="text">{t("MainContent.Search")}</Button>
         </div>
       </section>
       <section className="content_body">

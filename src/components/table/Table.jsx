@@ -5,10 +5,16 @@ import Stack from "@mui/material/Stack";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Table.scss";
 import { useApiContext } from "../../context/Context";
+import { useTranslation } from "react-i18next";
 
 const itemsPerPage = 6;
 
 const Table1 = () => {
+  //// page trasnlator
+  const { t } = useTranslation();
+
+  ////
+
   const { items } = useApiContext();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -78,7 +84,7 @@ const Table1 = () => {
           paddingRight: "60px",
         }}>
         <span style={{ marginRight: "20px" }}>
-          Page {currentPage} of {pageNumbers}
+          {t("pagination.pageOf", { currentPage, totalPages: pageNumbers })}
         </span>
         <Stack spacing={2}>
           <Pagination

@@ -1,34 +1,44 @@
 import { MenuItem, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-// import InputLabel from "@mui/material/InputLabel";
-// import FormControl from "@mui/material/FormControl";
-// import NativeSelect from "@mui/material/NativeSelect";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
-const currencies = [
-  {
-    value: "English",
-    label: "English",
-  },
-  {
-    value: "Russian",
-    label: "Russian",
-  },
-  {
-    value: "Uzbek",
-    label: "Uzbek",
-  },
-  // Add more languages as needed
-];
 const Select1 = () => {
+  const { i18n } = useTranslation();
+  const [language, setLanguage] = useState(i18n.language || "en");
+
+  const handleChange = (e) => {
+    const selectedLanguage = e.target.value;
+    i18n.changeLanguage(selectedLanguage);
+    setLanguage(selectedLanguage);
+    localStorage.setItem("changeLg", selectedLanguage);
+  };
+
+  const languages = [
+    {
+      value: "en",
+      label: "English",
+    },
+    {
+      value: "ru",
+      label: "Russian",
+    },
+    {
+      value: "uz",
+      label: "Uzbek",
+    },
+  ];
+
   return (
     <Box sx={{ minWidth: 120 }}>
       <TextField
-        id="standard-select-currency"
+        id="standard-select-language"
         select
         label="Languages"
-        defaultValue="English"
+        value={language}
+        onChange={handleChange}
         variant="standard">
-        {currencies.map((option) => (
+        {languages.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
