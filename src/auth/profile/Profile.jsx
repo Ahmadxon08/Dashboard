@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 const Profile = () => {
   const navigate = useNavigate();
   const { show, handleClose } = useApiContext();
-  const isLoggedOut = JSON.parse(localStorage.getItem("isLogened"));
+  const isLoggedOut = JSON.parse(localStorage.getItem("user"));
 
   const handleLogOut = () => {
-    localStorage.removeItem("isLogened");
+    localStorage.removeItem("user");
     navigate("/login");
     handleClose();
   };
@@ -23,7 +23,7 @@ const Profile = () => {
         <Modal.Body>
           {isLoggedOut ? (
             <>
-              <p>Email: {isLoggedOut.username}</p>
+              <h2>Username: {isLoggedOut.username}</h2>
               <h4>Password: {isLoggedOut.password}</h4>
             </>
           ) : (

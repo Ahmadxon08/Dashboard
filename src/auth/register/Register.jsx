@@ -66,9 +66,11 @@ const Register = () => {
             <TextField
               type="text"
               id="username"
+              name="username"
               label="Username"
               variant="outlined"
               onBlur={handleBlur}
+              error={touched.username && Boolean(errors.username)}
               value={values.username}
               onChange={handleChange}
               style={{
@@ -84,10 +86,12 @@ const Register = () => {
             <TextField
               type="text"
               id="email"
+              name="email"
               label="Email"
               variant="outlined"
               value={values.email}
               onBlur={handleBlur}
+              error={touched.email && Boolean(errors.email)}
               onChange={handleChange}
               style={{
                 marginBottom: "20px",
@@ -102,10 +106,12 @@ const Register = () => {
             <TextField
               type="password"
               id="password"
+              name="password"
               label="Password"
               variant="outlined"
               value={values.password}
               onBlur={handleBlur}
+              error={touched.password && Boolean(errors.password)}
               onChange={handleChange}
               style={{
                 marginBottom: "20px",
@@ -120,9 +126,11 @@ const Register = () => {
             <TextField
               type="password"
               id="confirmPassword"
+              name="confirmPassword"
               label="Confirm Password"
               variant="outlined"
               onBlur={handleBlur}
+              error={touched.confirmPassword && Boolean(errors.confirmPassword)}
               value={values.confirmPassword}
               onChange={handleChange}
               style={{
@@ -134,7 +142,7 @@ const Register = () => {
               {touched.confirmPassword &&
                 errors.confirmPassword &&
                 errors.confirmPassword}
-            </span>{" "}
+            </span>
           </div>
 
           <Button type="submit" variant="contained">

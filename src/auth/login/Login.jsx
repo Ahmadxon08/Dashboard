@@ -1,18 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
-
 import { Button, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import "react-toastify/dist/ReactToastify.css";
-
 const login = "./assets/img/login.jpg";
 
 const Login = () => {
-  // Form validation functions start here
   const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -37,9 +34,9 @@ const Login = () => {
         ),
     }),
     onSubmit: (values) => {
-      if (values.password && values.username) {
+      if (values.username && values.password) {
         localStorage.setItem("user", JSON.stringify(values));
-        console.log(values);
+
         navigate("/");
       } else {
         navigate("/login");
@@ -49,7 +46,6 @@ const Login = () => {
 
   const { values, handleChange, handleSubmit, handleBlur, errors, touched } =
     formik;
-  // Form validation functions end here
 
   return (
     <div className="login">

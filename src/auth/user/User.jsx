@@ -7,8 +7,17 @@ import { MdManageAccounts, MdOutlineAccountCircle } from "react-icons/md";
 import { useApiContext } from "../../context/Context";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import Profile from "../profile/Profile";
+import { useNavigate } from "react-router-dom";
 
 const User = () => {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const handleLogOut = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+
+    handleCloser();
+  };
   const { handleShow, anchorEl, open, handleCloser, handleClick } =
     useApiContext();
 
@@ -21,7 +30,7 @@ const User = () => {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}>
         <MdOutlineAccountCircle size={22} color="#000" />
-        <span>Profile</span>
+        <span>{user.username ? user.username : "Profile"}</span>
       </Button>
       <Menu
         id="fade-menu"
@@ -36,7 +45,7 @@ const User = () => {
           {" "}
           <MdManageAccounts size={20} /> <span>My account</span>
         </MenuItem>
-        <MenuItem onClick={handleCloser} style={{ gap: "5px" }}>
+        <MenuItem onClick={handleLogOut} style={{ gap: "5px" }}>
           <RiLogoutCircleRLine size={20} />
           <span> Logout</span>
         </MenuItem>
