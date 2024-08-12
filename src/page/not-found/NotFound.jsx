@@ -19,7 +19,7 @@ const NotFound = () => {
 
   return (
     <div className="notFound">
-      <video autoPlay loop className="background-video">
+      <video autoPlay loop muted className="background-video">
         <source src={video} type="video/mp4" />
       </video>
 
