@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import the styles
 import Home from "./page/home/Home";
 import Categories from "./page/categories/Categories";
 import Users from "./page/users/Users";
+import NotFound from "./page/not-found/NotFound";
 
 const App = () => {
   // Foydalanuvchi kirganligini tekshirish
@@ -20,10 +21,12 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<NotFound />} />
           <Route element={<Private isLogened={isLogened} />}>
             <Route path="/" element={<Router />}>
               <Route path="/" element={<Home />} />
               <Route path="/categories" element={<Categories />} />
+
               <Route path="/users" element={<Users />} />
             </Route>
           </Route>
