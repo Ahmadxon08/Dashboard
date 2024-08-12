@@ -1,6 +1,6 @@
-/* eslint-disable no-undef */
-import { Route, Routes } from "react-router";
-import Router from "./router/Router";
+// App.js
+import { Route, Routes } from "react-router-dom";
+import Router from "./router/Router"; // Router ni tekshirib chiqing
 import ApiContextProvider from "./context/Context";
 import Private from "./auth/private/Private";
 import Login from "./auth/login/Login";
@@ -12,8 +12,7 @@ import Users from "./page/users/Users";
 import NotFound from "./page/not-found/NotFound";
 
 const App = () => {
-  // Foydalanuvchi kirganligini tekshirish
-  const isLogened = JSON.parse(localStorage.getItem("user")) || false;
+  const isLogened = JSON.parse(localStorage.getItem("user")) !== null;
 
   return (
     <ApiContextProvider>
@@ -26,7 +25,6 @@ const App = () => {
             <Route path="/" element={<Router />}>
               <Route path="/" element={<Home />} />
               <Route path="/categories" element={<Categories />} />
-
               <Route path="/users" element={<Users />} />
             </Route>
           </Route>

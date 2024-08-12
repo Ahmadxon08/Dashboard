@@ -60,7 +60,7 @@ const Register = () => {
         <img src={register} alt="" />
       </div>
       <div className="loginForm">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form2">
           <h1>Register</h1>
           <div className="input">
             <TextField

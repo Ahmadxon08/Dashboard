@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+// Login.js
 import { Button, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
@@ -36,10 +37,7 @@ const Login = () => {
     onSubmit: (values) => {
       if (values.username && values.password) {
         localStorage.setItem("user", JSON.stringify(values));
-
         navigate("/");
-      } else {
-        navigate("/login");
       }
     },
   });
@@ -71,9 +69,7 @@ const Login = () => {
                 width: "82%",
               }}
             />
-            <span className="err">
-              {touched.username && errors.username && errors.username}
-            </span>
+            <span className="err">{touched.username && errors.username}</span>
           </div>
           <div className="input">
             <TextField
@@ -91,14 +87,11 @@ const Login = () => {
                 width: "82%",
               }}
             />
-            <span className="err">
-              {touched.password && errors.password && errors.password}
-            </span>
+            <span className="err">{touched.password && errors.password}</span>
           </div>
           <Button type="submit" variant="contained">
             Log In
           </Button>
-
           <div className="singUp">
             <span>Don't have an account?</span>
             <Link to={"/register"}>Sign Up</Link>
