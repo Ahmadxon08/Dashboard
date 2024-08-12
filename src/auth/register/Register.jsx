@@ -55,7 +55,7 @@ const Register = () => {
     formik;
 
   return (
-    <div className="login">
+    <div className="reg">
       <div className="img">
         <img src={register} alt="" />
       </div>
