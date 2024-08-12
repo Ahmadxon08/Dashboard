@@ -1,0 +1,28 @@
+.user {
+  width: 100%;
+  background-color: white;
+  height: 100vh;
+
+  .user_head {
+    display: flex;
+    align-items: center;
+    padding: 30px 60px;
+    width: 100%;
+    justify-content: space-between;
+    h2 {
+      font-size: 26px;
+      font-family: Roboto;
+      color: #312e2e;
+    }
+  }
+  .user_body {
+    margin: 0 auto;
+    width: 60%;
+    padding: 0 60px;
+    .MuiPaginationItem-root.Mui-selected {
+      background-color: #7000ff !important;
+      color: #fff !important;
+      border-radius: 50% !important;
+    }
+  }
+}

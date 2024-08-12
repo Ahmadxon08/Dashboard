@@ -6,10 +6,22 @@
     "password": "Parol",
     "userInfo": "Foydalanuvchi"
   },
+  "users": {
+    "usersList": "Foydalanuvchilar ro'yxati",
+    "add": "Qo'shish",
+    "edit": "Tahrirlash",
+    "delete": "O'chirish",
+    "name": "Ism",
+    "email": "Email",
+    "cancel": "Bekor qilish",
+    "save": "Saqlash",
+    "addUser": "Foydalanuvchi qo'shish"
+  },
   "sidebar": {
     "home": "Asosiy",
     "categories": "Kategoriyalar",
-    "settings": "Sozlamalar"
+    "settings": "Sozlamalar",
+    "users": "Foydalanuvchilar"
   },
   "MainContent": {
     "ProductName": "Mahsulot nomi",

@@ -37,7 +37,17 @@ const Select1 = () => {
         label="Languages"
         value={language}
         onChange={handleChange}
-        variant="standard">
+        variant="standard"
+        sx={{
+          minWidth: 120,
+          color: "#7000ff",
+          "& .MuiInput-underline:before": {
+            borderBottomColor: "#7000ff",
+          },
+          "& .MuiInput-underline:hover:before": {
+            borderBottomColor: "#7000ff",
+          },
+        }}>
         {languages.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}

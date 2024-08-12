@@ -1,10 +1,10 @@
 import { Button, TextField } from "@mui/material";
-import "./Content.scss";
+import "./Home.scss";
 import Table1 from "../../components/table/Table";
 import { useTranslation } from "react-i18next";
 // import  { useState } from 'react';
 
-const ContentBody = () => {
+const Home = () => {
   const { t } = useTranslation();
 
   return (
@@ -106,4 +106,4 @@ const ContentBody = () => {
   );
 };
 
-export default ContentBody;
+export default Home;

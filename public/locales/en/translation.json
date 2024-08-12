@@ -1,21 +1,33 @@
 {
   "header": {
     "logout": "Logout",
-    "account": "My account",
+    "account": "My Account",
     "username": "Username",
     "password": "Password",
     "userInfo": "User"
   },
+  "users": {
+    "usersList": "Users List",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "name": "Name",
+    "email": "Email",
+    "cancel": "Cancel",
+    "save": "Save",
+    "addUser": "Add user"
+  },
   "sidebar": {
     "home": "Home",
     "categories": "Categories",
-    "settings": "Settings"
+    "settings": "Settings",
+    "users": "Users"
   },
   "MainContent": {
-    "ProductName": "Product name",
-    "StoreName": "Store name",
+    "ProductName": "Product Name",
+    "StoreName": "Store Name",
     "Price": "Price",
-    "OrderBy": "Order by",
+    "OrderBy": "Order By",
     "Search": "Search"
   },
   "pagination": {

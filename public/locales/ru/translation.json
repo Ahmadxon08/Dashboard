@@ -6,16 +6,28 @@
     "password": "Пароль",
     "userInfo": "Пользователь"
   },
+  "users": {
+    "usersList": "Список пользователей",
+    "add": "Добавить",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "name": "Имя",
+    "email": "Email",
+    "cancel": "Отмена",
+    "save": "Сохранить",
+    "addUser": "Добавить пользователя"
+  },
   "sidebar": {
     "home": "Главная",
     "categories": "Категории",
-    "settings": "Настройки"
+    "settings": "Настройки",
+    "users": "Пользователи"
   },
   "MainContent": {
     "ProductName": "Название продукта",
     "StoreName": "Название магазина",
     "Price": "Цена",
-    "OrderBy": "Сортировать по",
+    "OrderBy": "Сортировать",
     "Search": "Поиск"
   },
   "pagination": {

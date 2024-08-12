@@ -6,6 +6,9 @@ import Private from "./auth/private/Private";
 import Login from "./auth/login/Login";
 import Register from "./auth/register/Register";
 import "react-toastify/dist/ReactToastify.css"; // Import the styles
+import Home from "./page/home/Home";
+import Categories from "./page/categories/Categories";
+import Users from "./page/users/Users";
 
 const App = () => {
   // Foydalanuvchi kirganligini tekshirish
@@ -18,7 +21,11 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route element={<Private isLogened={isLogened} />}>
-            <Route path="/" element={<Router />} />
+            <Route path="/" element={<Router />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/users" element={<Users />} />
+            </Route>
           </Route>
         </Routes>
       </div>
