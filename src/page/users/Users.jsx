@@ -1,18 +1,22 @@
 import { Button, Pagination, Stack } from "@mui/material";
 import Table from "react-bootstrap/Table";
 import "./Users.scss";
-import { useApiContext } from "../../context/Context";
-import AddUser from "../../components/addUser/AddUser";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
+
+import { useState } from "react";
 import Delete from "../../components/deleteUser/Delete";
 import { MdDelete, MdEditSquare } from "react-icons/md";
+import useStore from "../../store/useStore";
+import AddUserCm from "../../components/addUser/AddUser";
 
 const Users = () => {
   const { t } = useTranslation();
-  const { handleAddUser, handleDeleteOpen } = useApiContext();
-  const { allUsers } = useApiContext();
-  console.log(allUsers);
+
+  const { handleDeleteOpen, handleAddUser, allUsers } = useStore((state) => ({
+    allUsers: state.allUsers,
+    handleDeleteOpen: state.handleDeleteOpen,
+    handleAddUser: state.handleShow,
+  }));
 
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +25,6 @@ const Users = () => {
     setCurrentPage(pageNumber);
   };
 
-  // Pagination calculations
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
   const currentProducts = allUsers.slice(
@@ -46,7 +49,7 @@ const Users = () => {
             {t("users.add")}
           </Button>
         </div>
-        <AddUser />
+        <AddUserCm />
         <div className="user_body">
           <Table
             bordered

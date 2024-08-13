@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
 import "./Table.scss";
-import { useApiContext } from "../../context/Context";
+// import { useApiContext } from "../../context/Context";
 import { useTranslation } from "react-i18next";
+import useStore from "../../store/useStore";
 
 const itemsPerPage = 6;
 
@@ -15,7 +16,15 @@ const Table1 = () => {
 
   ////
 
-  const { items } = useApiContext();
+  //// using usestore in order to use function and so on
+  const { items, fetchApi } = useStore((state) => ({
+    fetchApi: state.fetchApi,
+    items: state.items,
+  }));
+
+  useEffect(() => fetchApi(), [fetchApi]);
+
+  ////////////////////////////////////
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (event, pageNumber) => {

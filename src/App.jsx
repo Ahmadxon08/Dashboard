@@ -1,11 +1,10 @@
 // App.js
 import { Route, Routes } from "react-router-dom";
-import Router from "./router/Router"; // Router ni tekshirib chiqing
-import ApiContextProvider from "./context/Context";
+import Router from "./router/Router";
 import Private from "./auth/private/Private";
 import Login from "./auth/login/Login";
 import Register from "./auth/register/Register";
-import "react-toastify/dist/ReactToastify.css"; // Import the styles
+import "react-toastify/dist/ReactToastify.css";
 import Home from "./page/home/Home";
 import Categories from "./page/categories/Categories";
 import Users from "./page/users/Users";
@@ -15,7 +14,7 @@ const App = () => {
   const isLogened = JSON.parse(localStorage.getItem("user")) !== null;
 
   return (
-    <ApiContextProvider>
+    <>
       <div className="app">
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -30,7 +29,7 @@ const App = () => {
           </Route>
         </Routes>
       </div>
-    </ApiContextProvider>
+    </>
   );
 };
 

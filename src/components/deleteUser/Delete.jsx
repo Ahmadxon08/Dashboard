@@ -6,15 +6,21 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { useApiContext } from "../../context/Context";
+// import { useApiContext } from "../../context/Context";
 import { useTranslation } from "react-i18next";
+import useStore from "../../store/useStore";
+``;
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 const Delete = () => {
   const { t } = useTranslation();
-  const { openDel, handleDeleteClose } = useApiContext();
+  // const { openDel, handleDeleteClose } = useApiContext();
+  const { handleDeleteClose, openDel } = useStore((state) => ({
+    openDel: state.openDel,
+    handleDeleteClose: state.handleDeleteClose,
+  }));
 
   return (
     <>

@@ -1,6 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
-import { useApiContext } from "../../context/Context";
+// import { useApiContext } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, CircularProgress, TextField } from "@mui/material";
 import { useFormik } from "formik";
@@ -8,13 +8,23 @@ import * as Yup from "yup";
 import "./AddUser.scss";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
+import useStore from "../../store/useStore";
 
-const AddUser = () => {
+const AddUserCm = () => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { showAddUser, addUser, handleAddCloser, checkUserExists } =
-    useApiContext(); // Assumed checkUserExists function
+  // const { showAddUser, addUser, handleAddCloser, checkUserExists } =
+  //   useApiContext();
+
+  const { showAddUser, addUser, handleAddCloser, checkUserExists } = useStore(
+    (state) => ({
+      showAddUser: state.showAddUser,
+      addUser: state.addUser,
+      handleAddCloser: state.handleAddCloser,
+      checkUserExists: state.checkUserExists,
+    })
+  );
   const { enqueueSnackbar } = useSnackbar();
 
   const formik = useFormik({
@@ -130,4 +140,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddUserCm;
