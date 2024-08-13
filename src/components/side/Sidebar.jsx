@@ -31,17 +31,20 @@ const Sidebar = () => {
         <Link to="/" onClick={() => handleButtonClick("home")}>
           <Button
             style={{
-              backgroundColor: activeButton === "home" ? "#ccc" : "inherit",
+              background:
+                activeButton === "home"
+                  ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                  : "inherit",
             }}>
             <GoHome
               size={24}
               style={{
-                color: activeButton === "home" ? "#7000ff" : "inherit",
+                color: activeButton === "home" ? "#7000ff" : "#fff",
               }}
             />
             <span
               style={{
-                color: activeButton === "home" ? "#7000ff" : "inherit",
+                color: activeButton === "home" ? "#7000ff" : "#fff",
               }}>
               {t("sidebar.home")}{" "}
             </span>
@@ -50,18 +53,20 @@ const Sidebar = () => {
         <Link to="/categories" onClick={() => handleButtonClick("categories")}>
           <Button
             style={{
-              backgroundColor:
-                activeButton === "categories" ? "#ccc" : "inherit",
+              background:
+                activeButton === "categories"
+                  ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                  : "inherit",
             }}>
             <BsCollection
               size={22}
               style={{
-                color: activeButton === "categories" ? "#7000ff" : "inherit",
+                color: activeButton === "categories" ? "#7000ff" : "#fff",
               }}
             />
             <span
               style={{
-                color: activeButton === "categories" ? "#7000ff" : "inherit",
+                color: activeButton === "categories" ? "#7000ff" : "#fff",
               }}>
               {t("sidebar.categories")}
             </span>
@@ -70,17 +75,20 @@ const Sidebar = () => {
         <Link to="/users" onClick={() => handleButtonClick("users")}>
           <Button
             style={{
-              backgroundColor: activeButton === "users" ? "#ccc" : "inherit",
+              background:
+                activeButton === "users"
+                  ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                  : "inherit",
             }}>
             <FiUsers
               size={22}
               style={{
-                color: activeButton === "users" ? "#7000ff" : "inherit",
+                color: activeButton === "users" ? "#7000ff" : "#fff",
               }}
             />
             <span
               style={{
-                color: activeButton === "users" ? "#7000ff" : "inherit",
+                color: activeButton === "users" ? "#7000ff" : "#fff",
               }}>
               {t("sidebar.users")}
             </span>

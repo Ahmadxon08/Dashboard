@@ -96,7 +96,7 @@ const Home = () => {
           </div>
         </div>
         <div className="btn1">
-          <Button varinat="text">{t("MainContent.Search")}</Button>
+          <Button variant="text">{t("MainContent.Search")}</Button>
         </div>
       </section>
       <section className="content_body">

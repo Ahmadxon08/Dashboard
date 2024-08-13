@@ -1,5 +1,10 @@
-table {
+.table {
   .table_head {
     background-color: #ccc !important;
+  }
+  .MuiPaginationItem-root.Mui-selected {
+    background-color: #7000ff !important;
+    color: #fff !important;
+    border-radius: 50% !important;
   }
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import "./Table.scss";
 import { useApiContext } from "../../context/Context";
 import { useTranslation } from "react-i18next";
