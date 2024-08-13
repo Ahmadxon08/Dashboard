@@ -15,7 +15,17 @@
     "email": "Email",
     "cancel": "Cancel",
     "save": "Save",
-    "addUser": "Add user"
+    "addUser": "Add user",
+    "saving": "Saving",
+    "addSucces": "User added successfully",
+    "editSucces": "Changes saved successfully",
+    "deleteSucces": "User deleted successfully",
+    "usernameExists": "Username already exists",
+    "emailExists": "Email already exists",
+    "addError": "Error adding user",
+    "editError": "Error updating user",
+    "deleteError": "Error deleting user",
+    "validationError": "Validation error occurred"
   },
   "sidebar": {
     "home": "Home",
@@ -23,14 +33,20 @@
     "settings": "Settings",
     "users": "Users"
   },
-  "MainContent": {
-    "ProductName": "Product Name",
-    "StoreName": "Store Name",
-    "Price": "Price",
-    "OrderBy": "Order By",
-    "Search": "Search"
+  "mainContent": {
+    "productName": "Product Name",
+    "storeName": "Store Name",
+    "price": "Price",
+    "orderBy": "Order By",
+    "search": "Search"
   },
   "pagination": {
     "pageOf": "Page {{currentPage}} of {{totalPages}}"
+  },
+  "dialog": {
+    "deleteTitle": "Do you want to delete this user?",
+    "deleteMessage": "Deleting this user will permanently remove their data. Are you sure you want to proceed?",
+    "cancel": "Cancel",
+    "delete": "Delete"
   }
 }

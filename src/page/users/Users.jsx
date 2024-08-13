@@ -5,10 +5,12 @@ import { useApiContext } from "../../context/Context";
 import AddUser from "../../components/addUser/AddUser";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import Delete from "../../components/deleteUser/Delete";
+import { MdDelete, MdEditSquare } from "react-icons/md";
 
 const Users = () => {
   const { t } = useTranslation();
-  const { handleAddUser } = useApiContext();
+  const { handleAddUser, handleDeleteOpen } = useApiContext();
   const { allUsers } = useApiContext();
   console.log(allUsers);
 
@@ -78,14 +80,18 @@ const Users = () => {
                     <td>{item.userName}</td>
                     <td>{item.passWord}</td>
                     <td>
-                      <Button>Edit</Button>
-                      <Button>Delete</Button>
+                      <Button>
+                        <MdEditSquare size={24} color="orange" />
+                      </Button>
+                      <Button onClick={handleDeleteOpen}>
+                        <MdDelete size={24} color="red" />
+                      </Button>
                     </td>
                   </tr>
                 ))}
             </tbody>
           </Table>
-
+          <Delete />
           <div
             style={{
               display: "flex",

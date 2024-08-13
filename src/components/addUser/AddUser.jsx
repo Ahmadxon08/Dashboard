@@ -2,10 +2,9 @@ import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import { useApiContext } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
-import { Button, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
 import "./AddUser.scss";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
@@ -14,8 +13,9 @@ const AddUser = () => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { showAddUser, addUser, handleAddCloser } = useApiContext();
-  const { enqueueSnackbar } = useSnackbar(); // Corrected here
+  const { showAddUser, addUser, handleAddCloser, checkUserExists } =
+    useApiContext(); // Assumed checkUserExists function
+  const { enqueueSnackbar } = useSnackbar();
 
   const formik = useFormik({
     initialValues: {
@@ -24,39 +24,38 @@ const AddUser = () => {
     },
     validationSchema: Yup.object({
       userName: Yup.string()
-        .required("Username is required")
-        .matches(
-          /^[a-zA-Z0-9]+$/,
-          "Username must contain only alphanumeric characters"
-        ),
+        .required(t("validation.usernameRequired"))
+        .matches(/^[a-zA-Z0-9]+$/, t("validation.usernameAlphanumeric")),
       passWord: Yup.string()
-        .required("Password is required")
-        .min(8, "Password must be at least 8 characters long")
-        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-        .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-        .matches(/[0-9]/, "Password must contain at least one number")
-        .matches(
-          /[@$!%*?&]/,
-          "Password must contain at least one special character"
-        ),
+        .required(t("validation.passwordRequired"))
+        .min(8, t("validation.passwordMinLength"))
+        .matches(/[A-Z]/, t("validation.passwordUppercase"))
+        .matches(/[a-z]/, t("validation.passwordLowercase"))
+        .matches(/[0-9]/, t("validation.passwordNumber"))
+        .matches(/[@$!%*?&]/, t("validation.passwordSpecialCharacter")),
     }),
     onSubmit: async (values) => {
       setLoading(true);
       try {
+        const userExists = await checkUserExists(values.userName);
+        if (userExists) {
+          enqueueSnackbar(t("users.usernameExists"), { variant: "warning" });
+          return;
+        }
+
         await addUser(values);
-        enqueueSnackbar("User added successfully", { variant: "success" }); // Corrected here
+        enqueueSnackbar(t("users.addSucces"), { variant: "success" });
         handleAddCloser();
         navigate("/users");
       } catch (error) {
-        enqueueSnackbar("Error adding user: " + error.message, {
-          variant: "error",
-        }); // Corrected here
+        enqueueSnackbar(t("users.addError"), { variant: "error" });
         console.error("Error adding user:", error);
       } finally {
         setLoading(false);
       }
     },
   });
+
   return (
     <Modal
       show={showAddUser}
@@ -112,7 +111,17 @@ const AddUser = () => {
               type="submit"
               className="btn2"
               disabled={loading}>
-              {loading ? "Saving..." : "Save"}
+              {loading ? (
+                <>
+                  <CircularProgress
+                    size={20}
+                    style={{ marginRight: "6px", color: "white" }}
+                  />
+                  {t("users.saving")}
+                </>
+              ) : (
+                t("users.save")
+              )}
             </Button>
           </div>
         </form>

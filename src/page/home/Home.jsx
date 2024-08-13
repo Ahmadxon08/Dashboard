@@ -12,7 +12,7 @@ const Home = () => {
       <section className="content_header">
         <div className="items">
           <div className="item">
-            <label htmlFor="name">{t("MainContent.ProductName")} :</label>
+            <label htmlFor="name">{t("mainContent.productName")} :</label>
             <TextField
               id="filled-basic"
               variant="filled"
@@ -26,7 +26,7 @@ const Home = () => {
           </div>
 
           <div className="item">
-            <label htmlFor="store">{t("MainContent.StoreName")} :</label>
+            <label htmlFor="store">{t("mainContent.storeName")} :</label>
             <TextField
               id="filled-basic"
               variant="filled"
@@ -41,7 +41,7 @@ const Home = () => {
         </div>
         <div className="items">
           <div className="item">
-            <label htmlFor="product">{t("MainContent.Price")} :</label>
+            <label htmlFor="product">{t("mainContent.price")} :</label>
             <TextField
               id="filled-basic"
               variant="filled"
@@ -55,7 +55,7 @@ const Home = () => {
           </div>
 
           <div className="item">
-            <label htmlFor="order">{t("MainContent.OrderBy")} :</label>
+            <label htmlFor="order">{t("mainContent.orderBy")} :</label>
             <TextField
               id="filled-basic"
               variant="filled"
@@ -96,7 +96,7 @@ const Home = () => {
           </div>
         </div>
         <div className="btn1">
-          <Button variant="text">{t("MainContent.Search")}</Button>
+          <Button variant="text">{t("mainContent.search")}</Button>
         </div>
       </section>
       <section className="content_body">

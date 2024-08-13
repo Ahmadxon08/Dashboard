@@ -9,6 +9,7 @@ const ApiContextProvider = ({ children }) => {
   const [show, setShow] = useState(false);
   const [showAddUser, setShowAddUser] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openDel, setOpenDel] = useState(false);
 
   // Fetch user state
   const [allUsers, setAllUsers] = useState([]);
@@ -22,6 +23,15 @@ const ApiContextProvider = ({ children }) => {
   const handleShow = () => {
     handleCloser();
     setShow(true);
+  };
+  //////////////////////delete hendelers
+
+  const handleDeleteOpen = () => {
+    setOpenDel(true);
+  };
+
+  const handleDeleteClose = () => {
+    setOpenDel(false);
   };
 
   // Add handlers
@@ -62,6 +72,21 @@ const ApiContextProvider = ({ children }) => {
 
   //////////////////////////////////
 
+  //////////////////check user if there is existing user
+
+  const checkUserExists = async (userName) => {
+    try {
+      const res = await axios.get(`http://65.1.136.0:5050/api/allusers`, {
+        params: { username: userName },
+      });
+      return res.data.exists;
+    } catch (error) {
+      console.error("Error checking user existence:", error);
+      throw error;
+    }
+  };
+  ////////////////////////////////////
+
   const fetchApi = async () => {
     try {
       const res = await axios.get("https://dummyjson.com/products");
@@ -81,11 +106,15 @@ const ApiContextProvider = ({ children }) => {
       value={{
         items,
         setItems,
+        openDel,
         show,
+        handleDeleteOpen,
         handleCloser,
         addUser,
+        handleDeleteClose,
         open,
         fetchUsers,
+        checkUserExists,
         handleAddCloser,
         handleAddUser,
         showAddUser,

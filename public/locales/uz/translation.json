@@ -1,7 +1,7 @@
 {
   "header": {
     "logout": "Chiqish",
-    "account": "Mening hisobim",
+    "account": "Mening akkauntim",
     "username": "Foydalanuvchi nomi",
     "password": "Parol",
     "userInfo": "Foydalanuvchi"
@@ -12,25 +12,41 @@
     "edit": "Tahrirlash",
     "delete": "O'chirish",
     "name": "Ism",
-    "email": "Email",
+    "email": "Elektron pochta",
     "cancel": "Bekor qilish",
     "save": "Saqlash",
-    "addUser": "Foydalanuvchi qo'shish"
+    "addUser": "Foydalanuvchi qo'shish",
+    "saving": "Saqlanmoqda",
+    "addSucces": "Foydalanuvchi muvaffaqiyatli qo'shildi",
+    "editSucces": "O'zgartirishlar muvaffaqiyatli saqlandi",
+    "deleteSucces": "Foydalanuvchi muvaffaqiyatli o'chirildi",
+    "usernameExists": "Foydalanuvchi nomi allaqachon mavjud",
+    "emailExists": "Elektron pochta allaqachon mavjud",
+    "addError": "Foydalanuvchini qo'shishda xatolik yuz berdi",
+    "editError": "Foydalanuvchini yangilashda xatolik yuz berdi",
+    "deleteError": "Foydalanuvchini o'chirishda xatolik yuz berdi",
+    "validationError": "Tasdiqlash xatosi yuz berdi"
   },
   "sidebar": {
-    "home": "Asosiy",
+    "home": "Bosh sahifa",
     "categories": "Kategoriyalar",
     "settings": "Sozlamalar",
     "users": "Foydalanuvchilar"
   },
-  "MainContent": {
-    "ProductName": "Mahsulot nomi",
-    "StoreName": "Do'kon nomi",
-    "Price": "Narxi",
-    "OrderBy": "Tartiblash",
-    "Search": "Qidirish"
+  "mainContent": {
+    "productName": "Mahsulot nomi",
+    "storeName": "Do'kon nomi",
+    "price": "Narx",
+    "orderBy": "Saralash",
+    "search": "Qidiruv"
   },
   "pagination": {
-    "pageOf": "Sahifa {{currentPage}} dan {{totalPages}}"
+    "pageOf": "{{currentPage}}-sahifa, jami {{totalPages}} sahifa"
+  },
+  "dialog": {
+    "deleteTitle": "Bu foydalanuvchini o'chirishni xohlaysizmi?",
+    "deleteMessage": "Bu foydalanuvchini o'chirish ularning ma'lumotlarini doimiy ravishda o'chiradi. Haqiqatan ham davom ettirishni xohlaysizmi?",
+    "cancel": "Bekor qilish",
+    "delete": "O'chirish"
   }
 }
