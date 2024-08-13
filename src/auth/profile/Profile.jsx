@@ -1,15 +1,19 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useApiContext } from "../../context/Context";
+
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import useStore from "../../store/useStore";
 
 const Profile = () => {
   const { t } = useTranslation();
 
   ///////////// getting info about Profile/////
   const navigate = useNavigate();
-  const { show, handleClose } = useApiContext();
+  const { show, handleClose } = useStore((state) => ({
+    show: state.show,
+    handleClose: state.handleClose,
+  }));
   const isLoggedOut = JSON.parse(localStorage.getItem("user"));
 
   ///////////////Log out from Profile/////

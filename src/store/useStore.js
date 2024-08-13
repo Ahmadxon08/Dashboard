@@ -7,7 +7,10 @@ const useStore = create((set) => ({
   allUsers: [],
   loading: false,
   show: false,
+  open: false, // default value
   error: null,
+  openEdit: false,
+  showEditUser: false,
   showAddUser: false,
   openDel: false,
   anchorEl: null,
@@ -16,9 +19,11 @@ const useStore = create((set) => ({
   setItems: (items) => set({ items }),
   setAllUsers: (users) => set({ allUsers: users }),
   setShow: (show) => set({ show }),
+  setShowEditUser: (showEditUser) => set({ showEditUser }),
   setShowAddUser: (showAddUser) => set({ showAddUser }),
   setLoading: (loading) => set({ loading }),
   setOpenDel: (open) => set({ openDel: open }),
+  setOpenEdit: (openEdit) => set({ openEdit }),
   setAnchorEl: (anchor) => set({ anchorEl: anchor }),
 
   // Fetch Users
@@ -82,6 +87,11 @@ const useStore = create((set) => ({
     })),
   handleDeleteOpen: () => set({ openDel: true }),
   handleDeleteClose: () => set({ openDel: false }),
+
+  handleShowEditUser: (user) => set({ showEditUser: true }),
+  handleEditOpen: () => set({ openEdit: true }),
+  handleEditClose: () => set({ openEdit: false }),
+
   handleAddCloser: () => set({ showAddUser: false }),
 }));
 

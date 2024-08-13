@@ -1,39 +1,47 @@
-// import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { MdManageAccounts, MdOutlineAccountCircle } from "react-icons/md";
-import { useApiContext } from "../../context/Context";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import Profile from "../profile/Profile";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import useStore from "../../store/useStore";
 
 const User = () => {
-  ///////////////Translator///
+  // Translation setup
   const { t } = useTranslation();
 
-  //////////////// Log Out funtionality///////////////////////
+  // Store state and actions
+  const { handleClick, open, handleCloser, anchorEl, handleShow } = useStore(
+    (state) => ({
+      open: state.open,
+      handleCloser: state.handleCloser,
+      anchorEl: state.anchorEl,
+      handleClick: state.handleClick,
+      handleShow: state.handleShow,
+    })
+  );
+
+  // Logout functionality
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+
   const handleLogOut = () => {
     localStorage.removeItem("user");
     navigate("/login");
-
     handleCloser();
   };
-  const { handleShow, anchorEl, open, handleCloser, handleClick } =
-    useApiContext();
-  /////////////////////////////////////////////////////
+
   return (
     <div>
       <Button
         id="fade-button"
-        f5f5f5
+        style={{ backgroundColor: "#f5f5f5" }} // Correct way to set the background color
         aria-controls={open ? "fade-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+        aria-expanded={open ? true : undefined}
         onClick={handleClick}>
         <MdOutlineAccountCircle size={22} color="#000" />
         <span>{user.username ? user.username : "Profile"}</span>
@@ -48,16 +56,17 @@ const User = () => {
         onClose={handleCloser}
         TransitionComponent={Fade}>
         <MenuItem onClick={handleShow} style={{ gap: "5px" }}>
-          {" "}
-          <MdManageAccounts size={20} /> <span>{t("header.account")}</span>
+          <MdManageAccounts size={20} />
+          <span>{t("header.account")}</span>
         </MenuItem>
         <MenuItem onClick={handleLogOut} style={{ gap: "5px" }}>
           <RiLogoutCircleRLine size={20} />
-          <span> {t("header.logout")}</span>
+          <span>{t("header.logout")}</span>
         </MenuItem>
       </Menu>
       <Profile />
     </div>
   );
 };
+
 export default User;

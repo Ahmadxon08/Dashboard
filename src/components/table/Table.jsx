@@ -22,7 +22,7 @@ const Table1 = () => {
     items: state.items,
   }));
 
-  useEffect(() => fetchApi(), [fetchApi]);
+  useEffect(() => fetchApi(), []);
 
   ////////////////////////////////////
   const [currentPage, setCurrentPage] = useState(1);

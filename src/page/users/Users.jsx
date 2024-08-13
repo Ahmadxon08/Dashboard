@@ -8,15 +8,18 @@ import Delete from "../../components/deleteUser/Delete";
 import { MdDelete, MdEditSquare } from "react-icons/md";
 import useStore from "../../store/useStore";
 import AddUserCm from "../../components/addUser/AddUser";
+import EditUserCm from "../../components/editUser/EditUser";
 
 const Users = () => {
   const { t } = useTranslation();
 
-  const { handleDeleteOpen, handleAddUser, allUsers } = useStore((state) => ({
-    allUsers: state.allUsers,
-    handleDeleteOpen: state.handleDeleteOpen,
-    handleAddUser: state.handleShow,
-  }));
+  const { handleDeleteOpen, handleAddUser, allUsers, handleEditOpen } =
+    useStore((state) => ({
+      allUsers: state.allUsers,
+      handleEditOpen: state.handleEditOpen,
+      handleDeleteOpen: state.handleDeleteOpen,
+      handleAddUser: state.handleShow,
+    }));
 
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,6 +53,7 @@ const Users = () => {
           </Button>
         </div>
         <AddUserCm />
+        <EditUserCm />
         <div className="user_body">
           <Table
             bordered
@@ -83,7 +87,7 @@ const Users = () => {
                     <td>{item.userName}</td>
                     <td>{item.passWord}</td>
                     <td>
-                      <Button>
+                      <Button onClick={handleEditOpen}>
                         <MdEditSquare size={24} color="orange" />
                       </Button>
                       <Button onClick={handleDeleteOpen}>
