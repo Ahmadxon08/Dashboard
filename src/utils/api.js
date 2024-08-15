@@ -22,6 +22,11 @@ export const checkUserExists = async (userName) => {
   });
   return res.data.exists;
 };
+//get All Products from the api
+export const allProducts = async () => {
+  const res = await axios.get(`${main_url}allproducts`);
+  return res.data;
+};
 
 // Fetch items from an external API
 export const fetchApi = async () => {

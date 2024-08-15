@@ -9,6 +9,7 @@ import Home from "./page/home/Home";
 import Categories from "./page/categories/Categories";
 import Users from "./page/users/Users";
 import NotFound from "./page/not-found/NotFound";
+import SingleCard from "./components/singleCard/SingleCard";
 
 const App = () => {
   const isLogened = JSON.parse(localStorage.getItem("user")) !== null;
@@ -25,6 +26,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/single/:id" element={<SingleCard />} />
             </Route>
           </Route>
         </Routes>

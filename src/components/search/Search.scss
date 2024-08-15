@@ -1,0 +1,19 @@
+.Modall {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .search_head {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .inputSearch {
+    display: flex;
+    align-items: center;
+    padding: 0 30px 0 15px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: rgb(252, 164, 64);
+  }
+}

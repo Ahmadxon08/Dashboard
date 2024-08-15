@@ -66,7 +66,7 @@ const EditUserCm = () => {
       backdrop="static"
       keyboard={false}>
       <Modal.Header closeButton>
-        <Modal.Title>{t("users.addUser")}</Modal.Title>
+        <Modal.Title>Edit user</Modal.Title>
       </Modal.Header>
       <Modal.Body className="modal1">
         <form onSubmit={formik.handleSubmit}>

@@ -1,0 +1,88 @@
+.single {
+  display: flex;
+
+  height: 100vh;
+  width: 100%;
+  background: #fff;
+  flex-direction: column;
+  padding: 20px 10px;
+  .single_head {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    button {
+      text-transform: none;
+      background: #7000ff;
+      color: #fff;
+      border: none;
+      gap: 10px;
+      font-family: Roboto;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+    h2 {
+      font-size: 26px;
+      font-family: Roboto;
+      color: #312e2e;
+      font-weight: 700;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+  .singleCard {
+    display: flex;
+    align-items: start;
+    margin-top: 60px;
+    overflow: hidden;
+    width: 80%;
+    height: 50%;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+
+    gap: 30px;
+    img {
+      width: 40%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .single_texts {
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+      padding: 30px;
+      span {
+        font-size: 20px;
+        font-family: Roboto;
+        color: #312e2e;
+        font-weight: 500;
+      }
+      h3 {
+        font-size: 18px;
+        font-family: Roboto;
+        color: #4e4848;
+        font-weight: 500;
+      }
+      .rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #4e4848;
+        font-weight: 500;
+      }
+      h4 {
+        font-size: 18px;
+        font-family: Roboto;
+        color: #4e4848;
+        font-weight: 500;
+      }
+      h5 {
+        font-size: 18px;
+        font-family: Roboto;
+        color: #4e4848;
+        font-weight: 500;
+      }
+    }
+  }
+}

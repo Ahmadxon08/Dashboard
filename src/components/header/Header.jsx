@@ -16,7 +16,7 @@ const Header = () => {
           <Link to="/" className="logo">
             <Button variant="text">
               <img src={logo} alt="logo" />
-              <span>TransEuro</span>
+              <span>Datasupermen</span>
             </Button>
           </Link>
 
