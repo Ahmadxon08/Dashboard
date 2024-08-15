@@ -86,16 +86,28 @@ function SearchModal() {
           />
         </div>
         <Modal.Body className="modal_body">
-          <ListGroup>
-            {filteredResults.map((product) => (
-              <ListGroup.Item
-                action
-                key={product.id}
-                onClick={() => handleResultClick(product.id)}>
-                {product.title}
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
+          {searchTerm && filteredResults.length === 0 && (
+            <div className="no-results">
+              <video width="100%" autoPlay muted loop>
+                <source
+                  src="./assets/video/DataNotFound.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          )}
+          {filteredResults.length > 0 && (
+            <ListGroup>
+              {filteredResults.map((product) => (
+                <ListGroup.Item
+                  action
+                  key={product.id}
+                  onClick={() => handleResultClick(product.id)}>
+                  {product.title}
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button

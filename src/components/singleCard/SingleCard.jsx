@@ -21,6 +21,13 @@ const SingleCard = () => {
     navigate(-1);
   };
 
+  // Rating uchun ranglarni hisoblash
+  const getStarColor = (rating) => {
+    if (rating >= 4.5) return "gold"; // 4.5 va yuqori uchun oltin
+    if (rating >= 3) return "gold"; // 3 - 4.5 oralig'i uchun apelsin
+    return "gray"; // 3 dan past uchun kulrang
+  };
+
   return (
     <div className="single">
       <div className="single_head">
@@ -39,20 +46,20 @@ const SingleCard = () => {
           <div className="rating">
             <span>Rating:</span>
             <Rating
-              size="large"
+              size="small"
               name="product-rating"
               value={product.rating}
               readOnly
               precision={0.5}
               icon={
                 <StarIcon
-                  style={{ color: "rgb(252, 164, 64)" }}
+                  style={{ color: getStarColor(product.rating) }}
                   fontSize="inherit"
                 />
               }
               emptyIcon={
                 <StarIcon
-                  style={{ color: "rgb(252, 164, 64)" }}
+                  style={{ opacity: 0.55, color: getStarColor(product.rating) }}
                   fontSize="inherit"
                 />
               }

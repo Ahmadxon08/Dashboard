@@ -4,7 +4,6 @@ import { IconButton, Pagination, Rating, Stack } from "@mui/material";
 import "./Categories.scss";
 import { Link } from "react-router-dom";
 import SearchModal from "../../components/search/Search";
-
 import { ImSearch } from "react-icons/im";
 import StarIcon from "@mui/icons-material/Star";
 
@@ -43,6 +42,13 @@ const Categories = () => {
     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
   };
 
+  // Rating uchun ranglarni hisoblash
+  const getStarColor = (rating) => {
+    if (rating >= 4.5) return "gold"; // 4.5 va yuqori uchun oltin
+    if (rating >= 3) return "orange"; // 3 - 4.5 oralig'i uchun apelsin
+    return "gray"; // 3 dan past uchun kulrang
+  };
+
   return (
     <div className="categories">
       <SearchModal />
@@ -54,11 +60,7 @@ const Categories = () => {
           aria-label="search"
           color="inherit"
           onClick={handleSearchOpen}>
-          <ImSearch
-            style={{
-              color: "#7000ff",
-            }}
-          />
+          <ImSearch style={{ color: "#7000ff" }} />
         </IconButton>
       </div>
       <div className="pro_body">
@@ -77,11 +79,23 @@ const Categories = () => {
                   value={product.rating}
                   readOnly
                   precision={0.5}
+                  icon={
+                    <StarIcon
+                      style={{ color: getStarColor(product.rating) }}
+                      fontSize="inherit"
+                    />
+                  }
                   emptyIcon={
-                    <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+                    <StarIcon
+                      style={{
+                        opacity: 0.55,
+                        color: getStarColor(product.rating),
+                      }}
+                      fontSize="inherit"
+                    />
                   }
                 />
-                <h4>{product.minFullPrice}</h4>
+                <h4>{product.minFullPrice} Sum</h4>
               </div>
             </Link>
           ))
