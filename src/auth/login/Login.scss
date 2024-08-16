@@ -27,6 +27,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url("./assets/img/bgAuth.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     height: 100%;
     width: 50%;
     form {
@@ -38,11 +42,10 @@
       width: 47%;
       height: 60%;
       padding-bottom: 60px;
-
       border-radius: 4px;
       gap: 15px;
-      background: rgba(248, 247, 247, 0.8);
-      backdrop-filter: blur(5px);
+      background-color: rgba(248, 247, 247, 0.616);
+      backdrop-filter: blur(10px);
       z-index: 1;
       animation: formFadeIn 2s ease-in-out;
       h1 {
@@ -58,6 +61,13 @@
         align-items: center;
 
         width: 100%;
+        label {
+          font-family: Roboto;
+          font-size: 18px;
+          font-weight: bold;
+
+          padding-bottom: 18px;
+        }
 
         span {
           width: 80%;
@@ -75,6 +85,71 @@
       button {
         width: 80%;
       }
+
+      .glow-on-hover {
+        height: 50px;
+        border: none;
+        outline: none;
+        color: #fff;
+        background: #111;
+        cursor: pointer;
+        position: relative;
+        z-index: 0;
+        border-radius: 10px;
+
+        &:before {
+          content: "";
+          background: linear-gradient(
+            45deg,
+            #ff0000,
+            #ff7300,
+            #fffb00,
+            #48ff00,
+            #00ffd5,
+            #002bff,
+            #7a00ff,
+            #ff00c8,
+            #ff0000
+          );
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          background-size: 400%;
+          z-index: -1;
+          filter: blur(5px);
+          width: calc(100% + 4px);
+          height: calc(100% + 4px);
+          animation: glowing 20s linear infinite;
+          opacity: 0;
+          transition: opacity 0.3s ease-in-out;
+          border-radius: 10px;
+        }
+
+        &:active {
+          color: #000;
+        }
+
+        &:active:after {
+          background: transparent;
+        }
+
+        &:hover:before {
+          opacity: 1;
+        }
+
+        &:after {
+          z-index: -1;
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: #7000ff;
+          left: 0;
+          top: 0;
+          border-radius: 10px;
+        }
+      }
+
       .singUp {
         display: flex;
         align-items: center;
@@ -139,5 +214,17 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
   }
 }

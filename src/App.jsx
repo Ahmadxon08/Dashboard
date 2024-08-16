@@ -21,6 +21,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
+
           <Route element={<Private isLogened={isLogened} />}>
             <Route path="/" element={<Router />}>
               <Route path="/" element={<Home />} />

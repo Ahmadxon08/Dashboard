@@ -52,7 +52,7 @@ const Login = () => {
       </div>
       <div className="loginForm">
         <form onSubmit={handleSubmit}>
-          <h1>Log In</h1>
+          <h1>Log in</h1>
           <div className="input">
             <TextField
               type="text"
@@ -89,9 +89,10 @@ const Login = () => {
             />
             <span className="err">{touched.password && errors.password}</span>
           </div>
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" className="glow-on-hover">
             Log In
           </Button>
+
           <div className="singUp">
             <span>Don't have an account?</span>
             <Link to={"/register"}>Sign Up</Link>
