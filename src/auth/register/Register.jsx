@@ -1,14 +1,17 @@
-/* eslint-disable react/no-unescaped-entities */
-import { Button, TextField } from "@mui/material";
-import "./Register.scss";
+import { motion } from "framer-motion";
+import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-
+import "./Register.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-const register = "./assets/img/register.jpg";
-
+import useEye from "../../hooks/useEye";
+import { useState } from "react";
+import { useSnackbar } from "notistack";
 const Register = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const { icon1, icon2, inputType1, inputType2 } = useEye();
+  const [isPending, setIsPending] = useState(false);
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -19,6 +22,7 @@ const Register = () => {
     validationSchema: Yup.object({
       username: Yup.string()
         .required("Username is required")
+        .min(3, "Username must be at least 3 characters long")
         .matches(
           /^[a-zA-Z0-9]+$/,
           "Username must contain only alphanumeric characters"
@@ -42,117 +46,168 @@ const Register = () => {
         .oneOf([Yup.ref("password"), null], "Passwords must match"),
     }),
     onSubmit: (values) => {
-      if (values) {
-        localStorage.setItem("user", JSON.stringify(values));
-        console.log(values);
-        navigate("/login");
-      } else {
-        navigate("/register");
-      }
+      setIsPending(true);
+      setTimeout(() => {
+        if (values) {
+          localStorage.setItem("user", JSON.stringify(values));
+          console.log(values);
+          navigate("/login");
+        } else {
+          navigate("/register");
+        }
+        setIsPending(false);
+      }, 2000);
     },
   });
   const { values, handleChange, handleSubmit, handleBlur, errors, touched } =
     formik;
 
+  const handlePaste = (e) => {
+    e.preventDefault();
+    enqueueSnackbar("Pasting is not allowed", { variant: "error" });
+  };
   return (
     <div className="reg">
-      <div className="img">
-        <img src={register} alt="" />
+      <div className="loginBg">
+        <motion.div
+          className="ball1"
+          animate={{
+            x: ["0%", "90%", "0%"],
+            y: ["25%", "0%", "25%"],
+          }}
+          transition={{
+            duration: 9,
+            repeat: Infinity,
+            repeatType: "loop",
+          }}></motion.div>
+        <motion.div
+          className="ball2"
+          animate={{ y: ["10%", "100%", "10%"] }}
+          transition={{ duration: 7, repeat: Infinity }}></motion.div>
+        <motion.div
+          className="ball3"
+          animate={{ y: ["0%", "90%", "0%"], x: ["10%", "80%", "10%"] }}
+          transition={{ duration: 9, repeat: Infinity }}></motion.div>
+        <motion.div
+          className="ball4"
+          animate={{ x: ["75%", "10%", "75%"], y: ["20%", "100%", "20%"] }}
+          transition={{ duration: 8, repeat: Infinity }}></motion.div>
       </div>
-      <div className="loginForm">
-        <form onSubmit={handleSubmit} className="form2">
-          <h1>Register</h1>
-          <div className="input">
-            <TextField
-              type="text"
-              id="username"
-              name="username"
-              label="Username"
-              variant="outlined"
-              onBlur={handleBlur}
-              error={touched.username && Boolean(errors.username)}
-              value={values.username}
-              onChange={handleChange}
-              style={{
-                marginBottom: "20px",
-                width: "80%",
-              }}
-            />
-            <span className="err">
-              {touched.username && errors.username && errors.username}
-            </span>
-          </div>
-          <div className="input">
-            <TextField
-              type="text"
-              id="email"
-              name="email"
-              label="Email"
-              variant="outlined"
-              value={values.email}
-              onBlur={handleBlur}
-              error={touched.email && Boolean(errors.email)}
-              onChange={handleChange}
-              style={{
-                marginBottom: "20px",
-                width: "80%",
-              }}
-            />
-            <span className="err">
-              {touched.email && errors.email && errors.email}
-            </span>
-          </div>
-          <div className="input">
-            <TextField
-              type="password"
-              id="password"
-              name="password"
-              label="Password"
-              variant="outlined"
-              value={values.password}
-              onBlur={handleBlur}
-              error={touched.password && Boolean(errors.password)}
-              onChange={handleChange}
-              style={{
-                marginBottom: "20px",
-                width: "80%",
-              }}
-            />{" "}
-            <span className="err">
-              {touched.password && errors.password && errors.password}
-            </span>
-          </div>
-          <div className="input">
-            <TextField
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              label="Confirm Password"
-              variant="outlined"
-              onBlur={handleBlur}
-              error={touched.confirmPassword && Boolean(errors.confirmPassword)}
-              value={values.confirmPassword}
-              onChange={handleChange}
-              style={{
-                marginBottom: "20px",
-                width: "80%",
-              }}
-            />{" "}
-            <span className="err">
-              {touched.confirmPassword &&
-                errors.confirmPassword &&
-                errors.confirmPassword}
-            </span>
-          </div>
+      <div className="login_body">
+        <div className="img">
+          {isPending ? (
+            <div className="pend">
+              <span>
+                Please wait, you will be redirected
+                <span className="span2"> to the login</span> page shortly...
+              </span>
+            </div>
+          ) : (
+            <p>
+              Wel<span>come</span> register!...
+              <br />
+            </p>
+          )}
+        </div>
+        <div className="loginForm">
+          <form onSubmit={handleSubmit}>
+            <div className="form1">
+              <h1>Create account</h1>
 
-          <Button type="submit" variant="contained">
-            Register
-          </Button>
-          <div className="singUp">
-            <span>Do you have an account?</span>
-            <Link to={"/login"}>Sign In</Link>
-          </div>
-        </form>
+              <div className="input">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  label="Username"
+                  onPaste={handlePaste}
+                  value={values.username}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  style={{
+                    marginBottom: "20px",
+                    width: "82%",
+                  }}
+                />
+                <span className="err">
+                  {touched.username && errors.username}
+                </span>
+              </div>
+              <div className="input">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  label="Email"
+                  onPaste={handlePaste}
+                  value={values.email}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  style={{
+                    marginBottom: "20px",
+                    width: "80%",
+                  }}
+                />
+                <span className="err">
+                  {touched.email && errors.email && errors.email}
+                </span>
+              </div>
+              <div className="input">
+                <label htmlFor="password">Password</label>
+                <div className="pwd">
+                  <input
+                    type={inputType1}
+                    id="password"
+                    name="password"
+                    onBlur={handleBlur}
+                    onPaste={handlePaste}
+                    value={values.password}
+                    onChange={handleChange}
+                    style={{
+                      marginBottom: "20px",
+                      width: "100%",
+                      position: "relative",
+                    }}
+                  />
+                  <span>{icon1}</span>
+                </div>
+                <span className="err">
+                  {touched.password && errors.password}
+                </span>
+              </div>
+              <div className="input">
+                <label htmlFor="confirmPassword"> Confirm password</label>
+                <div className="pwd">
+                  <input
+                    type={inputType2}
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    onBlur={handleBlur}
+                    onPaste={handlePaste}
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                  />
+                  <span>{icon2}</span>
+                </div>
+                <span className="err">
+                  {touched.confirmPassword &&
+                    errors.confirmPassword &&
+                    errors.confirmPassword}
+                </span>
+              </div>
+              <Button type="submit" variant="contained">
+                Register
+              </Button>
+
+              <div className="singUp1">
+                <span>Do you have an account?</span>
+                <Link to={"/login"}>Sign in</Link>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
