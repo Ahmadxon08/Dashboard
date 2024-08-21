@@ -1,3 +1,4 @@
+// User.js
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -14,9 +15,9 @@ const User = () => {
   const { t } = useTranslation();
 
   // Store state and actions
-  const { handleClick, open, handleCloser, anchorEl, handleShow } = useStore(
+  const { handleClick, handleCloser, anchorEl, openDel, handleShow } = useStore(
     (state) => ({
-      open: state.open,
+      openDel: state.openDel,
       handleCloser: state.handleCloser,
       anchorEl: state.anchorEl,
       handleClick: state.handleClick,
@@ -31,20 +32,20 @@ const User = () => {
   const handleLogOut = () => {
     localStorage.removeItem("user");
     navigate("/login");
-    handleCloser();
+    handleCloser(); // Close the menu after logout
   };
 
   return (
     <div>
       <Button
         id="fade-button"
-        style={{ backgroundColor: "#f5f5f5" }} // Correct way to set the background color
-        aria-controls={open ? "fade-menu" : undefined}
+        style={{ backgroundColor: "#f5f5f5" }}
+        aria-controls={openDel ? "fade-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? true : undefined}
+        aria-expanded={openDel ? true : undefined}
         onClick={handleClick}>
         <MdOutlineAccountCircle size={22} color="#000" />
-        <span>{user.username ? user.username : "Profile"}</span>
+        <span>{user?.username || "Profile"}</span>
       </Button>
       <Menu
         id="fade-menu"
@@ -52,10 +53,15 @@ const User = () => {
           "aria-labelledby": "fade-button",
         }}
         anchorEl={anchorEl}
-        open={open}
+        open={Boolean(anchorEl)}
         onClose={handleCloser}
         TransitionComponent={Fade}>
-        <MenuItem onClick={handleShow} style={{ gap: "5px" }}>
+        <MenuItem
+          onClick={() => {
+            handleShow();
+            handleCloser();
+          }}
+          style={{ gap: "5px" }}>
           <MdManageAccounts size={20} />
           <span>{t("header.account")}</span>
         </MenuItem>

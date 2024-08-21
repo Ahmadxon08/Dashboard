@@ -29,9 +29,7 @@ const Header = () => {
               <Button variant="text">
                 <span>...</span>
               </Button>
-              {/* <Button variant="text">
-               
-              </Button> */}
+
               <User />
             </div>
           </nav>

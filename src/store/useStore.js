@@ -14,7 +14,7 @@ const useStore = create((set) => ({
   products: [],
   loading: false,
   show: false,
-  open: false, // default value
+  open: false,
   error: null,
   openEdit: false,
   showEditUser: false,
@@ -105,7 +105,7 @@ const useStore = create((set) => ({
   handleClose: () => set({ show: false }),
   handleShow: () =>
     set((state) => ({
-      showAddUser: true,
+      show: true,
       anchorEl: null,
     })),
   handleDeleteOpen: () => set({ openDel: true }),
