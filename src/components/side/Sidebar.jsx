@@ -31,8 +31,9 @@ const Sidebar = () => {
     setActiveButton(buttonName);
   };
   const categories = [
+    { name: `${t("categories.allProducts")}`, path: "AllProducts" },
     { name: "Category 1", path: "searchProductsPage" },
-    { name: "Category 2", path: "AllProducts" },
+
     { name: "Category 3", path: "findpro" },
     { name: "Category 4", path: "/category4" },
     { name: "Category 5", path: "/category5" },
@@ -119,12 +120,18 @@ const Sidebar = () => {
                 <Button
                   sx={{
                     background:
-                      activeButton === category.name.toLowerCase()
+                      activeButton === category.name
                         ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
                         : "inherit",
                     color: "#fff",
                   }}>
-                  <span>{category.name}</span>
+                  <span
+                    style={{
+                      color:
+                        activeButton === category.name ? "#7000ff" : "#fff",
+                    }}>
+                    {category.name}
+                  </span>
                 </Button>
               </Link>
             ))}

@@ -5,8 +5,10 @@ import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./AllProducts.scss";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const AllProducts = () => {
+  const { t } = useTranslation();
   const [categories, setCategories] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [pathDepth, setPathDepth] = useState(2);
@@ -45,7 +47,7 @@ const AllProducts = () => {
   return (
     <section className="allProducts">
       <div className="all_product_head">
-        <h2>Barcha mahsulotlar</h2>
+        <h2>{t("categories.allProducts")}</h2>
 
         <Box
           sx={{
@@ -55,14 +57,14 @@ const AllProducts = () => {
             variant="standard"
             sx={{ minWidth: 60, textAlign: "center" }}>
             <InputLabel id="demo-simple-select-standard-label">
-              Languages
+              {t("categories.section")}
             </InputLabel>
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               value={pathDepth}
               onChange={(e) => setPathDepth(parseInt(e.target.value))}
-              label="Languages"
+              label={t("categories.section")}
               sx={{
                 textAlign: "center",
                 color: "#7000ff",
@@ -120,7 +122,7 @@ const AllProducts = () => {
           <ul className="all_product_body">
             {categories.map((category) => (
               <li key={category._id} className="body_card">
-                <img src={category.iconLink} alt=" this is a card image" />
+                <img src={category.iconLink} alt="this is a card image" />
                 <div className="body_card_text">
                   <p>{category.title}</p>
                 </div>
@@ -130,7 +132,7 @@ const AllProducts = () => {
 
           <div className="all_product_footer">
             <span style={{ marginRight: "20px" }}>
-              {`Sahifa ${pageNum} dan ${totalPages} gacha`}
+              {t("pagination.pageOf", { currentPage: pageNum, totalPages })}
             </span>
             <Stack spacing={2}>
               <Pagination
