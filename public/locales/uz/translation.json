@@ -1,7 +1,7 @@
 {
   "header": {
     "logout": "Chiqish",
-    "account": "Mening akkauntim",
+    "account": "Mening hisobim",
     "username": "Foydalanuvchi nomi",
     "password": "Parol",
     "userInfo": "Foydalanuvchi"
@@ -18,18 +18,28 @@
     "addUser": "Foydalanuvchi qo'shish",
     "saving": "Saqlanmoqda",
     "addSucces": "Foydalanuvchi muvaffaqiyatli qo'shildi",
-    "editSucces": "O'zgartirishlar muvaffaqiyatli saqlandi",
+    "editSucces": "O'zgarishlar muvaffaqiyatli saqlandi",
     "deleteSucces": "Foydalanuvchi muvaffaqiyatli o'chirildi",
     "usernameExists": "Foydalanuvchi nomi allaqachon mavjud",
     "emailExists": "Elektron pochta allaqachon mavjud",
-    "addError": "Foydalanuvchini qo'shishda xatolik yuz berdi",
-    "editError": "Foydalanuvchini yangilashda xatolik yuz berdi",
-    "deleteError": "Foydalanuvchini o'chirishda xatolik yuz berdi",
-    "validationError": "Tasdiqlash xatosi yuz berdi"
+    "addError": "Foydalanuvchini qo'shishda xatolik",
+    "editError": "Foydalanuvchini yangilashda xatolik",
+    "deleteError": "Foydalanuvchini o'chirishda xatolik",
+    "validationError": "Tasdiqlashda xatolik yuz berdi"
+  },
+  "categories": {
+    "allProducts": "Barcha mahsulotlar",
+    "electronics": "Elektronika",
+    "clothes": "Kiyimlar",
+    "books": "Kitoblar",
+    "homeAppliances": "Maishiy texnika",
+    "search": "Qidiruv",
+    "searchPlaceholder": "Qidiruv...",
+    "section": "Bo'lim"
   },
   "sidebar": {
     "home": "Bosh sahifa",
-    "categories": "Kategoriyalar",
+    "categories": "Bo'limlar",
     "settings": "Sozlamalar",
     "users": "Foydalanuvchilar"
   },
@@ -37,15 +47,15 @@
     "productName": "Mahsulot nomi",
     "storeName": "Do'kon nomi",
     "price": "Narx",
-    "orderBy": "Saralash",
+    "orderBy": "Saralash bo'yicha",
     "search": "Qidiruv"
   },
   "pagination": {
-    "pageOf": "{{currentPage}}-sahifa, jami {{totalPages}} sahifa"
+    "pageOf": "{{currentPage}} sahifa {{totalPages}} dan"
   },
   "dialog": {
     "deleteTitle": "Bu foydalanuvchini o'chirishni xohlaysizmi?",
-    "deleteMessage": "Bu foydalanuvchini o'chirish ularning ma'lumotlarini doimiy ravishda o'chiradi. Haqiqatan ham davom ettirishni xohlaysizmi?",
+    "deleteMessage": "Bu foydalanuvchini o'chirish uning ma'lumotlarini doimiy ravishda o'chiradi. Davom etishni xohlaysizmi?",
     "cancel": "Bekor qilish",
     "delete": "O'chirish"
   }

@@ -6,12 +6,16 @@ import {
   checkUserExists,
   fetchApi,
   fetchUsers,
+  fetchProductsByName,
+  fetchProductsByType,
+  fetchCategories,
 } from "../utils/api";
 
 const useStore = create((set) => ({
   items: [],
   allUsers: [],
   products: [],
+  categories: [],
   loading: false,
   show: false,
   open: false,
@@ -22,18 +26,23 @@ const useStore = create((set) => ({
   openDel: false,
   anchorEl: null,
   openSearch: false,
+  productsByName: [],
+  productsByType: [],
 
   // Setters
   setItems: (items) => set({ items }),
   setProducts: (products) => set({ products }),
   setAllUsers: (users) => set({ allUsers: users }),
+  setCategories: (categories) => set({ categories }),
+  setProductsByName: (productsByName) => set({ productsByName }),
+  setProductsByType: (productsByType) => set({ productsByType }),
   setShow: (show) => set({ show }),
   setShowEditUser: (showEditUser) => set({ showEditUser }),
   setShowAddUser: (showAddUser) => set({ showAddUser }),
   setLoading: (loading) => set({ loading }),
   setOpenDel: (open) => set({ openDel: open }),
-  setOpenSearch: (openSearch) => set({ openSearch }),
-  setOpenEdit: (openEdit) => set({ openEdit }),
+  setOpenSearch: (openSearch) => set({ openSearch: openSearch }),
+  setOpenEdit: (openEdit) => set({ openEdit: openEdit }),
   setAnchorEl: (anchor) => set({ anchorEl: anchor }),
 
   // Fetch Users
@@ -99,6 +108,60 @@ const useStore = create((set) => ({
     }
   },
 
+  // Search products by name with pagination
+  fetchProductsByName: async (searchText, pageNum) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await fetch(
+        `/api/http://65.1.136.0:5050/api/productsByName`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: searchText, pageNum }),
+        }
+      );
+      const data = await response.json();
+      if (data && data.payLoad) {
+        set({ productsByName: data.payLoad });
+      } else {
+        set({ productsByName: [] });
+      }
+    } catch (error) {
+      console.log(error);
+      set({ error: error.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  // Search products by type with pagination
+  fetchProductsByType: async (rating, isEco, pageNum) => {
+    set({ loading: true, error: null });
+    try {
+      const result = await fetchProductsByType(rating, isEco, pageNum);
+      set({ productsByType: result.payLoad });
+    } catch (error) {
+      console.log(error);
+      set({ error: error.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  // Fetch categories with pagination
+  fetchCategories: async (pathDepth, pageNum) => {
+    set({ loading: true, error: null });
+    try {
+      const result = await fetchCategories(pathDepth, pageNum);
+      set({ categories: result.payLoad });
+    } catch (error) {
+      console.log(error);
+      set({ error: error.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
   // Handlers
   handleClick: (e) => set({ anchorEl: e.currentTarget }),
   handleCloser: () => set({ anchorEl: null }),
@@ -116,7 +179,6 @@ const useStore = create((set) => ({
   handleEditClose: () => set({ openEdit: false }),
 
   handleAddCloser: () => set({ showAddUser: false }),
-  ////serchOpen Close
   handleSearchOpen: () => set({ openSearch: true }),
   handleSearchClose: () => set({ openSearch: false }),
 }));

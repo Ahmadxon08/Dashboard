@@ -1,6 +1,5 @@
-// utils/api.js
-
 import axios from "axios";
+
 const main_url = "http://65.1.136.0:5050/api/";
 
 // Fetch all users
@@ -22,7 +21,8 @@ export const checkUserExists = async (userName) => {
   });
   return res.data.exists;
 };
-//get All Products from the api
+
+// Get all products from the API
 export const allProducts = async () => {
   const res = await axios.get(`${main_url}allproducts`);
   return res.data;
@@ -32,4 +32,28 @@ export const allProducts = async () => {
 export const fetchApi = async () => {
   const res = await axios.get("https://dummyjson.com/products");
   return res.data.products;
+};
+
+// Search products by name with pagination
+export const fetchProductsByName = async (text, pageNum) => {
+  const res = await axios.post(`${main_url}productsByName`, { text, pageNum });
+  return res.data;
+};
+
+// Search products by type with pagination
+export const fetchProductsByType = async (rating, isEco, pageNum) => {
+  const res = await axios.post(`${main_url}productsByType`, {
+    jss: { rating, isEco },
+    pageNum,
+  });
+  return res.data;
+};
+
+// Fetch categories with pagination
+export const fetchCategories = async (pathDepth, pageNum) => {
+  const res = await axios.post(`${main_url}category`, {
+    jss: { pathDepth },
+    pageNum,
+  });
+  return res.data;
 };

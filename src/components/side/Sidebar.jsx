@@ -2,17 +2,18 @@ import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import "./Side.scss";
 import { GoHome } from "react-icons/go";
-
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-
 import { FiUsers } from "react-icons/fi";
 import { BsCollection } from "react-icons/bs";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 const Sidebar = () => {
   const { t } = useTranslation();
   const [activeButton, setActiveButton] = useState("");
-  /// to keep active button with default active state
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+
   useEffect(() => {
     const storedActiveButton = localStorage.getItem("activeButton");
     if (storedActiveButton) {
@@ -20,11 +21,23 @@ const Sidebar = () => {
     }
   }, []);
 
+  const toggleCategories = () => {
+    setIsCategoriesOpen(!isCategoriesOpen);
+  };
+
   const handleButtonClick = (buttonName) => {
     localStorage.setItem("activeButton", buttonName);
+
     setActiveButton(buttonName);
   };
-  //////////////////////////////////////
+  const categories = [
+    { name: "Category 1", path: "searchProductsPage" },
+    { name: "Category 2", path: "AllProducts" },
+    { name: "Category 3", path: "findpro" },
+    { name: "Category 4", path: "/category4" },
+    { name: "Category 5", path: "/category5" },
+  ];
+
   return (
     <div className="left">
       <div className="first">
@@ -46,32 +59,78 @@ const Sidebar = () => {
               style={{
                 color: activeButton === "home" ? "#7000ff" : "#fff",
               }}>
-              {t("sidebar.home")}{" "}
+              {t("sidebar.home")}
             </span>
           </Button>
         </Link>
-        <Link to="/categories" onClick={() => handleButtonClick("categories")}>
-          <Button
+
+        <Button
+          sx={{
+            borderRadius: "0",
+          }}
+          onClick={() => {
+            handleButtonClick("categories");
+            toggleCategories();
+          }}
+          style={{
+            border: 0,
+            background:
+              activeButton === "categories"
+                ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                : "inherit",
+          }}>
+          <BsCollection
+            size={22}
             style={{
-              background:
-                activeButton === "categories"
-                  ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
-                  : "inherit",
+              color: activeButton === "categories" ? "#7000ff" : "#fff",
+            }}
+          />
+          <span
+            style={{
+              marginRight: "8px",
+              color: activeButton === "categories" ? "#7000ff" : "#fff",
             }}>
-            <BsCollection
+            {t("sidebar.categories")}
+          </span>
+          {isCategoriesOpen ? (
+            <MdKeyboardArrowDown
               size={22}
               style={{
                 color: activeButton === "categories" ? "#7000ff" : "#fff",
               }}
             />
-            <span
+          ) : (
+            <MdKeyboardArrowRight
+              size={22}
               style={{
                 color: activeButton === "categories" ? "#7000ff" : "#fff",
-              }}>
-              {t("sidebar.categories")}
-            </span>
-          </Button>
-        </Link>
+              }}
+            />
+          )}
+        </Button>
+
+        {isCategoriesOpen && (
+          <div className="categoriesMenu">
+            {categories.map((category) => (
+              <Link
+                to={category.path}
+                key={category.name}
+                onClick={() => handleButtonClick(category.name)}>
+                <Button
+                  sx={{
+                    background:
+                      activeButton === category.name.toLowerCase()
+                        ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                        : "inherit",
+                    color: "#fff",
+                  }}>
+                  <span>{category.name}</span>
+                </Button>
+              </Link>
+            ))}
+          </div>
+        )}
+
         <Link to="/users" onClick={() => handleButtonClick("users")}>
           <Button
             style={{
@@ -91,6 +150,28 @@ const Sidebar = () => {
                 color: activeButton === "users" ? "#7000ff" : "#fff",
               }}>
               {t("sidebar.users")}
+            </span>
+          </Button>
+        </Link>
+        <Link to="/searchpro" onClick={() => handleButtonClick("searchpro")}>
+          <Button
+            style={{
+              background:
+                activeButton === "searchpro"
+                  ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                  : "inherit",
+            }}>
+            <FiUsers
+              size={22}
+              style={{
+                color: activeButton === "searchpro" ? "#7000ff" : "#fff",
+              }}
+            />
+            <span
+              style={{
+                color: activeButton === "searchpro" ? "#7000ff" : "#fff",
+              }}>
+              searchpro
             </span>
           </Button>
         </Link>

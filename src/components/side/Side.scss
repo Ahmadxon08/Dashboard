@@ -4,21 +4,22 @@
   left: 0;
   top: 0;
   bottom: 0;
-
+  overflow: hidden;
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
   flex-direction: column;
   min-height: 90vh;
   justify-content: space-between;
-  width: 270px !important;
+  width: 280px !important;
   background-color: #7000ff;
   .first {
-    width: 100%;
+    width: 101%;
 
     button {
       display: flex;
       align-items: center;
       justify-content: start;
+      width: 100%;
 
       border: 0;
       text-transform: none;
@@ -36,6 +37,18 @@
       background-color: inherit;
       &:focus {
         background: #ccc;
+      }
+    }
+    .categoriesMenu {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      a {
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       }
     }
   }

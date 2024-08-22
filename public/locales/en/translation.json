@@ -27,6 +27,16 @@
     "deleteError": "Error deleting user",
     "validationError": "Validation error occurred"
   },
+  "categories": {
+    "allProducts": "All Products",
+    "electronics": "Electronics",
+    "clothes": "Clothes",
+    "books": "Books",
+    "homeAppliances": "Home Appliances",
+    "search": "Search",
+    "searchPlaceholder": "Search...",
+    "section": "Section"
+  },
   "sidebar": {
     "home": "Home",
     "categories": "Categories",
