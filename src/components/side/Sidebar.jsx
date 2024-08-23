@@ -32,11 +32,9 @@ const Sidebar = () => {
   };
   const categories = [
     { name: `${t("categories.allProducts")}`, path: "AllProducts" },
-    { name: "Category 1", path: "searchProductsPage" },
 
-    { name: "Category 3", path: "findpro" },
-    { name: "Category 4", path: "/category4" },
-    { name: "Category 5", path: "/category5" },
+    { name: `${t("filter.goodsType")}`, path: "productsByType" },
+    { name: "ProductsSearch 4", path: "/productsSearch" },
   ];
 
   return (

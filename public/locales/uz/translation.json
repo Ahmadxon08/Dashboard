@@ -25,21 +25,31 @@
     "addError": "Foydalanuvchini qo'shishda xatolik",
     "editError": "Foydalanuvchini yangilashda xatolik",
     "deleteError": "Foydalanuvchini o'chirishda xatolik",
-    "validationError": "Tasdiqlashda xatolik yuz berdi"
+    "validationError": "Tekshiruv xatoligi"
   },
   "categories": {
     "allProducts": "Barcha mahsulotlar",
     "electronics": "Elektronika",
-    "clothes": "Kiyimlar",
+    "clothes": "Kiymatlar",
     "books": "Kitoblar",
-    "homeAppliances": "Maishiy texnika",
-    "search": "Qidiruv",
-    "searchPlaceholder": "Qidiruv...",
+    "homeAppliances": "Uy jihozlari",
+    "search": "Qidirish",
+    "searchPlaceholder": "Qidirish...",
     "section": "Bo'lim"
+  },
+  "filter": {
+    "rating": "Reyting",
+    "ecoFriendly": "Ekologik",
+    "apply": "Qo'llash",
+    "goodsType": "Tovar turlari"
+  },
+  "error": {
+    "fetchError": "Ma'lumotlarni olishda xatolik yuz berdi.",
+    "productNotFound": "Bunday tovar topilmadi."
   },
   "sidebar": {
     "home": "Bosh sahifa",
-    "categories": "Bo'limlar",
+    "categories": "Kategoriyalar",
     "settings": "Sozlamalar",
     "users": "Foydalanuvchilar"
   },
@@ -47,15 +57,15 @@
     "productName": "Mahsulot nomi",
     "storeName": "Do'kon nomi",
     "price": "Narx",
-    "orderBy": "Saralash bo'yicha",
-    "search": "Qidiruv"
+    "orderBy": "Tartiblash",
+    "search": "Qidirish"
   },
   "pagination": {
-    "pageOf": "{{currentPage}} sahifa {{totalPages}} dan"
+    "pageOf": "Sahifa {{currentPage}} dan {{totalPages}}"
   },
   "dialog": {
-    "deleteTitle": "Bu foydalanuvchini o'chirishni xohlaysizmi?",
-    "deleteMessage": "Bu foydalanuvchini o'chirish uning ma'lumotlarini doimiy ravishda o'chiradi. Davom etishni xohlaysizmi?",
+    "deleteTitle": "Ushbu foydalanuvchini o'chirmoqchimisiz?",
+    "deleteMessage": "Ushbu foydalanuvchini o'chirish uning ma'lumotlarini doimo o'chirib yuboradi. Davom etishni xohlaysizmi?",
     "cancel": "Bekor qilish",
     "delete": "O'chirish"
   }

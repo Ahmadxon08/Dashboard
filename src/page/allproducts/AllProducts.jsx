@@ -20,29 +20,30 @@ const AllProducts = () => {
     setPageNum(1);
   }, [pathDepth]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.post(
-          "http://65.1.136.0:5050/api/category",
-          { jss: { pathDepth }, pageNum: pageNum.toString() }
-        );
-        setCategories(response.data.payLoad);
-        setTotalPages(Math.ceil(response.data.total / itemsPerPage));
-      } catch (error) {
-        console.error("Xatolik yuz berdi:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchCategories = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post("http://65.1.136.0:5050/api/category", {
+        jss: { pathDepth },
+        pageNum: pageNum.toString(),
+      });
+      setCategories(response.data.payLoad);
+      setTotalPages(Math.ceil(response.data.total / itemsPerPage));
+    } catch (error) {
+      console.error("Xatolik yuz berdi:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchCategories();
   }, [pageNum, pathDepth]);
 
   const handlePageChange = (event, newPage) => {
     setPageNum(newPage);
   };
+  console.log(categories);
 
   return (
     <section className="allProducts">

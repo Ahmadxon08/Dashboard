@@ -10,12 +10,22 @@ import {
   fetchProductsByType,
   fetchCategories,
 } from "../utils/api";
+import axios from "axios";
+
+const main_url = "http://65.1.136.0:5050/api/";
 
 const useStore = create((set) => ({
   items: [],
   allUsers: [],
   products: [],
+  ///////
   categories: [],
+  totalPages: 0,
+  pathDepth: 2,
+  pageNum: 1,
+  itemsPerPage: 20,
+
+  //////
   loading: false,
   show: false,
   open: false,
@@ -30,6 +40,12 @@ const useStore = create((set) => ({
   productsByType: [],
 
   // Setters
+
+  ///////////////
+  setPathDepth: (depth) => set({ pathDepth: depth, pageNum: 1 }),
+  setPageNum: (pageNum) => set({ pageNum }),
+
+  //////////
   setItems: (items) => set({ items }),
   setProducts: (products) => set({ products }),
   setAllUsers: (users) => set({ allUsers: users }),
@@ -149,11 +165,23 @@ const useStore = create((set) => ({
   },
 
   // Fetch categories with pagination
-  fetchCategories: async (pathDepth, pageNum) => {
+  fetchCategories: async () => {
     set({ loading: true, error: null });
+    const { pathDepth, pageNum, itemsPerPage } = useStore.getState();
     try {
-      const result = await fetchCategories(pathDepth, pageNum);
-      set({ categories: result.payLoad });
+      const res = await axios.post("http://65.1.136.0:5050/api/category", {
+        jss: { pathDepth },
+        pageNum: pageNum.toString(),
+      });
+
+      const totalCount = res.data.totalCount || 0; // Agar totalCount mavjud bo'lmasa, 0 deb belgilang
+      const totalPages =
+        itemsPerPage > 0 ? Math.ceil(totalCount / itemsPerPage) : 0; // itemsPerPage > 0 shartini qo'shing
+
+      set({
+        categories: res.data.payLoad,
+        totalPages, // totalPages ni to'g'ri qiymat bilan yangilang
+      });
     } catch (error) {
       console.log(error);
       set({ error: error.message });

@@ -37,6 +37,16 @@
     "searchPlaceholder": "Search...",
     "section": "Section"
   },
+  "filter": {
+    "rating": "Rating",
+    "ecoFriendly": "Eco-friendly",
+    "apply": "Apply",
+    "goodsType": "Goods Type"
+  },
+  "error": {
+    "fetchError": "An error occurred while fetching data.",
+    "productNotFound": "No products found."
+  },
   "sidebar": {
     "home": "Home",
     "categories": "Categories",

@@ -8,10 +8,10 @@ import StarIcon from "@mui/icons-material/Star";
 const SingleCard = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { products } = useStore((state) => ({
-    products: state.products,
+  const { categories } = useStore((state) => ({
+    categories: state.categories,
   }));
-  const product = products.find((item) => item.id === parseInt(id));
+  const product = categories.find((item) => item.id === id);
 
   if (!product) {
     return <p>Product not found</p>;
@@ -20,8 +20,8 @@ const SingleCard = () => {
   const handleBackClick = () => {
     navigate(-1);
   };
+  console.log(categories);
 
-  // Rating uchun ranglarni hisoblash
   const getStarColor = (rating) => {
     if (rating >= 4.5) return "gold"; // 4.5 va yuqori uchun oltin
     if (rating >= 3) return "gold"; // 3 - 4.5 oralig'i uchun apelsin
