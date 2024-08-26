@@ -21,6 +21,35 @@
       line-height: 1.5;
       letter-spacing: -0.02em;
     }
+    .search_action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      .clickBtn {
+        background: transparent;
+        border: none;
+        background-color: #7000ff;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: none;
+        margin-top: 9px;
+        letter-spacing: -0.02em;
+      }
+      .inputSearch {
+        .MuiInputLabel-root {
+          color: #7000ff !important;
+        }
+
+        .MuiInputBase-input {
+          color: #7000ff;
+        }
+
+        .MuiInput-underline:after {
+          border-bottom: 2px solid #7000ff;
+        }
+      }
+    }
   }
   .loadingSpinner {
     display: flex;
@@ -35,6 +64,17 @@
       position: absolute;
       right: 60%;
       top: 40%;
+    }
+  }
+  .noProducts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #474242;
     }
   }
   .search_body {
@@ -61,13 +101,19 @@
         width: 100%;
         height: 120px;
       }
-      .body_card_text {
+      .productText {
         padding: 6px;
         p {
           font-size: 14px;
           font-weight: 500;
           font-family: Roboto;
           color: #7a7a;
+        }
+        h1 {
+          font-size: 18px;
+          font-weight: 500;
+          font-family: Roboto;
+          color: #4e4848;
         }
       }
     }

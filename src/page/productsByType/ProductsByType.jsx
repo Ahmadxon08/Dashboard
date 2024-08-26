@@ -51,6 +51,7 @@ const ProductsByType = () => {
 
   useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNum]);
 
   const handleFilterSubmitClick = () => {
@@ -64,6 +65,7 @@ const ProductsByType = () => {
   };
 
   const totalPages = Math.ceil(total / 20);
+  console.log(products);
 
   return (
     <section className="byType">
@@ -140,7 +142,7 @@ const ProductsByType = () => {
           )}
           <ul className="byType_body">
             {(products || []).map((product) => (
-              <li key={product.id} className="typeCard">
+              <li key={product._id} className="typeCard">
                 <Link to={`/single/${product._id}`}>
                   <img src={product.photo} alt={product.category.title} />
                   <div className="typeText">
