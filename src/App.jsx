@@ -14,6 +14,7 @@ import SearchProducts from "./page/searchProducts/SearchProducts";
 import AllProducts from "./page/allproducts/AllProducts";
 import ProductsByType from "./page/productsByType/ProductsByType";
 import ProductsSearch from "./page/productsSearch/ProductsSearch";
+// import SearchModal from "./components/search/Search";
 
 const App = () => {
   const isLogened = JSON.parse(localStorage.getItem("user")) !== null;

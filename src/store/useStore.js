@@ -35,7 +35,7 @@ const useStore = create((set) => ({
   showAddUser: false,
   openDel: false,
   anchorEl: null,
-  openSearch: false,
+
   productsByName: [],
   productsByType: [],
 
@@ -57,7 +57,7 @@ const useStore = create((set) => ({
   setShowAddUser: (showAddUser) => set({ showAddUser }),
   setLoading: (loading) => set({ loading }),
   setOpenDel: (open) => set({ openDel: open }),
-  setOpenSearch: (openSearch) => set({ openSearch: openSearch }),
+
   setOpenEdit: (openEdit) => set({ openEdit: openEdit }),
   setAnchorEl: (anchor) => set({ anchorEl: anchor }),
 
@@ -207,8 +207,6 @@ const useStore = create((set) => ({
   handleEditClose: () => set({ openEdit: false }),
 
   handleAddCloser: () => set({ showAddUser: false }),
-  handleSearchOpen: () => set({ openSearch: true }),
-  handleSearchClose: () => set({ openSearch: false }),
 }));
 
 export default useStore;

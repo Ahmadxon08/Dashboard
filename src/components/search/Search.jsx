@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Modal from "react-bootstrap/Modal";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useNavigate } from "react-router-dom";
-import useStore from "../../store/useStore";
 import { Button, IconButton, styled, TextField } from "@mui/material";
 import "./Search.scss";
 import { IoClose } from "react-icons/io5";
+import useSearchStore from "../../store/useSearchStore";
+import debounce from "lodash.debounce";
+
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
@@ -18,40 +20,56 @@ const CustomTextField = styled(TextField)({
       borderColor: "#7000FF",
     },
   },
-
   "& .MuiFormLabel-root.Mui-focused": {
     color: "#7000FF",
   },
 });
+
 function SearchModal() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredResults, setFilteredResults] = useState([]);
   const navigate = useNavigate();
 
-  const { products, openSearch, handleSearchClose } = useStore((state) => ({
+  const {
+    products,
+    openSearch,
+    fetchProducts,
+    handleSearchClose,
+    setSearchText,
+  } = useSearchStore((state) => ({
     products: state.products,
     openSearch: state.openSearch,
+    fetchProducts: state.fetchProducts,
     handleSearchClose: state.handleSearchClose,
+    setSearchText: state.setSearchText,
   }));
+
+  // Using useCallback to debounce the fetchProducts method
+  const debouncedFetchProducts = useCallback(
+    debounce((value) => {
+      setSearchText(value);
+      fetchProducts(value, 1);
+    }, 500),
+    [setSearchText, fetchProducts]
+  );
+
+  useEffect(() => {
+    if (searchTerm.trim()) {
+      debouncedFetchProducts(searchTerm);
+    }
+    // Clean up debounce
+    return () => {
+      debouncedFetchProducts.cancel();
+    };
+  }, [searchTerm, debouncedFetchProducts]);
 
   const handleClose = () => {
     setSearchTerm("");
-    setFilteredResults([]);
     handleSearchClose();
   };
 
   const handleSearchChange = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
-
-    if (value !== "") {
-      const results = products.filter((product) =>
-        product.title.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredResults(results);
-    } else {
-      setFilteredResults([]);
-    }
   };
 
   const handleResultClick = (id) => {
@@ -86,7 +104,7 @@ function SearchModal() {
           />
         </div>
         <Modal.Body className="modal_body">
-          {searchTerm && filteredResults.length === 0 && (
+          {searchTerm && products.length === 0 && (
             <div className="no-results">
               <video width="100%" autoPlay muted loop>
                 <source
@@ -96,9 +114,9 @@ function SearchModal() {
               </video>
             </div>
           )}
-          {filteredResults.length > 0 && (
+          {products.length > 0 && (
             <ListGroup>
-              {filteredResults.map((product) => (
+              {products.map((product) => (
                 <ListGroup.Item
                   action
                   key={product.id}

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import Sidebar from "../components/side/Sidebar";
 import Header from "../components/header/Header";
+import Sidebar from "../components/sidebar/Sidebar";
 import "./Router.scss";
 import { Outlet } from "react-router-dom";
 
@@ -10,7 +10,7 @@ const Router = () => {
       <Header />
       <div className="router">
         <Sidebar />
-        <div className="content">
+        <div className="content1">
           <Outlet />
         </div>
       </div>

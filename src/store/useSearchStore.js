@@ -7,8 +7,9 @@ const useSearchStore = create((set) => ({
   total: 0,
   pageNum: 1,
   loading: false,
+  openSearch: false,
   searchText: "",
-
+  setOpenSearch: (openSearch) => set({ openSearch }),
   setProducts: (products) => set({ products }),
   setTotal: (total) => set({ total }),
   setPageNum: (pageNum) => set({ pageNum }),
@@ -35,6 +36,10 @@ const useSearchStore = create((set) => ({
       set({ loading: false });
     }
   }, 500),
+  //////////////////
+
+  handleSearchOpen: () => set({ openSearch: true }),
+  handleSearchClose: () => set({ openSearch: false }),
 }));
 
 export default useSearchStore;
