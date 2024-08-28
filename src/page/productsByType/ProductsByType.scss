@@ -128,3 +128,278 @@
     }
   }
 }
+@media (max-width: 768px) {
+  .byType {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+    background: #fff;
+    min-height: 100%;
+    width: 100%;
+
+    .byType_head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      flex-direction: column;
+      margin-top: 30px;
+      padding-left: 35px;
+      gap: 25px;
+      width: 92%;
+      .action {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        .rate {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        }
+        button {
+          text-transform: none;
+          background: #7000ff;
+          color: #fff;
+          border: none;
+          font-size: 18px;
+          font-family: Roboto;
+
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
+    }
+    .loadingSpinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: fixed;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 100;
+      .load {
+        position: absolute;
+        right: 50%;
+        top: 40%;
+      }
+    }
+    .noProducts {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40vh;
+      h1 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #474242;
+      }
+    }
+    .error {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40vh;
+      h1 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #474242;
+      }
+    }
+    .byType_body {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-right: 60px;
+
+      justify-content: center;
+      margin-top: 60px;
+
+      gap: 30px;
+      .typeCard {
+        width: 150px;
+        height: 250px;
+        border-radius: 3px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.05);
+        }
+        img {
+          width: 100%;
+          height: 150px;
+        }
+        .typeText {
+          padding: 6px;
+          p {
+            font-size: 14px;
+            font-weight: 500;
+            font-family: Roboto;
+            color: #474242;
+          }
+        }
+      }
+    }
+    .type_product_footer {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      margin-top: 30px;
+      padding-left: 35px;
+      span {
+        font-size: 18px;
+        font-weight: 400;
+        font-family: Roboto;
+      }
+      .MuiPaginationItem-root.Mui-selected {
+        background-color: #7000ff !important;
+        color: #fff !important;
+        border-radius: 50% !important;
+      }
+    }
+  }
+}
+@media (max-width: 425px) {
+  .byType {
+    display: flex;
+    flex-direction: column;
+
+    background: #fff;
+    min-height: 100%;
+    width: 100%;
+
+    .byType_head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      flex-direction: column;
+      margin-top: 30px;
+      padding-left: 35px;
+      gap: 25px;
+      width: 92%;
+      .action {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        .rate {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        }
+        button {
+          text-transform: none;
+          background: #7000ff;
+          color: #fff;
+          border: none;
+          font-size: 18px;
+          font-family: Roboto;
+
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
+    }
+    .loadingSpinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: fixed;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 100;
+      .load {
+        position: absolute;
+        right: 50%;
+        top: 40%;
+      }
+    }
+    .noProducts {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40vh;
+      h1 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #474242;
+      }
+    }
+    .error {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40vh;
+      h1 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #474242;
+      }
+    }
+    .byType_body {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-right: 30px;
+      align-items: center;
+
+      justify-content: center;
+      margin-top: 60px;
+
+      gap: 30px;
+      .typeCard {
+        width: 90%;
+        height: 280px;
+        border-radius: 3px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.05);
+        }
+        img {
+          width: 100%;
+          height: 150px;
+        }
+        .typeText {
+          padding: 6px;
+          p {
+            font-size: 14px;
+            font-weight: 500;
+            font-family: Roboto;
+            color: #474242;
+          }
+        }
+      }
+    }
+    .type_product_footer {
+      display: flex;
+      align-items: start;
+      justify-content: start;
+      margin-top: 30px;
+      padding-left: 35px;
+      width: 100%;
+      flex-direction: column;
+      span {
+        text-align: left;
+        font-size: 18px;
+        font-weight: 400;
+        font-family: Roboto;
+        padding-bottom: 30px;
+        padding-left: 15px;
+      }
+      .MuiPaginationItem-root.Mui-selected {
+        background-color: #7000ff !important;
+        color: #fff !important;
+        border-radius: 50% !important;
+      }
+    }
+  }
+}

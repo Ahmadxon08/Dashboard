@@ -20,7 +20,7 @@ const Sidebar = () => {
     const handleResize = () => setIsWideScreen(window.innerWidth >= 768);
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Set initial value
+    handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);

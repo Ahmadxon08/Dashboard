@@ -143,7 +143,7 @@ const ProductsByType = () => {
           <ul className="byType_body">
             {(products || []).map((product) => (
               <li key={product._id} className="typeCard">
-                <Link to={`/single/${product._id}`}>
+                <Link>
                   <img src={product.photo} alt={product.category.title} />
                   <div className="typeText">
                     <p>{product.category.title}</p>

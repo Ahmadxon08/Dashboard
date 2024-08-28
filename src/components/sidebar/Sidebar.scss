@@ -87,7 +87,7 @@
 }
 
 .sidebar.closed {
-  transform: translateX(-100%); /* Slide out of view */
+  transform: translateX(-100%);
 }
 
 @media (max-width: 768px) {
@@ -99,7 +99,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    transform: translateX(-100%); /* Sidebarni ekrandan chiqarib yuborish */
+    transform: translateX(-100%);
     z-index: 22222;
     transition: transform 0.4s ease, width 0.4s ease;
     .left {
@@ -150,11 +150,11 @@
   .sidebar {
     display: flex;
     width: auto;
-    position: relative; // Change position to relative for larger screens
-    z-index: auto; // Reset z-index for larger screens
+    position: relative;
+    z-index: auto;
 
     .left {
-      width: 280px !important; // Default width for larger screens
+      width: 280px !important;
     }
   }
 }
