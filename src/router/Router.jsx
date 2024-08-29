@@ -3,14 +3,14 @@ import Header from "../components/header/Header";
 import Sidebar from "../components/sidebar/Sidebar";
 import "./Router.scss";
 import { Outlet, useLocation } from "react-router-dom";
+import Backtop from "../components/backtop/Backtop";
 
 const Router = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Har safar sahifa o'zgarganda scrollni yuqoriga qaytarish
     window.scrollTo(0, 0);
-  }, [location.pathname]); // location.pathname o'zgarishi bilan ishlaydi
+  }, [location.pathname]);
 
   return (
     <>
@@ -21,6 +21,7 @@ const Router = () => {
         </div>
         <div className="content1">
           <Outlet />
+          <Backtop />
         </div>
       </div>
     </>

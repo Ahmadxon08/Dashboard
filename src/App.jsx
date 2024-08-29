@@ -14,8 +14,6 @@ import SearchProducts from "./page/searchProducts/SearchProducts";
 import AllProducts from "./page/allproducts/AllProducts";
 import ProductsByType from "./page/productsByType/ProductsByType";
 import ProductsSearch from "./page/productsSearch/ProductsSearch";
-import Backtop from "./components/backtop/Backtop";
-// import SearchModal from "./components/search/Search";
 
 const App = () => {
   const isLogened = JSON.parse(localStorage.getItem("user")) !== null;
@@ -23,7 +21,6 @@ const App = () => {
   return (
     <>
       <div className="app">
-        <Backtop />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

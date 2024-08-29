@@ -40,9 +40,8 @@ const Sidebar = () => {
   }, [isWideScreen]);
 
   useEffect(() => {
-    window.scrollTo(0, 0); // sahifa yuqoriga scroll qiladi har safar URL o'zgarganda
-  }, [location]); // location o'zgarsa, scroll amalga oshadi
-
+    window.scrollTo(0, 0);
+  }, [location]);
   const toggleCategories = () => {
     setIsCategoriesOpen(!isCategoriesOpen);
   };
