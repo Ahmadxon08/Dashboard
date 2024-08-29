@@ -3,18 +3,21 @@ import { Button } from "@mui/material";
 import "./Sidebar.scss";
 import { GoHome } from "react-icons/go";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiUsers } from "react-icons/fi";
 import { BsCollection } from "react-icons/bs";
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
 import useMainStore from "../../store/useMainStore";
+
 const logo = "./assets/img/logo.png";
+
 const Sidebar = () => {
   const { t } = useTranslation();
   const [activeButton, setActiveButton] = useState("");
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 768);
   const sidebarRef = useRef(null);
+  const location = useLocation(); // bu yerda useLocation hookini olish kerak
 
   useEffect(() => {
     const handleResize = () => setIsWideScreen(window.innerWidth >= 768);
@@ -36,11 +39,16 @@ const Sidebar = () => {
     }
   }, [isWideScreen]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // sahifa yuqoriga scroll qiladi har safar URL o'zgarganda
+  }, [location]); // location o'zgarsa, scroll amalga oshadi
+
   const toggleCategories = () => {
     setIsCategoriesOpen(!isCategoriesOpen);
   };
 
   const handleButtonClick = (buttonName) => {
+    window.scrollTo(0, 0);
     localStorage.setItem("activeButton", buttonName);
     setActiveButton(buttonName);
   };

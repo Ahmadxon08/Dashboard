@@ -11,6 +11,8 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { IoStarSharp } from "react-icons/io5";
+
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import "./ProductsByType.scss";
@@ -144,9 +146,20 @@ const ProductsByType = () => {
             {(products || []).map((product) => (
               <li key={product._id} className="typeCard">
                 <Link>
-                  <img src={product.photo} alt={product.category.title} />
+                  <div className="img">
+                    <img src={product.photo} alt={product.category.title} />
+                  </div>
                   <div className="typeText">
-                    <p>{product.category.title}</p>
+                    <h2>{product.category.title}</h2>
+                    <p>
+                      {product.title.length > 30
+                        ? product.title.slice(0, 30) + "..."
+                        : product.title}
+                    </p>
+                    <span>
+                      <IoStarSharp color="#F5A623" />
+                      {product.rating}
+                    </span>
                   </div>
                 </Link>
               </li>

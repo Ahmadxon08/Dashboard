@@ -11,7 +11,9 @@
   background-color: rgba(236, 235, 234, 0.747) !important;
   width: 100%;
   height: 100vh;
-  overflow-y: hidden;
+  overflow: hidden;
+  overflow-y: auto !important;
+  scroll-behavior: smooth; /* Smooth scrolling effect */
 }
 @media (max-width: 768px) {
   .app {
@@ -21,7 +23,6 @@
     background-color: rgba(236, 235, 234, 0.747) !important;
     width: 100%;
     height: 100%;
-    overflow: hidden;
   }
 }
 .container1 {
