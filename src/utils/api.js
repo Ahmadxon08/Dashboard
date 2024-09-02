@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const main_url = "http://65.1.136.0:5050/api/";
+export const main_url = "http://65.1.136.0:5050/api/";
 
 // Fetch all users
 export const fetchUsers = async () => {
@@ -56,4 +56,18 @@ export const fetchCategories = async (pathDepth, pageNum) => {
     pageNum,
   });
   return res.data;
+};
+export const verifyUser = async (userData) => {
+  try {
+    const { data } = await axios.post(`${main_url}verifyuser`, userData);
+    return data;
+  } catch (error) {
+    console.error(
+      "Xato yuz berdi:",
+      error.response ? error.response.data : error.message
+    );
+    throw error.response
+      ? error.response.data
+      : new Error("Noma'lum xatolik yuz berdi");
+  }
 };

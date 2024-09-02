@@ -1,20 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
-import { motion } from "framer-motion";
 import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import useEye from "../../hooks/useEye";
 import { useSnackbar } from "notistack";
+import axios from "axios";
+import { loginValidationSchema } from "../validation/LoginValidation";
+import { main_url } from "../../utils/api";
+import { motion } from "framer-motion";
 
-const userPc = "./assets/img/userLogin.png";
+const userPc = "./assets/img/loginn.jpg";
+const loginleft = "./assets/img/loginLeft.png";
 
 const Login = () => {
   const navigate = useNavigate();
   const { inputType, icon } = useEye();
-  const [isPending, setIsPending] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -23,39 +24,35 @@ const Login = () => {
       username: "",
       password: "",
     },
-    validationSchema: Yup.object({
-      username: Yup.string()
-        .required("Username is required")
-        .min(3, "Username must be at least 3 characters long")
-        .matches(
-          /^[a-zA-Z0-9]+$/,
-          "Username must contain only alphanumeric characters"
-        ),
-      password: Yup.string()
-        .required("Password is required")
-        .min(8, "Password must be at least 8 characters long")
-        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-        .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-        .matches(/[0-9]/, "Password must contain at least one number")
-        .matches(
-          /[@$!%*?&]/,
-          "Password must contain at least one special character"
-        ),
-    }),
-    onSubmit: (values) => {
-      setIsPending(true);
-      setTimeout(() => {
-        if (values.username && values.password) {
-          localStorage.setItem("user", JSON.stringify(values));
+    validationSchema: loginValidationSchema,
+
+    onSubmit: async (values) => {
+      try {
+        const res = await axios.post(`${main_url}verifyuser`, {
+          userName: values.username,
+          passWord: values.password,
+        });
+
+        if (res.data?.verifyResult === "passed" && res.data?.token) {
+          localStorage.setItem("token", res.data.token);
+          enqueueSnackbar("Login successful!", { variant: "success" });
           navigate("/");
+        } else {
+          enqueueSnackbar("Invalid username or password, please try again.", {
+            variant: "error",
+          });
         }
-        setIsPending(false);
-      }, 3000);
+      } catch (error) {
+        enqueueSnackbar("Something went wrong, please try again.", {
+          variant: "error",
+        });
+      }
     },
   });
 
   const { values, handleChange, handleSubmit, handleBlur, errors, touched } =
     formik;
+
   const handlePaste = (e) => {
     e.preventDefault();
     enqueueSnackbar("Pasting is not allowed", { variant: "error" });
@@ -63,50 +60,24 @@ const Login = () => {
 
   return (
     <div className="login">
-      <div className="loginBg">
-        <motion.div
-          className="ball1"
-          animate={{
-            x: ["0%", "90%", "0%"],
-            y: ["25%", "0%", "25%"],
-          }}
-          transition={{
-            duration: 9,
-            repeat: Infinity,
-            repeatType: "loop",
-          }}></motion.div>
-        <motion.div
-          className="ball2"
-          animate={{ y: ["10%", "100%", "10%"] }}
-          transition={{ duration: 7, repeat: Infinity }}></motion.div>
-        <motion.div
-          className="ball3"
-          animate={{ y: ["0%", "90%", "0%"], x: ["10%", "80%", "10%"] }}
-          transition={{ duration: 9, repeat: Infinity }}></motion.div>
-        <motion.div
-          className="ball4"
-          animate={{ x: ["75%", "10%", "75%"], y: ["20%", "100%", "20%"] }}
-          transition={{ duration: 8, repeat: Infinity }}></motion.div>
-      </div>
+      <div className="loginBg"></div>
       <div className="login_body">
-        <div className="img">
-          {isPending ? (
-            <div className="pend">
-              <span>
-                Please wait, you will be redirected{" "}
-                <span className="span2"> to the home</span> page shortly...
-              </span>
-            </div>
-          ) : (
-            <p>
-              Wel<span>come</span> back!...
-            </p>
-          )}
-        </div>
-        <div className="loginForm">
+        <motion.div
+          className="img"
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1 }}>
+          <img src={loginleft} alt="login" />
+        </motion.div>
+        <motion.div
+          className="loginForm"
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1 }}>
           <form onSubmit={handleSubmit}>
             <div className="form1">
               <img src={userPc} alt="user" />
+              <h2>Log in</h2>
 
               <div className="input">
                 <label htmlFor="username">Username</label>
@@ -124,6 +95,7 @@ const Login = () => {
                     width: "82%",
                   }}
                 />
+
                 <span className="err">
                   {touched.username && errors.username}
                 </span>
@@ -156,7 +128,7 @@ const Login = () => {
                 type="submit"
                 variant="contained"
                 className="glow-on-hover">
-                Log In
+                {"Log In"}
               </Button>
 
               <div className="singUp1">
@@ -166,7 +138,7 @@ const Login = () => {
               </div>
             </div>
           </form>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
