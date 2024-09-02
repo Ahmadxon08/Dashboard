@@ -44,9 +44,9 @@ const Categories = () => {
 
   // Rating uchun ranglarni hisoblash
   const getStarColor = (rating) => {
-    if (rating >= 4.5) return "gold"; // 4.5 va yuqori uchun oltin
-    if (rating >= 3) return "orange"; // 3 - 4.5 oralig'i uchun apelsin
-    return "gray"; // 3 dan past uchun kulrang
+    if (rating >= 4.5) return "gold";
+    if (rating >= 3) return "orange";
+    return "gray";
   };
 
   return (

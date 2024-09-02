@@ -8,18 +8,17 @@ const Backtop = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShow(true);
-      } else {
-        setShow(false);
-      }
+      setShow(window.scrollY > 300);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => {
+  const scrollToTop = (e) => {
+    e.stopPropagation(); // Tashqi elementlarga hodisani yuborishni to'xtatadi
+    e.preventDefault(); // Brauzerning default hodisasini to'xtatadi (masalan, form submit)
+
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -29,7 +28,10 @@ const Backtop = () => {
   return (
     show && (
       <div className="backtop">
-        <Button onClick={scrollToTop} className="backtop-button">
+        <Button
+          onClick={scrollToTop}
+          className="backtop-button"
+          aria-label="Scroll to top">
           <ArrowUpward />
         </Button>
       </div>

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const useStore = create((set, get) => ({
+const useAllCategoriesStore = create((set, get) => ({
   categories: [],
   pageNum: 1,
   pathDepth: 2,
@@ -13,8 +13,8 @@ const useStore = create((set, get) => ({
     set({ loading: true });
     try {
       const response = await axios.post("http://65.1.136.0:5050/api/category", {
-        jss: { pathDepth: get().pathDepth }, // `get` yordamida pathDepth qiymatini olish
-        pageNum: get().pageNum.toString(), // `get` yordamida pageNum qiymatini olish
+        jss: { pathDepth: get().pathDepth },
+        pageNum: get().pageNum.toString(),
       });
       set({
         categories: response.data.payLoad || [],
@@ -28,12 +28,14 @@ const useStore = create((set, get) => ({
   },
 
   setPageNum: (pageNum) => {
-    set({ pageNum }, get().fetchCategories); // `get` yordamida fetchCategories funksiyasini chaqirish
+    set({ pageNum });
+    get().fetchCategories();
   },
 
   setPathDepth: (pathDepth) => {
-    set({ pathDepth, pageNum: 1 }, get().fetchCategories); // `get` yordamida fetchCategories funksiyasini chaqirish
+    set({ pathDepth, pageNum: 1 });
+    get().fetchCategories();
   },
 }));
 
-export default useStore;
+export default useAllCategoriesStore;

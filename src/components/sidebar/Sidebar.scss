@@ -72,11 +72,31 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        a {
-          button {
+        .action {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          width: 100%; /* Har bir .action elementning kengligi */
+          a {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%; /* Har bir a elementning kengligi */
+            text-decoration: none;
+            button {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start; /* Tugmadagi elementlar boshlanishda joylashadi */
+              width: 100%; /* Tugmaning kengligi */
+              span {
+                font-family: Roboto;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 14.52px;
+                text-align: left;
+                width: 100%;
+                padding-left: 70px; /* Span ichidagi matnning chapdan masofasi */
+                margin-bottom: 5px;
+              }
+            }
           }
         }
       }

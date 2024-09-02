@@ -65,6 +65,14 @@ const ProductsByType = () => {
       });
     }
   };
+  const totalLines = [
+    {
+      value: "Product",
+    },
+    {
+      value: "Product1",
+    },
+  ];
 
   const totalPages = Math.ceil(total / 20);
   console.log(products);
@@ -125,6 +133,17 @@ const ProductsByType = () => {
           <Button onClick={handleFilterSubmitClick}>{t("filter.apply")}</Button>
         </div>
       </div>
+      <div className="linebar">
+        <div className="total">total: {total} products</div>
+
+        <div className="row1">
+          {totalLines.map((itm, index) => (
+            <Button key={index + 1} variant="text">
+              {itm.value}
+            </Button>
+          ))}
+        </div>
+      </div>
 
       {loading ? (
         <div className="loadingSpinner">
@@ -150,12 +169,20 @@ const ProductsByType = () => {
                     <img src={product.photo} alt={product.category.title} />
                   </div>
                   <div className="typeText">
-                    <h2>{product.category.title}</h2>
+                    <h2>
+                      {product.category.title > 20
+                        ? product.category.title.slice(0, 20) + "..."
+                        : product.category.title}
+                    </h2>
                     <p>
-                      {product.title.length > 30
-                        ? product.title.slice(0, 30) + "..."
-                        : product.title}
+                      {product.description.length > 30
+                        ? product.description.slice(0, 30) + "..."
+                        : product.description}
                     </p>
+                    <div className="price">
+                      <span> {product.skuList[0]?.fullPrice}</span>{" "}
+                      <span>sum</span>
+                    </div>
                     <span>
                       <IoStarSharp color="#F5A623" />
                       {product.rating}

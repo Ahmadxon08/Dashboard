@@ -12,6 +12,32 @@
     margin-top: 30px;
     padding-left: 35px;
     width: 92%;
+    .head_link_body {
+      display: flex;
+      align-items: center;
+      .head_link {
+        display: flex;
+        align-items: center;
+        img {
+          display: none;
+          width: 20px;
+          height: 20px;
+          margin-right: 10px;
+        }
+        p {
+          font-size: 14px;
+          font-weight: bold;
+          font-family: Roboto;
+          color: #4d4f59;
+          padding: 7px 0 6px;
+          text-align: start;
+          cursor: pointer;
+          padding-right: 10px;
+          letter-spacing: -0.02em;
+        }
+      }
+    }
+
     h1 {
       font-size: 30px;
       font-weight: bold;

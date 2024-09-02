@@ -39,6 +39,34 @@
       }
     }
   }
+  .linebar {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: start;
+    padding: 0 40px;
+    gap: 8px;
+    .total {
+      display: block;
+      font-size: 24px;
+      font-weight: 400;
+      color: #474242;
+      font-family: Roboto;
+    }
+    .row1 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      button {
+        font-size: 14px;
+        font-weight: 500;
+        color: #474242;
+        background-color: #d4cbcb;
+        font-family: Roboto;
+        padding: 6px 10px;
+      }
+    }
+  }
   .loadingSpinner {
     display: flex;
     justify-content: center;
@@ -88,7 +116,7 @@
     gap: 20px;
     .typeCard {
       width: 230px;
-      height: 430px;
+      height: 435px;
       overflow: hidden;
       border-radius: 12px;
       margin: 3px;
@@ -116,6 +144,11 @@
         flex-direction: column;
         padding: 5px;
         padding-top: 10px;
+        .price {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
         h2 {
           font-size: 14px;
           font-weight: 500;

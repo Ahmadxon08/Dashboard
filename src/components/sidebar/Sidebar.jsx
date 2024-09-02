@@ -8,6 +8,7 @@ import { FiUsers } from "react-icons/fi";
 import { BsCollection } from "react-icons/bs";
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
 import useMainStore from "../../store/useMainStore";
+import { motion } from "framer-motion";
 
 const logo = "./assets/img/logo.png";
 
@@ -17,7 +18,7 @@ const Sidebar = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 768);
   const sidebarRef = useRef(null);
-  const location = useLocation(); // bu yerda useLocation hookini olish kerak
+  const location = useLocation();
 
   useEffect(() => {
     const handleResize = () => setIsWideScreen(window.innerWidth >= 768);
@@ -52,10 +53,22 @@ const Sidebar = () => {
     setActiveButton(buttonName);
   };
 
-  const categories = [
-    { name: `${t("categories.allProducts")}`, path: "AllProducts" },
-    { name: `${t("filter.goodsType")}`, path: "productsByType" },
-    { name: "ProductsSearch 4", path: "/productsSearch" },
+  const categoriess = [
+    { name: "Электроника", path: "productsByType" },
+    { name: "Бытовая техника", path: "productCategories" },
+    { name: "Одежда", path: "AllProducts" },
+    { name: "Аксессуары", path: "productsByType" },
+    { name: "Красота и уход", path: "productsByType" },
+    { name: "Здоровье", path: "productsByType" },
+    { name: "Товары для дома", path: "productsByType" },
+    { name: "Строительство и ремонт", path: "productsByType" },
+    { name: "Автотовары", path: "productsByType" },
+    { name: "Детские товары", path: "productsByType" },
+    { name: "Хобби и творчество", path: "productsByType" },
+    { name: "Спорт и отдых", path: "productsByType" },
+    { name: "Продукты питания", path: "productsByType" },
+    { name: "Бытовая химия", path: "productsByType" },
+    { name: "Канцтовары", path: "productsByType" },
   ];
 
   const { handleCloseSidebar, handleOpenSidebar, openSidebar } = useMainStore(
@@ -146,28 +159,34 @@ const Sidebar = () => {
 
           {isCategoriesOpen && (
             <div className="categoriesMenu">
-              {categories.map((category) => (
-                <Link
-                  to={category.path}
+              {categoriess.slice(0, 17).map((category, index) => (
+                <motion.div
+                  className="action"
                   key={category.name}
-                  onClick={() => handleButtonClick(category.name)}>
-                  <Button
-                    sx={{
-                      background:
-                        activeButton === category.name
-                          ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
-                          : "inherit",
-                      color: "#fff",
-                    }}>
-                    <span
-                      style={{
-                        color:
-                          activeButton === category.name ? "#7000ff" : "#fff",
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}>
+                  <Link
+                    to={category.path}
+                    onClick={() => handleButtonClick(category.name)}>
+                    <Button
+                      sx={{
+                        background:
+                          activeButton === category.name
+                            ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                            : "inherit",
+                        color: "#fff",
                       }}>
-                      {category.name}
-                    </span>
-                  </Button>
-                </Link>
+                      <span
+                        style={{
+                          color:
+                            activeButton === category.name ? "#7000ff" : "#fff",
+                        }}>
+                        {category.name}
+                      </span>
+                    </Button>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           )}
