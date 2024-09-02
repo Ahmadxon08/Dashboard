@@ -36,7 +36,6 @@ const Table1 = () => {
   const handlePageChange = (event, pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  console.log(items);
 
   ///pagination
   const indexOfLastProduct = currentPage * itemsPerPage;

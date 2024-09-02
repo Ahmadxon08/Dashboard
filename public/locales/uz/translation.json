@@ -28,14 +28,39 @@
     "validationError": "Tekshiruv xatoligi"
   },
   "categories": {
-    "allProducts": "Barcha mahsulotlar",
+    "allProducts": "Barcha Mahsulotlar",
     "electronics": "Elektronika",
-    "clothes": "Kiymatlar",
+    "clothes": "Oyoq kiyim",
     "books": "Kitoblar",
-    "homeAppliances": "Uy jihozlari",
-    "search": "Qidirish",
-    "searchPlaceholder": "Qidirish...",
-    "section": "Bo'lim"
+    "homeAppliances": "Uy Texnikasi",
+    "search": "Qidiruv",
+    "searchPlaceholder": "Qidiruv...",
+    "totalItems": "Umumiy mahsulotlar soni: {{count}}",
+    "section": "Bo'lim",
+    "childCategory": {
+      "electronics": "Elektronika",
+      "homeAppliances": "Uy jihozlari",
+      "shoes": "Poyabzallar",
+
+      "clothes": "Kiyim-kechak",
+      "accessories": "Aksessuarlar",
+      "beautyAndCare": "Go'zallik & G'amxo'rlik",
+      "health": "Sog'liq",
+      "homeGoods": "Uy anjomlari",
+      "constructionAndRepair": "Qurilish",
+      "autoGoods": "Avtomobil",
+      "kidsGoods": "Bolalar",
+      "hobbiesAndCreativity": "Hobbi",
+      "sportsAndLeisure": "Sport",
+      "foodProducts": "Oziq-ovqat",
+      "householdChemicals": "Tozalash",
+      "stationery": "Kantoren",
+      "booksCategory": "Kitoblar",
+      "zooItems": "Hayvonlar uchun mahsulotlar",
+
+      "dachaGarden": "Dacha",
+      "rehabilitationGoods": "Reabilitatsiya"
+    }
   },
   "filter": {
     "rating": "Reyting",

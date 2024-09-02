@@ -9,7 +9,8 @@ import { BsCollection } from "react-icons/bs";
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
 import useMainStore from "../../store/useMainStore";
 import { motion } from "framer-motion";
-import { categoriess } from "../../utils/data";
+import useData from "../../utils/data";
+import useCategoryStore from "../../store/useCategoryStore";
 
 const logo = "./assets/img/logo.png";
 
@@ -20,7 +21,17 @@ const Sidebar = () => {
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 768);
   const sidebarRef = useRef(null);
   const location = useLocation();
-
+  const { categories } = useData();
+  const { fetchProductsByCategoryId, setSelectedCategoryId } = useCategoryStore(
+    (state) => ({
+      fetchProductsByCategoryId: state.fetchProductsByCategoryId,
+      setSelectedCategoryId: state.setSelectedCategoryId,
+    })
+  );
+  const handleCategoryClick = (id) => {
+    setSelectedCategoryId(id);
+    fetchProductsByCategoryId(id, 1); // 1-sahifani yuklash
+  };
   useEffect(() => {
     const handleResize = () => setIsWideScreen(window.innerWidth >= 768);
 
@@ -142,7 +153,7 @@ const Sidebar = () => {
 
           {isCategoriesOpen && (
             <div className="categoriesMenu">
-              {categoriess.slice(0, 20).map((category, index) => (
+              {categories.slice(0, 20).map((category, index) => (
                 <motion.div
                   className="action"
                   key={category.name}
@@ -153,6 +164,7 @@ const Sidebar = () => {
                     to={category.path}
                     onClick={() => handleButtonClick(category.name)}>
                     <Button
+                      onClick={() => handleCategoryClick(category.id)}
                       sx={{
                         background:
                           activeButton === category.name

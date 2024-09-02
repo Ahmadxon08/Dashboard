@@ -35,7 +35,30 @@
     "homeAppliances": "Home Appliances",
     "search": "Search",
     "searchPlaceholder": "Search...",
-    "section": "Section"
+    "section": "Section",
+    "totalItems": "Total items: {{count}}",
+    "childCategory": {
+      "electronics": "Electro",
+      "homeAppliances": "Appliances",
+      "clothes": "Clothes",
+      "shoes": "Shoes",
+      "accessories": "Accessories",
+      "beautyAndCare": "Beauty & Care",
+      "health": "Health",
+      "homeGoods": "Home Items",
+      "constructionAndRepair": "DIY & Repair",
+      "autoGoods": "Auto Goods",
+      "kidsGoods": "Kids Goods",
+      "hobbiesAndCreativity": "Hobbies & Art",
+      "sportsAndLeisure": "Sports & Fun",
+      "foodProducts": "Foodstuff",
+      "householdChemicals": "Cleaning Products",
+      "stationery": "Stationery",
+      "zooItems": "Zoo Items",
+      "booksCategory": "Books",
+      "dachaGarden": "Dacha & Garden",
+      "rehabilitationGoods": "Rehab Goods"
+    }
   },
   "filter": {
     "rating": "Rating",

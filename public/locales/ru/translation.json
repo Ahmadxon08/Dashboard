@@ -25,27 +25,50 @@
     "addError": "Ошибка добавления пользователя",
     "editError": "Ошибка обновления пользователя",
     "deleteError": "Ошибка удаления пользователя",
-    "validationError": "Ошибка валидации"
+    "validationError": "Ошибка проверки"
   },
   "categories": {
-    "allProducts": "Все продукты",
+    "allProducts": "Все товары",
+    "totalItems": "Всего товаров: {{count}}",
     "electronics": "Электроника",
     "clothes": "Одежда",
     "books": "Книги",
     "homeAppliances": "Бытовая техника",
     "search": "Поиск",
     "searchPlaceholder": "Поиск...",
-    "section": "Раздел"
+    "section": "Раздел",
+    "childCategory": {
+      "electronics": "Электроника",
+      "homeAppliances": "Бытовая техника",
+      "shoes": "Обувь",
+      "clothes": "Одежда",
+      "accessories": "Аксессуары",
+      "beautyAndCare": "Красота и уход",
+      "health": "Здоровье",
+      "homeGoods": "Домашние товары",
+      "constructionAndRepair": "Строительство",
+      "autoGoods": "Авто",
+      "kidsGoods": "Детские товары",
+      "hobbiesAndCreativity": "Хобби",
+      "sportsAndLeisure": "Спорт",
+      "foodProducts": "Продукты питания",
+      "householdChemicals": "Чистящие средства",
+      "stationery": "Канцелярские товары",
+      "booksCategory": "Книги",
+      "zooItems": "Товары для животных",
+      "dachaGarden": "Дача",
+      "rehabilitationGoods": "Реабилитация"
+    }
   },
   "filter": {
     "rating": "Рейтинг",
-    "ecoFriendly": "Экологичный",
+    "ecoFriendly": "Экологически чистый",
     "apply": "Применить",
-    "goodsType": "Тип товара"
+    "goodsType": "Тип товаров"
   },
   "error": {
-    "fetchError": "Произошла ошибка при получении данных.",
-    "productNotFound": "Товары не найдены."
+    "fetchError": "Ошибка получения данных.",
+    "productNotFound": "Товар не найден."
   },
   "sidebar": {
     "home": "Главная",
@@ -54,7 +77,7 @@
     "users": "Пользователи"
   },
   "mainContent": {
-    "productName": "Название продукта",
+    "productName": "Название товара",
     "storeName": "Название магазина",
     "price": "Цена",
     "orderBy": "Сортировать по",
@@ -64,8 +87,8 @@
     "pageOf": "Страница {{currentPage}} из {{totalPages}}"
   },
   "dialog": {
-    "deleteTitle": "Вы хотите удалить этого пользователя?",
-    "deleteMessage": "Удаление этого пользователя навсегда удалит его данные. Вы уверены, что хотите продолжить?",
+    "deleteTitle": "Вы уверены, что хотите удалить этого пользователя?",
+    "deleteMessage": "Удаление этого пользователя навсегда удалит его данные. Вы хотите продолжить?",
     "cancel": "Отмена",
     "delete": "Удалить"
   }
