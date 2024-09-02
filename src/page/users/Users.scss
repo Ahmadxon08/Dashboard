@@ -1,8 +1,9 @@
 .user {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   background-color: white;
-  height: 100vh;
-
+  min-height: 90vh;
   .user_head {
     display: flex;
     align-items: center;
@@ -17,7 +18,7 @@
   }
   .user_body {
     margin: 0 auto;
-    width: 60%;
+    width: 100%;
     padding: 0 60px;
     .MuiPaginationItem-root.Mui-selected {
       background-color: #7000ff !important;

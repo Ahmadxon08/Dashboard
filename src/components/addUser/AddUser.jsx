@@ -1,22 +1,22 @@
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
-// import { useApiContext } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, CircularProgress, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
 import "./AddUser.scss";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import useStore from "../../store/useStore";
+import useEye from "../../hooks/useEye";
 
 const AddUserCm = () => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  // const { showAddUser, addUser, handleAddCloser, checkUserExists } =
-  //   useApiContext();
 
+  const { inputType3, icon3 } = useEye();
   const { showAddUser, addUser, handleAddCloser, checkUserExists } = useStore(
     (state) => ({
       showAddUser: state.showAddUser,
@@ -95,18 +95,23 @@ const AddUserCm = () => {
             </span>
           </div>
           <div className="input">
-            <TextField
-              type="password"
-              id="passWord"
-              name="passWord"
-              label={t("header.password")}
-              variant="outlined"
-              onBlur={formik.handleBlur}
-              error={formik.touched.passWord && Boolean(formik.errors.passWord)}
-              value={formik.values.passWord}
-              onChange={formik.handleChange}
-              style={{ marginBottom: "20px", width: "80%" }}
-            />
+            <div className="eye">
+              <TextField
+                type={inputType3}
+                id="passWord"
+                name="passWord"
+                label={t("header.password")}
+                variant="outlined"
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.passWord && Boolean(formik.errors.passWord)
+                }
+                value={formik.values.passWord}
+                onChange={formik.handleChange}
+                style={{ marginBottom: "20px", width: "80%" }}
+              />
+              <span>{icon3}</span>
+            </div>
             <span className="err">
               {formik.touched.passWord && formik.errors.passWord}
             </span>

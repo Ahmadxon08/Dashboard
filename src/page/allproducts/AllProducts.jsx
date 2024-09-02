@@ -14,7 +14,6 @@ const AllProducts = () => {
   const [pathDepth, setPathDepth] = useState(2);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [categoryId, setCategoryId] = useState(10020); // Dynamic category ID
   const itemsPerPage = 20;
 
   useEffect(() => {
@@ -24,13 +23,10 @@ const AllProducts = () => {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://65.1.136.0:5050/api/productsByType",
-        {
-          jss: { "category.id": categoryId }, // Use dynamic category ID
-          pageNum: pageNum.toString(),
-        }
-      );
+      const response = await axios.post("http://65.1.136.0:5050/api/category", {
+        jss: { pathDepth },
+        pageNum: pageNum.toString(),
+      });
       setCategories(response.data.payLoad);
       setTotalPages(Math.ceil(response.data.total / itemsPerPage));
     } catch (error) {
@@ -42,15 +38,12 @@ const AllProducts = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, [pageNum, pathDepth, categoryId]); // Add categoryId to dependency array
+  }, [pageNum, pathDepth]);
 
   const handlePageChange = (event, newPage) => {
     setPageNum(newPage);
   };
 
-  const handleCategoryChange = (event) => {
-    setCategoryId(parseInt(event.target.value));
-  };
   console.log(categories);
 
   return (
@@ -132,26 +125,6 @@ const AllProducts = () => {
             <InputLabel id="category-select-label">
               {t("categories.category")}
             </InputLabel>
-            <Select
-              labelId="category-select-label"
-              id="category-select"
-              value={categoryId}
-              onChange={handleCategoryChange}
-              label={t("categories.category")}
-              sx={{
-                textAlign: "center",
-                color: "#7000ff",
-                "& .MuiInput-underline:before": {
-                  borderBottomColor: "#7000ff",
-                },
-                "& .MuiInput-underline:hover:before": {
-                  borderBottomColor: "#7000ff",
-                },
-              }}>
-              <MenuItem value={14070}>Electronics</MenuItem>
-              <MenuItem value={10021}>Furniture</MenuItem>
-              <MenuItem value={10022}>Clothing</MenuItem>
-            </Select>
           </FormControl>
         </Box>
       </div>

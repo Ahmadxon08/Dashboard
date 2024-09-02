@@ -9,6 +9,7 @@ import { BsCollection } from "react-icons/bs";
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
 import useMainStore from "../../store/useMainStore";
 import { motion } from "framer-motion";
+import { categoriess } from "../../utils/data";
 
 const logo = "./assets/img/logo.png";
 
@@ -52,24 +53,6 @@ const Sidebar = () => {
     localStorage.setItem("activeButton", buttonName);
     setActiveButton(buttonName);
   };
-
-  const categoriess = [
-    { name: "Электроника", path: "productsByType" },
-    { name: "Бытовая техника", path: "productCategories" },
-    { name: "Одежда", path: "AllProducts" },
-    { name: "Аксессуары", path: "productsByType" },
-    { name: "Красота и уход", path: "productsByType" },
-    { name: "Здоровье", path: "productsByType" },
-    { name: "Товары для дома", path: "productsByType" },
-    { name: "Строительство и ремонт", path: "productsByType" },
-    { name: "Автотовары", path: "productsByType" },
-    { name: "Детские товары", path: "productsByType" },
-    { name: "Хобби и творчество", path: "productsByType" },
-    { name: "Спорт и отдых", path: "productsByType" },
-    { name: "Продукты питания", path: "productsByType" },
-    { name: "Бытовая химия", path: "productsByType" },
-    { name: "Канцтовары", path: "productsByType" },
-  ];
 
   const { handleCloseSidebar, handleOpenSidebar, openSidebar } = useMainStore(
     (state) => ({
@@ -159,7 +142,7 @@ const Sidebar = () => {
 
           {isCategoriesOpen && (
             <div className="categoriesMenu">
-              {categoriess.slice(0, 17).map((category, index) => (
+              {categoriess.slice(0, 20).map((category, index) => (
                 <motion.div
                   className="action"
                   key={category.name}
@@ -213,7 +196,7 @@ const Sidebar = () => {
               </span>
             </Button>
           </Link>
-
+          {/* 
           <Link to="/searchpro" onClick={() => handleButtonClick("searchpro")}>
             <Button
               style={{
@@ -235,7 +218,7 @@ const Sidebar = () => {
                 {t("sidebar.searchpro")}
               </span>
             </Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="rigth" onClick={handleCloseSidebar}></div>

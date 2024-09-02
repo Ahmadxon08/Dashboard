@@ -111,45 +111,6 @@ const useStore = create((set) => ({
     }
   },
 
-  // Get all Products
-  fetchAllProducts: async () => {
-    set({ loading: true, error: null });
-    try {
-      const products = await allProducts();
-      set({ products });
-    } catch (error) {
-      set({ error: error.message });
-    } finally {
-      set({ loading: false });
-    }
-  },
-
-  // Search products by name with pagination
-  fetchProductsByName: async (searchText, pageNum) => {
-    set({ loading: true, error: null });
-    try {
-      const response = await fetch(
-        `/api/http://65.1.136.0:5050/api/productsByName`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: searchText, pageNum }),
-        }
-      );
-      const data = await response.json();
-      if (data && data.payLoad) {
-        set({ productsByName: data.payLoad });
-      } else {
-        set({ productsByName: [] });
-      }
-    } catch (error) {
-      console.log(error);
-      set({ error: error.message });
-    } finally {
-      set({ loading: false });
-    }
-  },
-
   // Search products by type with pagination
   fetchProductsByType: async (rating, isEco, pageNum) => {
     set({ loading: true, error: null });
@@ -180,7 +141,7 @@ const useStore = create((set) => ({
 
       set({
         categories: res.data.payLoad,
-        totalPages, // totalPages ni to'g'ri qiymat bilan yangilang
+        totalPages,
       });
     } catch (error) {
       console.log(error);
@@ -202,10 +163,12 @@ const useStore = create((set) => ({
   handleDeleteOpen: () => set({ openDel: true }),
   handleDeleteClose: () => set({ openDel: false }),
 
+  /////show edit
   handleShowEditUser: (user) => set({ showEditUser: true }),
   handleEditOpen: () => set({ openEdit: true }),
   handleEditClose: () => set({ openEdit: false }),
-
+  ///////show Add
+  handleShowAddUser: () => set({ showAddUser: true }),
   handleAddCloser: () => set({ showAddUser: false }),
 }));
 

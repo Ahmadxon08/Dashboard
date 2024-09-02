@@ -6,9 +6,9 @@ import { useFormik } from "formik";
 import useEye from "../../hooks/useEye";
 import { useSnackbar } from "notistack";
 import axios from "axios";
-import { loginValidationSchema } from "../validation/LoginValidation";
 import { main_url } from "../../utils/api";
 import { motion } from "framer-motion";
+import { loginValidationSchema } from "../validation";
 
 const userPc = "./assets/img/loginn.jpg";
 const loginleft = "./assets/img/loginLeft.png";

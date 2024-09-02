@@ -13,12 +13,12 @@ import EditUserCm from "../../components/editUser/EditUser";
 const Users = () => {
   const { t } = useTranslation();
 
-  const { handleDeleteOpen, handleAddUser, allUsers, handleEditOpen } =
+  const { handleDeleteOpen, handleShowAddUser, allUsers, handleEditOpen } =
     useStore((state) => ({
       allUsers: state.allUsers,
       handleEditOpen: state.handleEditOpen,
       handleDeleteOpen: state.handleDeleteOpen,
-      handleAddUser: state.handleShow,
+      handleShowAddUser: state.handleShowAddUser,
     }));
 
   const itemsPerPage = 6;
@@ -37,13 +37,13 @@ const Users = () => {
   const pageNumbers = Math.ceil(allUsers.length / itemsPerPage);
 
   return (
-    <div>
-      <div className="user">
+    <div className="user">
+      <div>
         <div className="user_head">
           <h2>{t("users.usersList")}</h2>
           <Button
             variant="text"
-            onClick={handleAddUser}
+            onClick={handleShowAddUser}
             style={{
               backgroundColor: "#7000ff",
               color: "#fff",
