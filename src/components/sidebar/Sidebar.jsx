@@ -30,7 +30,7 @@ const Sidebar = () => {
   );
   const handleCategoryClick = (id) => {
     setSelectedCategoryId(id);
-    fetchProductsByCategoryId(id, 1); // 1-sahifani yuklash
+    fetchProductsByCategoryId(id, 1);
   };
   useEffect(() => {
     const handleResize = () => setIsWideScreen(window.innerWidth >= 768);
@@ -72,6 +72,16 @@ const Sidebar = () => {
       openSidebar: state.openSidebar,
     })
   );
+  useEffect(() => {
+    if (openSidebar) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [openSidebar]);
 
   return (
     <div
@@ -161,7 +171,7 @@ const Sidebar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}>
                   <Link
-                    to={category.path}
+                    to={`/products?text=${encodeURIComponent(category.name)}`}
                     onClick={() => handleButtonClick(category.name)}>
                     <Button
                       onClick={() => handleCategoryClick(category.id)}
@@ -208,29 +218,6 @@ const Sidebar = () => {
               </span>
             </Button>
           </Link>
-          {/* 
-          <Link to="/searchpro" onClick={() => handleButtonClick("searchpro")}>
-            <Button
-              style={{
-                background:
-                  activeButton === "searchpro"
-                    ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
-                    : "inherit",
-              }}>
-              <GoHome
-                size={24}
-                style={{
-                  color: activeButton === "searchpro" ? "#7000ff" : "#fff",
-                }}
-              />
-              <span
-                style={{
-                  color: activeButton === "searchpro" ? "#7000ff" : "#fff",
-                }}>
-                {t("sidebar.searchpro")}
-              </span>
-            </Button>
-          </Link> */}
         </div>
       </div>
       <div className="rigth" onClick={handleCloseSidebar}></div>

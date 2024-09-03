@@ -6,6 +6,7 @@
   bottom: 0;
   top: 0;
   left: 0;
+  scroll-behavior: auto;
 
   .left {
     display: flex;
@@ -86,6 +87,9 @@
               align-items: center;
               justify-content: flex-start;
               width: 100%;
+              padding: 0;
+              height: 30px;
+              padding-left: 15px;
               span {
                 font-family: Roboto;
                 font-size: 14px;
@@ -94,7 +98,7 @@
                 text-align: left;
                 width: 100%;
                 padding-left: 60px;
-                margin-bottom: 5px;
+                margin-bottom: 0px;
               }
             }
           }

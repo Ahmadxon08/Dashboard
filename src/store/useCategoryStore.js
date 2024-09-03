@@ -18,7 +18,10 @@ const useCategoryStore = create((set, get) => ({
     get().fetchProductsByCategoryId(get().selectedCategoryId);
   },
 
-  fetchProductsByCategoryId: async (categoryId, pageNum = 1) => {
+  fetchProductsByCategoryId: async (
+    categoryId,
+    pageNum = get().currentPage
+  ) => {
     set({ loading: true, error: null });
     try {
       const response = await axios.post(
@@ -34,7 +37,7 @@ const useCategoryStore = create((set, get) => ({
         currentPage: pageNum,
       });
     } catch (err) {
-      set({ error: err.massage });
+      set({ error: err.message });
     } finally {
       set({ loading: false });
     }

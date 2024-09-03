@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
-import "./AllProducts.scss";
+import "./Products.scss";
 import { useTranslation } from "react-i18next";
 import useCategoryStore from "../../store/useCategoryStore";
 import ProductTable from "../../components/productsTable/ProductTable";
 
-const AllProducts = () => {
+const Products = () => {
   const { t } = useTranslation();
 
   const {
@@ -18,15 +18,17 @@ const AllProducts = () => {
     error,
     selectedCategoryId,
     fetchProductsByCategoryId,
+    setPage,
   } = useCategoryStore((state) => ({
     products: state.products,
     error: state.error,
-    pageNum: state.pageNum,
+    pageNum: state.currentPage,
+    loading: state.loading,
     totalPages: state.totalPages,
     fetchProductsByCategoryId: state.fetchProductsByCategoryId,
     selectedCategoryId: state.selectedCategoryId,
+    setPage: state.setPage,
   }));
-
   useEffect(() => {
     if (selectedCategoryId) {
       fetchProductsByCategoryId(selectedCategoryId, pageNum);
@@ -35,16 +37,19 @@ const AllProducts = () => {
 
   const handlePageChange = (e, page) => {
     e.preventDefault();
-    fetchProductsByCategoryId(selectedCategoryId, page);
+    setPage(page);
   };
-  if (loading) return <div>Loading...</div>;
+
+  const textHeader = localStorage.getItem("activeButton") || "";
 
   console.log("this is link ", products);
+
+  console.log("loading...", loading);
 
   return (
     <section className="allProducts">
       <div className="all_product_head">
-        <h2>{t("categories.allProducts")}</h2>
+        <h2>{textHeader}</h2>
         <h3>{t("categories.totalItems", { count: totalPages })}</h3>
         <div className="line"></div>
       </div>
@@ -89,4 +94,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default Products;

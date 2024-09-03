@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 const useMainStore = create((set) => ({
   openSidebar: false,
+  activeButton: "",
 
   // Method to open the sidebar
   handleOpenSidebar: () => set({ openSidebar: true }),
@@ -9,8 +10,9 @@ const useMainStore = create((set) => ({
   // Method to close the sidebar
   handleCloseSidebar: () => set({ openSidebar: false }),
 
-  // Optional: Method to toggle the sidebar
   toggleSidebar: () => set((state) => ({ openSidebar: !state.openSidebar })),
+
+  setActiveButton: (buttonName) => set({ activeButton: buttonName }),
 }));
 
 export default useMainStore;

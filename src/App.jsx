@@ -11,9 +11,9 @@ import Users from "./page/users/Users";
 import NotFound from "./page/not-found/NotFound";
 import SingleCard from "./components/singleCard/SingleCard";
 import SearchProducts from "./page/searchProducts/SearchProducts";
-import AllProducts from "./page/allproducts/AllProducts";
 import ProductsByType from "./page/productsByType/ProductsByType";
 import ProductsSearch from "./page/productsSearch/ProductsSearch";
+import Products from "./page/products/Products";
 
 const App = () => {
   const isLogened = JSON.parse(localStorage.getItem("user")) !== null;
@@ -34,7 +34,7 @@ const App = () => {
               <Route path="/productsByType" element={<ProductsByType />} />
               <Route path="/productsSearch" element={<ProductsSearch />} />
               <Route path="/single/:id" element={<SingleCard />} />{" "}
-              <Route path="/AllProducts" element={<AllProducts />} />
+              <Route path="/products" element={<Products />} />
               <Route path="/searchpro" element={<SearchProducts />} />
             </Route>
           </Route>
