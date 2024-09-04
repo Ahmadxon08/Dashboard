@@ -1,17 +1,17 @@
-import { motion } from "framer-motion";
 import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.scss";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import useEye from "../../hooks/useEye";
-import { useState } from "react";
 import { useSnackbar } from "notistack";
+import { registerValidationSchema } from "../validation";
+import { motion } from "framer-motion";
+
+const rg = "./assets/img/register.jpg";
 const Register = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { icon1, icon2, inputType1, inputType2 } = useEye();
-  const [isPending, setIsPending] = useState(false);
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -19,34 +19,8 @@ const Register = () => {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: Yup.object({
-      username: Yup.string()
-        .required("Username is required")
-        .min(3, "Username must be at least 3 characters long")
-        .matches(
-          /^[a-zA-Z0-9]+$/,
-          "Username must contain only alphanumeric characters"
-        ),
-      email: Yup.string()
-        .required("Email is required")
-        .email("Email must be a valid email address"),
-
-      password: Yup.string()
-        .required("Password is required")
-        .min(8, "Password must be at least 8 characters long")
-        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-        .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-        .matches(/[0-9]/, "Password must contain at least one number")
-        .matches(
-          /[@$!%*?&]/,
-          "Password must contain at least one special character"
-        ),
-      confirmPassword: Yup.string()
-        .required("Confirm Password is required")
-        .oneOf([Yup.ref("password"), null], "Passwords must match"),
-    }),
+    validationSchema: registerValidationSchema,
     onSubmit: (values) => {
-      setIsPending(true);
       setTimeout(() => {
         if (values) {
           localStorage.setItem("user", JSON.stringify(values));
@@ -55,7 +29,6 @@ const Register = () => {
         } else {
           navigate("/register");
         }
-        setIsPending(false);
       }, 2000);
     },
   });
@@ -68,48 +41,19 @@ const Register = () => {
   };
   return (
     <div className="reg">
-      <div className="loginBg">
-        <motion.div
-          className="ball1"
-          animate={{
-            x: ["0%", "90%", "0%"],
-            y: ["25%", "0%", "25%"],
-          }}
-          transition={{
-            duration: 9,
-            repeat: Infinity,
-            repeatType: "loop",
-          }}></motion.div>
-        <motion.div
-          className="ball2"
-          animate={{ y: ["10%", "100%", "10%"] }}
-          transition={{ duration: 7, repeat: Infinity }}></motion.div>
-        <motion.div
-          className="ball3"
-          animate={{ y: ["0%", "90%", "0%"], x: ["10%", "80%", "10%"] }}
-          transition={{ duration: 9, repeat: Infinity }}></motion.div>
-        <motion.div
-          className="ball4"
-          animate={{ x: ["75%", "10%", "75%"], y: ["20%", "100%", "20%"] }}
-          transition={{ duration: 8, repeat: Infinity }}></motion.div>
-      </div>
       <div className="login_body">
-        <div className="img">
-          {isPending ? (
-            <div className="pend">
-              <span>
-                Please wait, you will be redirected
-                <span className="span2"> to the login</span> page shortly...
-              </span>
-            </div>
-          ) : (
-            <p>
-              Wel<span>come</span> register!...
-              <br />
-            </p>
-          )}
-        </div>
-        <div className="loginForm">
+        <motion.div
+          className="img"
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1 }}>
+          <img src={rg} alt="" />
+        </motion.div>
+        <motion.div
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="loginForm">
           <form onSubmit={handleSubmit}>
             <div className="form1">
               <h1>Create account</h1>
@@ -198,7 +142,7 @@ const Register = () => {
                 </span>
               </div>
               <Button type="submit" variant="contained">
-                Register
+                Sign up
               </Button>
 
               <div className="singUp1">
@@ -207,7 +151,7 @@ const Register = () => {
               </div>
             </div>
           </form>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

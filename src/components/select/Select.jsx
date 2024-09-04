@@ -52,7 +52,7 @@ const Select1 = () => {
             borderBottomColor: "#7000ff", // Pastki chiziq rangi oddiy holatda
           },
           "& .MuiInput-underline:hover:before": {
-            borderBottomColor: "#7000ff", // Hover holatdagi pastki chiziq rangi
+            borderBottomColor: "#7000ff",
           },
           "& .MuiInput-underline:after": {
             borderBottomColor: "#7000ff",
@@ -79,7 +79,7 @@ const Select1 = () => {
               display: "flex",
               alignItems: "center",
 
-              padding: "3px", // Paddingni olib tashlaymiz
+              padding: "3px",
             }}>
             <img
               src={option.icon}
@@ -97,7 +97,7 @@ const Select1 = () => {
                 paddingTop: "6px",
 
                 marginLeft: "10px",
-                textTransform: "capitalize", // Harflar bosqichga o'zgartirish
+                textTransform: "capitalize",
               }}>
               {option.label}
             </span>
