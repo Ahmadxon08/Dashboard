@@ -65,10 +65,12 @@
         text-align: left;
         color: #1f2026;
         background-color: inherit;
+        transition: all 0.4s;
         &:focus {
-          background: #ccc;
+          background: linear-gradient(45deg, #9b6cff, #d1a3ff);
         }
       }
+
       .categoriesMenu {
         display: flex;
         align-items: center;
@@ -99,6 +101,16 @@
                 width: 100%;
                 padding-left: 60px;
                 margin-bottom: 0px;
+              }
+            }
+            button {
+              &:hover {
+                transition: all 0.3s;
+                background: linear-gradient(45deg, #9b6cff, #d1a3ff);
+                span,
+                svg {
+                  color: #7000ff;
+                }
               }
             }
           }

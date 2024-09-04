@@ -32,6 +32,8 @@ const Sidebar = () => {
     setSelectedCategoryId(id);
     fetchProductsByCategoryId(id, 1);
   };
+
+  ///////////// this is for responsive views
   useEffect(() => {
     const handleResize = () => setIsWideScreen(window.innerWidth >= 768);
 
@@ -51,7 +53,7 @@ const Sidebar = () => {
       }
     }
   }, [isWideScreen]);
-
+  /////////////
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
@@ -171,15 +173,15 @@ const Sidebar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}>
                   <Link
-                    to={`/products?text=${encodeURIComponent(category.name)}`}
+                    to={`/products?text=${encodeURIComponent(
+                      category.name.toLowerCase()
+                    )}`}
                     onClick={() => handleButtonClick(category.name)}>
                     <Button
                       onClick={() => handleCategoryClick(category.id)}
                       sx={{
                         background:
-                          activeButton === category.name
-                            ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
-                            : "inherit",
+                          activeButton === category.name ? "#fff" : "inherit",
                         color: "#fff",
                       }}>
                       <span
