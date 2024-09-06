@@ -17,5 +17,5 @@ This template provides a setup to get a dashboard working in React using Vite al
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-repo/react-dashboard-vite
+git clone https://github.com/Ahmadxon08/react-dashboard-vite
 cd react-dashboard-vite
