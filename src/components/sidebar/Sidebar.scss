@@ -1,12 +1,10 @@
 .sidebar {
   display: flex;
-  transition: transform 0.4s ease, width 0.4s ease-out;
   height: 110%;
-  position: sticky;
   bottom: 0;
   top: 0;
   left: 0;
-  scroll-behavior: auto;
+  width: 230px;
 
   .left {
     display: flex;
@@ -14,14 +12,12 @@
     top: 0;
     bottom: 0;
     height: 200%;
-    overflow: hidden;
     padding-top: 15px;
     padding-bottom: 2.5rem;
     flex-direction: column;
     justify-content: space-between;
-    width: 280px !important;
     background-color: #7000ff;
-    overflow-y: auto;
+    overflow: hidden;
     .logo {
       display: none;
       align-items: center;
@@ -56,7 +52,7 @@
         border-radius: 3px;
         width: inherit;
         height: 35px;
-        gap: 30px;
+        gap: 10px;
         padding-left: 20px;
         font-family: Roboto;
         font-size: 18px;
@@ -66,9 +62,6 @@
         color: #1f2026;
         background-color: inherit;
         transition: all 0.4s;
-        &:focus {
-          background: linear-gradient(45deg, #9b6cff, #d1a3ff);
-        }
       }
 
       .categoriesMenu {
@@ -99,7 +92,7 @@
                 line-height: 14.52px;
                 text-align: left;
                 width: 100%;
-                padding-left: 60px;
+                padding-left: 40px;
                 margin-bottom: 0px;
               }
             }
@@ -110,6 +103,53 @@
                 span,
                 svg {
                   color: #7000ff;
+                }
+              }
+            }
+          }
+          .children {
+            display: flex;
+            align-items: start;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+            .child {
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              width: 100%;
+              a {
+                display: flex;
+                width: 100%;
+                text-decoration: none;
+                button {
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-start;
+                  width: 100%;
+                  padding: 0;
+                  height: 30px;
+                  padding-left: 15px;
+                  span {
+                    font-family: Roboto;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 14.52px;
+                    text-align: left;
+                    width: 100%;
+                    padding-left: 40px;
+                    margin-bottom: 0px;
+                  }
+                }
+                button {
+                  &:hover {
+                    transition: all 0.3s;
+                    background: linear-gradient(45deg, #9b6cff, #d1a3ff);
+                    span,
+                    svg {
+                      color: #7000ff;
+                    }
+                  }
                 }
               }
             }

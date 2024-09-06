@@ -9,11 +9,12 @@ import Home from "./page/home/Home";
 import Categories from "./page/categories/Categories";
 import Users from "./page/users/Users";
 import NotFound from "./page/not-found/NotFound";
-import SingleCard from "./components/singleCard/SingleCard";
+// import SingleCard from "./components/singleCard/ProductDetail";
 import SearchProducts from "./page/searchProducts/SearchProducts";
 import ProductsByType from "./page/productsByType/ProductsByType";
 import ProductsSearch from "./page/productsSearch/ProductsSearch";
 import Products from "./page/products/Products";
+import ProductDetail from "./components/singleCard/ProductDetail";
 
 const App = () => {
   const isLogened = JSON.parse(localStorage.getItem("user")) !== null;
@@ -33,7 +34,7 @@ const App = () => {
               <Route path="/users" element={<Users />} />
               <Route path="/productsByType" element={<ProductsByType />} />
               <Route path="/productsSearch" element={<ProductsSearch />} />
-              <Route path="/single/:id" element={<SingleCard />} />{" "}
+              <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/products" element={<Products />} />
               <Route path="/searchpro" element={<SearchProducts />} />
             </Route>

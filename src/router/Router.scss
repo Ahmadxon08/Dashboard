@@ -6,11 +6,13 @@
   justify-content: flex-end;
   gap: 20px;
   .side {
+    display: flex;
     position: fixed;
     height: 110%;
     top: 11.5%;
     left: 0;
-    z-index: 333;
+    width: 100px !important;
+    z-index: 333222;
   }
   .content1 {
     display: flex;
@@ -32,9 +34,9 @@
       position: fixed;
       height: 100%;
       top: 12.7%;
-      width: 22%;
+      width: 15%;
       left: 0;
-      z-index: 333;
+      z-index: 333222;
     }
     .content1 {
       display: flex;
@@ -57,7 +59,7 @@
       top: 12.7%;
       width: 22%;
       left: 0;
-      z-index: 333;
+      z-index: 333222;
     }
     .content1 {
       display: flex;

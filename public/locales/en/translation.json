@@ -27,6 +27,16 @@
     "deleteError": "Error deleting user",
     "validationError": "Validation error occurred"
   },
+  "validation": {
+    "usernameRequired": "Username is required",
+    "usernameAlphanumeric": "Username must be alphanumeric",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters long",
+    "passwordUppercase": "Password must contain at least one uppercase letter",
+    "passwordLowercase": "Password must contain at least one lowercase letter",
+    "passwordNumber": "Password must contain at least one number",
+    "passwordSpecialCharacter": "Password must contain at least one special character (@$!%*?&)"
+  },
   "categories": {
     "allProducts": "All Products",
     "electronics": "Electronics",
@@ -38,7 +48,7 @@
     "section": "Section",
     "totalItems": "Total items: {{count}}",
     "childCategory": {
-      "electronics": "Electro",
+      "electronics": "Electronics",
       "homeAppliances": "Appliances",
       "clothes": "Clothes",
       "shoes": "Shoes",

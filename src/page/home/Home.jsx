@@ -2,10 +2,38 @@ import { Button, TextField } from "@mui/material";
 import "./Home.scss";
 import Table1 from "../../components/table/Table";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import { main_url } from "../../utils/api";
+import axios from "axios";
 // import  { useState } from 'react';
 
 const Home = () => {
   const { t } = useTranslation();
+  const [categories, setCategories] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [pageNum, setPageNum] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  // API ma'lumotlarini olish uchun useEffect
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.post(`${main_url}category`, {
+          jss: { pathDepth: 3 },
+          pageNum: "1",
+        });
+
+        setCategories(response.data.payLoad); // Kategoriya ma'lumotlarini saqlash
+        setTotal(response.data.total); // Umumiy sonini olish
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, [pageNum]);
+  console.log(categories);
+  console.log(total);
 
   return (
     <div className="content">

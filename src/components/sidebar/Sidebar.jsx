@@ -6,33 +6,44 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { FiUsers } from "react-icons/fi";
 import { BsCollection } from "react-icons/bs";
-import { MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
+import {
+  MdKeyboardArrowRight,
+  MdKeyboardArrowDown,
+  MdKeyboardDoubleArrowLeft,
+} from "react-icons/md";
 import useMainStore from "../../store/useMainStore";
 import { motion } from "framer-motion";
-import useData from "../../utils/data";
+// import useData from "../../utils/data";
 import useCategoryStore from "../../store/useCategoryStore";
+import useManuStore from "../../store/useMenuStore";
 
 const logo = "./assets/img/logo.png";
 
 const Sidebar = () => {
+  const [selectedParentId, setSelectedParentId] = useState(null);
   const { t } = useTranslation();
   const [activeButton, setActiveButton] = useState("");
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 768);
   const sidebarRef = useRef(null);
   const location = useLocation();
-  const { categories } = useData();
-  const { fetchProductsByCategoryId, setSelectedCategoryId } = useCategoryStore(
-    (state) => ({
-      fetchProductsByCategoryId: state.fetchProductsByCategoryId,
-      setSelectedCategoryId: state.setSelectedCategoryId,
-    })
-  );
-  const handleCategoryClick = (id) => {
-    setSelectedCategoryId(id);
-    fetchProductsByCategoryId(id, 1);
-  };
 
+  ////right side api data start
+  const { setSelectedCategoryId } = useCategoryStore((state) => ({
+    fetchProductsByCategoryId: state.fetchProductsByCategoryId,
+    setSelectedCategoryId: state.setSelectedCategoryId,
+  }));
+  ////////
+
+  const selectedCategoryId2 = null;
+
+  const { parents, fetchParents, categoryChildren, fetchCategoryChildren } =
+    useManuStore((state) => ({
+      parents: state.parents,
+      fetchParents: state.fetchParents,
+      categoryChildren: state.categoryChildren,
+      fetchCategoryChildren: state.fetchCategoryChildren,
+    }));
   ///////////// this is for responsive views
   useEffect(() => {
     const handleResize = () => setIsWideScreen(window.innerWidth >= 768);
@@ -42,7 +53,7 @@ const Sidebar = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  /////active button action is startd here
   useEffect(() => {
     if (isWideScreen) {
       handleOpenSidebar();
@@ -57,9 +68,6 @@ const Sidebar = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
-  const toggleCategories = () => {
-    setIsCategoriesOpen(!isCategoriesOpen);
-  };
 
   const handleButtonClick = (buttonName) => {
     window.scrollTo(0, 0);
@@ -74,6 +82,7 @@ const Sidebar = () => {
       openSidebar: state.openSidebar,
     })
   );
+
   useEffect(() => {
     if (openSidebar) {
       document.body.style.overflow = "hidden";
@@ -84,19 +93,52 @@ const Sidebar = () => {
       document.body.style.overflow = "auto";
     };
   }, [openSidebar]);
+  //////////////////////////////////
+  useEffect(() => {
+    fetchParents();
+  }, [fetchParents]);
+
+  useEffect(() => {
+    if (selectedCategoryId2 !== null) {
+      fetchCategoryChildren(selectedCategoryId2);
+    }
+  }, [selectedCategoryId2]);
+  console.log("parent", parents);
+  console.log("child", categoryChildren);
+
+  const handleParentClick = (parentId) => {
+    if (selectedParentId === parentId) {
+      setSelectedParentId(null);
+    } else {
+      setSelectedParentId(parentId);
+      setSelectedCategoryId(parentId);
+      fetchCategoryChildren(parentId);
+    }
+  };
+
+  /////////////////////////////////////////////
+  const toggleCategories = () => {
+    setSelectedParentId(null);
+    setIsCategoriesOpen(!isCategoriesOpen);
+  };
+  console.log(selectedParentId);
+  const handleCloseBar = () => {
+    setSelectedParentId(null);
+    handleCloseSidebar();
+  };
 
   return (
     <div
       ref={sidebarRef}
       className={`sidebar ${isWideScreen || openSidebar ? "open" : "closed"}`}>
       <div className="left">
-        <Link to="/" className="logo">
-          <Button variant="text">
-            <img src={logo} alt="logo" />
-            <span>Datasupermen</span>
-          </Button>
-        </Link>
         <div className="first">
+          <Link to="/" className="logo">
+            <Button variant="text">
+              <img src={logo} alt="logo" width={30} height={30} />
+              <span>Datasupermen</span>
+            </Button>
+          </Link>
           <Link to="/" onClick={() => handleButtonClick("home")}>
             <Button
               style={{
@@ -150,6 +192,8 @@ const Sidebar = () => {
               <MdKeyboardArrowDown
                 size={22}
                 style={{
+                  position: "absolute",
+                  right: "30px",
                   color: activeButton === "categories" ? "#7000ff" : "#fff",
                 }}
               />
@@ -157,6 +201,8 @@ const Sidebar = () => {
               <MdKeyboardArrowRight
                 size={22}
                 style={{
+                  position: "absolute",
+                  right: "30px",
                   color: activeButton === "categories" ? "#7000ff" : "#fff",
                 }}
               />
@@ -165,36 +211,94 @@ const Sidebar = () => {
 
           {isCategoriesOpen && (
             <div className="categoriesMenu">
-              {categories.slice(0, 20).map((category, index) => (
-                <motion.div
-                  className="action"
-                  key={category.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}>
-                  <Link
-                    to={`/products?text=${encodeURIComponent(
-                      category.name.toLowerCase()
-                    )}`}
-                    onClick={() => handleButtonClick(category.name)}>
-                    <Button
-                      onClick={() => handleCategoryClick(category.id)}
-                      sx={{
-                        background:
-                          activeButton === category.name ? "#fff" : "inherit",
-                        color: "#fff",
-                      }}>
-                      <span
+              {parents
+                .filter(
+                  (p) => selectedParentId === null || p.id === selectedParentId
+                )
+                .map((p, index) => (
+                  <motion.div
+                    className="action"
+                    key={p.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}>
+                    <Link
+                      to={`/products?section=${encodeURIComponent(
+                        p.title.toLowerCase()
+                      )}`}
+                      onClick={() => handleButtonClick(p.title)}>
+                      <Button
+                        onClick={() => handleParentClick(p.id)}
                         style={{
-                          color:
-                            activeButton === category.name ? "#7000ff" : "#fff",
+                          display: p.id ? "flex" : "none",
+                        }}
+                        sx={{
+                          background:
+                            activeButton === p.title
+                              ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                              : "inherit",
                         }}>
-                        {category.name}
-                      </span>
-                    </Button>
-                  </Link>
-                </motion.div>
-              ))}
+                        {selectedParentId && (
+                          <MdKeyboardDoubleArrowLeft
+                            size={22}
+                            style={{
+                              position: "absolute",
+                              left: "20px",
+                              color:
+                                activeButton === p.title ? "#7000ff" : "#fff",
+                            }}
+                          />
+                        )}
+                        <span
+                          style={{
+                            color:
+                              activeButton === p.title ? "#7000ff" : "#fff",
+                          }}>
+                          {p.title}
+                        </span>
+                      </Button>
+                    </Link>
+                    {selectedParentId === p.id && (
+                      <div className="children">
+                        {categoryChildren.length > 0 &&
+                          categoryChildren.map((child, index) => (
+                            <motion.div
+                              className="child"
+                              key={index}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.05 }}>
+                              <Link
+                                to={`/products?section=${encodeURIComponent(
+                                  p.title.toLowerCase()
+                                )}?&part=${encodeURIComponent(
+                                  child.title.toLowerCase()
+                                )}`}
+                                onClick={() => handleButtonClick(child.title)}>
+                                <Button
+                                  sx={{
+                                    background:
+                                      activeButton === child.title
+                                        ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                                        : "inherit",
+                                  }}>
+                                  <span
+                                    style={{
+                                      color:
+                                        activeButton === child.title
+                                          ? "#7000ff"
+                                          : "#fff",
+                                    }}>
+                                    {child.title}
+                                  </span>
+                                </Button>
+                              </Link>
+                            </motion.div>
+                          ))}
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
             </div>
           )}
 
@@ -222,7 +326,7 @@ const Sidebar = () => {
           </Link>
         </div>
       </div>
-      <div className="rigth" onClick={handleCloseSidebar}></div>
+      <div className="rigth" onClick={handleCloseBar}></div>
     </div>
   );
 };

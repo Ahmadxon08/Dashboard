@@ -27,6 +27,16 @@
     "deleteError": "Foydalanuvchini o'chirishda xatolik",
     "validationError": "Tekshiruv xatoligi"
   },
+  "validation": {
+    "usernameRequired": "Foydalanuvchi nomi majburiy",
+    "usernameAlphanumeric": "Foydalanuvchi nomi faqat harflar va raqamlar bo'lishi kerak",
+    "passwordRequired": "Parol majburiy",
+    "passwordMinLength": "Parol kamida 8 ta belgidan iborat bo'lishi kerak",
+    "passwordUppercase": "Parolda kamida bitta katta harf bo'lishi kerak",
+    "passwordLowercase": "Parolda kamida bitta kichik harf bo'lishi kerak",
+    "passwordNumber": "Parolda kamida bitta raqam bo'lishi kerak",
+    "passwordSpecialCharacter": "Parolda kamida bitta maxsus belgi (@$!%*?&) bo'lishi kerak"
+  },
   "categories": {
     "allProducts": "Barcha Mahsulotlar",
     "electronics": "Elektronika",

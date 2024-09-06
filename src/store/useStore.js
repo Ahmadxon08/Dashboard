@@ -6,7 +6,6 @@ import {
   checkUserExists,
   fetchApi,
   fetchUsers,
-  fetchProductsByName,
   fetchProductsByType,
   fetchCategories,
 } from "../utils/api";
@@ -22,7 +21,7 @@ const useStore = create((set) => ({
   categories: [],
   totalPages: 0,
   pathDepth: 2,
-  pageNum: 1,
+  pageNum: 2,
   itemsPerPage: 20,
 
   //////
@@ -135,9 +134,9 @@ const useStore = create((set) => ({
         pageNum: pageNum.toString(),
       });
 
-      const totalCount = res.data.totalCount || 0; // Agar totalCount mavjud bo'lmasa, 0 deb belgilang
+      const totalCount = res.data.totalCount || 0;
       const totalPages =
-        itemsPerPage > 0 ? Math.ceil(totalCount / itemsPerPage) : 0; // itemsPerPage > 0 shartini qo'shing
+        itemsPerPage > 0 ? Math.ceil(totalCount / itemsPerPage) : 0;
 
       set({
         categories: res.data.payLoad,

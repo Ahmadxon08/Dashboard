@@ -15,6 +15,7 @@ const Header = () => {
   const { handleOpenSidebar } = useMainStore((state) => ({
     handleOpenSidebar: state.handleOpenSidebar,
   }));
+
   return (
     <header>
       <div className="container1">

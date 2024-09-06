@@ -27,6 +27,16 @@
     "deleteError": "Ошибка удаления пользователя",
     "validationError": "Ошибка проверки"
   },
+  "validation": {
+    "usernameRequired": "Имя пользователя обязательно",
+    "usernameAlphanumeric": "Имя пользователя должно содержать только буквы и цифры",
+    "passwordRequired": "Пароль обязателен",
+    "passwordMinLength": "Пароль должен содержать минимум 8 символов",
+    "passwordUppercase": "Пароль должен содержать хотя бы одну заглавную букву",
+    "passwordLowercase": "Пароль должен содержать хотя бы одну строчную букву",
+    "passwordNumber": "Пароль должен содержать хотя бы одну цифру",
+    "passwordSpecialCharacter": "Пароль должен содержать хотя бы один специальный символ (@$!%*?&)"
+  },
   "categories": {
     "allProducts": "Все товары",
     "totalItems": "Всего товаров: {{count}}",
