@@ -6,6 +6,7 @@
   height: 100vh !important;
   position: relative;
   width: 100%;
+  overflow: auto;
 
   .login_body {
     display: flex;
@@ -51,7 +52,6 @@
         gap: 15px;
         z-index: 11 !important;
         border-radius: 6px;
-        overflow: hidden;
 
         .form1 {
           display: flex;
@@ -66,7 +66,6 @@
           gap: 10px;
           z-index: 11 !important;
           border-radius: 6px;
-          overflow: hidden;
 
           h1 {
             display: flex;
@@ -319,7 +318,7 @@
           width: 90%;
           background: #fff;
           height: 98%;
-          gap: 15px;
+          gap: 5px;
           z-index: 11 !important;
           border-radius: 6px;
 
@@ -354,8 +353,8 @@
               margin: 0 auto;
               justify-content: center;
               width: 100%;
-              height: 100px;
-              margin-bottom: 4px;
+              height: 80px;
+              margin-bottom: 2px;
               label {
                 font-family: Roboto;
                 font-size: 18px;
@@ -418,7 +417,7 @@
                 top: 50%;
                 right: 0;
                 width: 25px;
-                left: 82%;
+                left: 72%;
 
                 transform: translateY(-50%);
               }
