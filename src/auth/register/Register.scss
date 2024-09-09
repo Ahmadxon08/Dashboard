@@ -270,7 +270,7 @@
   }
 }
 
-@media (min-width: 1200px) and (max-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
   .reg {
     display: flex;
     overflow: hidden;
@@ -415,7 +415,7 @@
                 top: 50%;
                 right: 0;
                 width: 25px;
-                left: 70%;
+                left: 84%;
 
                 transform: translateY(-50%);
               }
@@ -453,7 +453,7 @@
                 text-decoration: none;
                 position: absolute;
                 top: 20px;
-                right: -60px;
+                right: -80px;
                 color: #2693ec;
                 font-family: Roboto;
                 font-size: 16px;
@@ -475,7 +475,7 @@
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh !important;
+    height: 120vh !important;
     position: relative;
     width: 100%;
     overflow-y: scroll;
