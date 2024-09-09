@@ -6,6 +6,9 @@ import "./Products.scss";
 import { useTranslation } from "react-i18next";
 import useCategoryStore from "../../store/useCategoryStore";
 import ProductTable from "../../components/productsTable/ProductTable";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import ProductsCarousel from "../../components/productsCarousel/ProductsCarousel";
 
 const Products = () => {
   const { t } = useTranslation();
@@ -51,7 +54,7 @@ const Products = () => {
       <div className="all_product_head">
         <h2>{textHeader}</h2>
         <h3>{t("categories.totalItems", { count: totalPages })}</h3>
-        <div className="line"></div>
+        <ProductsCarousel products={products} />
       </div>
 
       {loading ? (
@@ -62,7 +65,7 @@ const Products = () => {
         <>
           {" "}
           <div className="all_product_body">
-            <ProductTable categories={products.payLoad || []} />{" "}
+            <ProductTable categories={products.payLoad || []} />
           </div>
           {error && (
             <div className="error">

@@ -1,13 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-// import Table from "react-bootstrap/Table";
 
 const ProductTable = ({ categories }) => {
-  const [maxletter, setMaxLetter] = useState(160);
+  const [maxLetter, setMaxLetter] = useState(160);
+
   const removeImageUrls = (description) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return description.replace(urlRegex, "").trim();
+  };
+
+  const startsWithUrl = (description) => {
+    const urlRegex = /^(https?:\/\/[^\s]+)/;
+    return urlRegex.test(description);
   };
 
   const handleResize = () => {
@@ -25,6 +30,7 @@ const ProductTable = ({ categories }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <table>
       <thead>
@@ -39,26 +45,33 @@ const ProductTable = ({ categories }) => {
         </tr>
       </thead>
       <tbody>
-        {categories.map((category, index) => (
-          <tr key={category._id || index}>
-            <td data-cell="No">{index + 1}</td>
-            <td data-cell="Image">
-              <img src={category.photo} alt="photo" />
-            </td>
-            <td data-cell="Title">{category.title.slice(0, 15)}...</td>
-            <td data-cell="Rating">{category?.rating || 0}</td>
-            <td data-cell="Price">
-              {category.skuList[0]?.fullPrice || "N/A"} so'm
-            </td>
-            <td data-cell="Order">{category.ordersAmount || "N/A"}</td>
-            <td data-cell="Description">
-              {removeImageUrls(
-                category.description.slice(0, maxletter) || "N/A"
-              )}
-              ...
-            </td>
-          </tr>
-        ))}
+        {categories.map((category, index) => {
+          const hasUrl = startsWithUrl(category.description);
+          const truncatedDescription = removeImageUrls(
+            category.description
+          ).slice(0, maxLetter);
+          const showMore = category.description.length > maxLetter;
+
+          return (
+            <tr key={category._id || index}>
+              <td data-cell="No">{index + 1}</td>
+              <td data-cell="Image">
+                <img src={category.photo} alt="photo" />
+              </td>
+              <td data-cell="Title">{category.title.slice(0, 15)}...</td>
+              <td data-cell="Rating">{category?.rating || 0}</td>
+              <td data-cell="Price">
+                {category.skuList[0]?.fullPrice || "N/A"} so'm
+              </td>
+              <td data-cell="Order">{category.ordersAmount || 0}</td>
+              <td data-cell="Description">
+                {hasUrl
+                  ? category.title
+                  : (truncatedDescription || "N/A") + (showMore ? "..." : "")}
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
@@ -68,9 +81,16 @@ ProductTable.propTypes = {
   categories: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string,
-      ordersAmount: PropTypes.number.isRequired,
-      someOtherField: PropTypes.string,
-      anotherField: PropTypes.string,
+      photo: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      rating: PropTypes.number,
+      skuList: PropTypes.arrayOf(
+        PropTypes.shape({
+          fullPrice: PropTypes.string,
+        })
+      ),
+      ordersAmount: PropTypes.number,
     })
   ).isRequired,
 };

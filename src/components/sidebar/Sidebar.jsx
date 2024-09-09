@@ -175,7 +175,7 @@ const Sidebar = () => {
               toggleCategories();
             }}
             style={{
-              border: 0,
+              margin: "5px 0px",
               background:
                 activeButton === "categories"
                   ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
@@ -247,6 +247,7 @@ const Sidebar = () => {
                         }}>
                         {selectedParentId && (
                           <MdKeyboardDoubleArrowLeft
+                            onClick={() => handleParentClick(p.id)}
                             size={22}
                             style={{
                               position: "absolute",
