@@ -63,11 +63,31 @@
         background-color: inherit;
         transition: all 0.4s;
       }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #7000ff;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: hsl(266, 100%, 70%);
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: hsl(266, 100%, 70%);
+      }
 
       .categoriesMenu {
         display: flex;
         align-items: center;
         flex-direction: column;
+        overflow-y: auto !important;
+        max-height: 400px;
+        padding-bottom: 29px;
         .action {
           display: flex;
           align-items: center;

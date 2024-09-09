@@ -29,10 +29,12 @@ const Sidebar = () => {
   const location = useLocation();
 
   ////right side api data start
-  const { setSelectedCategoryId } = useCategoryStore((state) => ({
-    fetchProductsByCategoryId: state.fetchProductsByCategoryId,
-    setSelectedCategoryId: state.setSelectedCategoryId,
-  }));
+  const { setSelectedCategoryId, fetchProductsByCategoryId } = useCategoryStore(
+    (state) => ({
+      fetchProductsByCategoryId: state.fetchProductsByCategoryId,
+      setSelectedCategoryId: state.setSelectedCategoryId,
+    })
+  );
   ////////
 
   const selectedCategoryId2 = null;
@@ -114,6 +116,10 @@ const Sidebar = () => {
       setSelectedCategoryId(parentId);
       fetchCategoryChildren(parentId);
     }
+  };
+  const handleChildClick = (childId) => {
+    setSelectedCategoryId(childId);
+    fetchProductsByCategoryId(childId);
   };
 
   /////////////////////////////////////////////
@@ -237,6 +243,7 @@ const Sidebar = () => {
                             activeButton === p.title
                               ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
                               : "inherit",
+                          marginBottom: activeButton === p.title ? "6px" : "0",
                         }}>
                         {selectedParentId && (
                           <MdKeyboardDoubleArrowLeft
@@ -276,6 +283,7 @@ const Sidebar = () => {
                                 )}`}
                                 onClick={() => handleButtonClick(child.title)}>
                                 <Button
+                                  onClick={() => handleChildClick(child.id)}
                                   sx={{
                                     background:
                                       activeButton === child.title
