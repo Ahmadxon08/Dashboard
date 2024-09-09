@@ -9,7 +9,6 @@ import Home from "./page/home/Home";
 import Categories from "./page/categories/Categories";
 import Users from "./page/users/Users";
 import NotFound from "./page/not-found/NotFound";
-// import SingleCard from "./components/singleCard/ProductDetail";
 import SearchProducts from "./page/searchProducts/SearchProducts";
 import ProductsByType from "./page/productsByType/ProductsByType";
 import ProductsSearch from "./page/productsSearch/ProductsSearch";

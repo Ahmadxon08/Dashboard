@@ -6,7 +6,6 @@ import { useFormik } from "formik";
 import useEye from "../../hooks/useEye";
 import { useSnackbar } from "notistack";
 import axios from "axios";
-// import { main_url } from "../../utils/api";
 import { motion } from "framer-motion";
 import { loginValidationSchema } from "../validation";
 
@@ -24,6 +23,7 @@ const Login = () => {
       username: "",
       password: "",
     },
+
     validationSchema: loginValidationSchema,
 
     onSubmit: async (values) => {
