@@ -1,6 +1,6 @@
 .login {
   display: flex;
-  overflow: hidden;
+  overflow: hidden !important;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh !important;
@@ -277,7 +277,7 @@
   }
 }
 
-@media (max-width: 1440px) {
+@media (min-width: 1440px) and (max-width: 1440px) {
   .login {
     display: flex;
     overflow: hidden;
