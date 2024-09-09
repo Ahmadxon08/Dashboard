@@ -52,14 +52,17 @@ const Products = () => {
   return (
     <section className="allProducts">
       <div className="all_product_head">
-        <h2>{textHeader}</h2>
-        <h3>{t("categories.totalItems", { count: totalPages })}</h3>
-        <ProductsCarousel products={products} />
+        <h2>{loading ? " " : textHeader}</h2>
+        <h3>
+          {loading ? " " : t("categories.totalItems", { count: totalPages })}
+        </h3>
+        {loading ? "" : <ProductsCarousel products={products} />}
       </div>
 
       {loading ? (
         <div className="loadingSpinner">
           <CircularProgress color="primary" className="load" />
+          <span>Loading...</span>
         </div>
       ) : (
         <>

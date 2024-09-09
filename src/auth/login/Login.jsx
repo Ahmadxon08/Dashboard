@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import useEye from "../../hooks/useEye";
 import { useSnackbar } from "notistack";
 import axios from "axios";
-import { main_url } from "../../utils/api";
+// import { main_url } from "../../utils/api";
 import { motion } from "framer-motion";
 import { loginValidationSchema } from "../validation";
 
@@ -28,13 +28,15 @@ const Login = () => {
 
     onSubmit: async (values) => {
       try {
-        const res = await axios.post(`${main_url}verifyuser`, {
+        const res = await axios.post(`http://65.1.136.0:5050/api/verifyuser`, {
           userName: values.username,
           passWord: values.password,
         });
 
         if (res.data?.verifyResult === "passed" && res.data?.token) {
           localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(values));
+
           enqueueSnackbar("Login successful!", { variant: "success" });
           navigate("/");
         } else {
@@ -57,7 +59,6 @@ const Login = () => {
     e.preventDefault();
     enqueueSnackbar("Pasting is not allowed", { variant: "error" });
   };
-
   return (
     <div className="login">
       <div className="loginBg"></div>

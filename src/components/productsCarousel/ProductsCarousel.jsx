@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import "./ProductsCarousel.scss";
+import { motion } from "framer-motion";
 
 import { useEffect, useState } from "react";
 import useCategoryStore from "../../store/useCategoryStore";
@@ -33,13 +34,17 @@ const ProductsCarousel = ({ products }) => {
   return (
     <div className="productsFilter">
       {uniqueItems.length > 0 &&
-        uniqueItems.map((item) => (
-          <div
+        uniqueItems.map((item, i) => (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.05 }}
             className="filter"
             key={item.id}
+            custom={i}
             onClick={() => handleFilteredClick(item.category.id)}>
             <span>{item.category.title}</span>
-          </div>
+          </motion.div>
         ))}
     </div>
   );
