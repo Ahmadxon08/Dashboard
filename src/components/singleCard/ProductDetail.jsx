@@ -1,41 +1,117 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useCategoryStore from "../../store/useCategoryStore";
+import "./ProductDetail.scss";
+import { CircularProgress } from "@mui/material";
+
+// URL'larni chiqarib olish va tavsifdan olib tashlash funksiyasi
+const extractAndRemoveUrls = (description) => {
+  const urlPattern = /https:\/\/[^\s]+\.jpg/g;
+  const urls = description.match(urlPattern) || [];
+  const cleanedDescription = description.replace(urlPattern, "").trim();
+  return { cleanedDescription, urls };
+};
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { products, fetchProductsByCategoryId, loading, error } =
+  console.log("Product ID:", id);
+
+  const { productDetails, fetchProductDetails, loading, error } =
     useCategoryStore((state) => ({
-      products: state.products,
-      fetchProductsByCategoryId: state.fetchProductsByCategoryId,
+      productDetails: state.productDetails,
+      fetchProductDetails: state.fetchProductDetails,
       loading: state.loading,
       error: state.error,
     }));
 
+  // Tavsif va URL'larni saqlash uchun state
+  const [cleanedDescription, setCleanedDescription] = useState("");
+  const [urls, setUrls] = useState([]);
+
   useEffect(() => {
-    fetchProductsByCategoryId(id);
-  }, [id, fetchProductsByCategoryId]);
+    if (id) {
+      fetchProductDetails(id);
+    }
+  }, [id, fetchProductDetails]);
 
-  // Ensure products is an array before using .find
-  const product = Array.isArray(products)
-    ? products.find((p) => p._id === id)
-    : null;
+  useEffect(() => {
+    if (productDetails) {
+      const product = Array.isArray(productDetails)
+        ? productDetails[0]
+        : productDetails;
 
-  if (loading) return <p>Loading...</p>;
+      // Tavsif va URL'larni chiqarib olish
+      const { cleanedDescription, urls } = extractAndRemoveUrls(
+        product.description
+      );
+
+      // State'ni yangilash
+      setCleanedDescription(cleanedDescription);
+      setUrls(urls);
+    }
+  }, [productDetails]);
+
   if (error) return <p>Error: {error}</p>;
 
-  if (!product) return <p>Product not found.</p>;
+  if (!productDetails) return <p>Product not found.</p>;
 
-  console.log(product);
+  // Agar productDetails array bo'lsa, birinchi elementni olish
+  const product = Array.isArray(productDetails)
+    ? productDetails[0]
+    : productDetails;
+  console.log(urls);
 
   return (
-    <div>
-      <h1>{product.title}</h1>
-      {/* <img src={product.photo} alt={product.title} />
-      <p>{product.description}</p>
-      <p>Price: {product.skuList[0]?.fullPrice || "N/A"} </p>
-      <p>Rating: {product.rating || 0}</p>
-      <p>Orders: {product.ordersAmount || "N/A"}</p> */}
+    <div className="productDetail">
+      {loading ? (
+        <div className="loadingSpinner">
+          <CircularProgress color="primary" className="load" />
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <>
+          {product && (
+            <div className="product_card">
+              <div className="imgWrapper">
+                <img src={product.photo} alt={product.title} />
+              </div>
+              <div className="product_text">
+                <h1>{product.title}</h1>
+
+                <p>{cleanedDescription}</p>
+
+                <div className="line"></div>
+
+                <span>
+                  {product.rating > 0 ? (
+                    <span>
+                      Rating: <b>{product.rating}</b>
+                    </span>
+                  ) : (
+                    <span>No ratings yet.</span>
+                  )}
+                </span>
+
+                <span>
+                  Reviews:
+                  {product.reviewsAmount > 0 ? (
+                    <span>{product.reviewsAmount}</span>
+                  ) : (
+                    <span>No reviews yet.</span>
+                  )}
+                </span>
+
+                <span>Price: {product.skuList[0]?.fullPrice} UZS </span>
+                <span>Available: {product.skuList[0]?.availableAmount}</span>
+                {/* {urls.map((url, i) => (
+                  <img src={url} key={i} alt="" width={182} height={192} />
+                ))} */}
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

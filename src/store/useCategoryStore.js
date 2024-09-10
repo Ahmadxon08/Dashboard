@@ -7,6 +7,7 @@ const useCategoryStore = create((set, get) => ({
   currentPage: 1,
   totalPages: 1,
   products: [],
+  productDetails: null,
   loading: false,
   error: null,
 
@@ -38,6 +39,23 @@ const useCategoryStore = create((set, get) => ({
       });
     } catch (err) {
       set({ error: err.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  fetchProductDetails: async (productId) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await axios.post(
+        `http://65.1.136.0:5050/api/productsByProductId`,
+        {
+          productid: productId,
+        }
+      );
+      set({ productDetails: response.data });
+    } catch (error) {
+      set({ error: error.message });
     } finally {
       set({ loading: false });
     }

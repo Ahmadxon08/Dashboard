@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ProductTable = ({ categories }) => {
   const [maxLetter, setMaxLetter] = useState(160);
@@ -58,7 +59,10 @@ const ProductTable = ({ categories }) => {
               <td data-cell="Image">
                 <img src={category.photo} alt="photo" />
               </td>
-              <td data-cell="Title">{category.title.slice(0, 15)}...</td>
+              <td data-cell="Title">
+                {category.title.slice(0, 15)}...
+                <Link to={`/product/${category.id}`}>see more</Link>
+              </td>
               <td data-cell="Rating">{category?.rating || 0}</td>
               <td data-cell="Price">
                 {category.skuList[0]?.fullPrice || "N/A"} so'm
