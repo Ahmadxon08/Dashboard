@@ -217,6 +217,22 @@
         letter-spacing: -0.02em;
       }
     }
+    .loadingSpinner {
+      display: flex !important;
+
+      .load {
+        position: absolute;
+      }
+      span {
+        position: absolute;
+        right: 56%;
+        top: 45%;
+        color: #7000ff;
+        font-size: 28px;
+        font-family: Roboto;
+        font-weight: 500;
+      }
+    }
 
     .all_product_body {
       margin-top: 60px;
@@ -328,7 +344,22 @@
         letter-spacing: -0.02em;
       }
     }
+    .loadingSpinner {
+      display: flex !important;
 
+      .load {
+        position: absolute;
+      }
+      span {
+        position: absolute;
+        right: 55%;
+        top: 45%;
+        color: #7000ff;
+        font-size: 28px;
+        font-family: Roboto;
+        font-weight: 500;
+      }
+    }
     .all_product_body {
       margin-top: 60px;
 
@@ -437,6 +468,23 @@
         text-align: start;
         line-height: 1.5;
         letter-spacing: -0.02em;
+      }
+    }
+    .loadingSpinner {
+      display: flex !important;
+
+      .load {
+        position: absolute;
+        right: 50%;
+      }
+      span {
+        position: absolute;
+        right: 42.5%;
+        top: 45%;
+        color: #7000ff;
+        font-size: 28px;
+        font-family: Roboto;
+        font-weight: 500;
       }
     }
 

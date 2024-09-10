@@ -25,7 +25,12 @@ const Profile = () => {
   ///////////////////////////////////////
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        style={{
+          zIndex: 999999,
+        }}>
         <Modal.Header closeButton>
           <Modal.Title>{t("header.userInfo")}</Modal.Title>
         </Modal.Header>
