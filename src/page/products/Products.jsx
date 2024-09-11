@@ -9,6 +9,7 @@ import ProductTable from "../../components/productsTable/ProductTable";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductsCarousel from "../../components/productsCarousel/ProductsCarousel";
+// import { Link } from "react-router-dom";
 
 const Products = () => {
   const { t } = useTranslation();
@@ -76,7 +77,6 @@ const Products = () => {
         </div>
       ) : (
         <>
-          {" "}
           <div className="all_product_body">
             <ProductTable categories={products.payLoad || []} />
           </div>

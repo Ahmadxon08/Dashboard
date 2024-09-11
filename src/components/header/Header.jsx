@@ -9,8 +9,8 @@ import User from "../../auth/user/User";
 import useMainStore from "../../store/useMainStore";
 import { RiMenuFold4Fill } from "react-icons/ri";
 import useCategoryStore from "../../store/useCategoryStore";
-// import SearchModal from "../search/Search";
-// import useSearchStore from "../../store/useSearchStore";
+import SearchModal from "../search/Search";
+import useSearchStore from "../../store/useSearchStore";
 
 const logo = "./assets/img/logo.png";
 
@@ -18,17 +18,21 @@ const Header = () => {
   const { handleOpenSidebar } = useMainStore((state) => ({
     handleOpenSidebar: state.handleOpenSidebar,
   }));
-  // const { handleSearchOpen } = useSearchStore((state) => ({
-  //   handleSearchOpen: state.handleSearchOpen,
-  // }));
-  const { setSelectedCategoryId } = useCategoryStore((state) => ({
-    fetchProductsByCategoryId: state.fetchProductsByCategoryId,
-    setSelectedCategoryId: state.setSelectedCategoryId,
+  const { handleSearchOpen } = useSearchStore((state) => ({
+    handleSearchOpen: state.handleSearchOpen,
   }));
+  const { setSelectedCategoryId, setIsCategoriesOpen } = useCategoryStore(
+    (state) => ({
+      fetchProductsByCategoryId: state.fetchProductsByCategoryId,
+      setSelectedCategoryId: state.setSelectedCategoryId,
+      setIsCategoriesOpen: state.setIsCategoriesOpen,
+    })
+  );
   const handelCloseSidebar = () => {
     setSelectedCategoryId(null);
+    setIsCategoriesOpen(false);
     localStorage.removeItem("activeButton");
-    // handleSearchOpen(false);
+    handleSearchOpen(false);
   };
   return (
     <header>
@@ -50,9 +54,9 @@ const Header = () => {
           <nav>
             <Select1 />
             <div className="auth">
-              <Button variant="text">
+              <Button variant="text" onClick={() => handleSearchOpen()}>
                 ...
-                {/* <SearchModal /> */}
+                <SearchModal />
               </Button>
 
               <User />

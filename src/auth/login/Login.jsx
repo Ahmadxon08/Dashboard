@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Button } from "@mui/material";
+import { Button, useMediaQuery } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { useFormik } from "formik";
@@ -17,6 +17,7 @@ const Login = () => {
   const { inputType, icon } = useEye();
 
   const { enqueueSnackbar } = useSnackbar();
+  const isSmallScreen = useMediaQuery("(max-width:768px)");
 
   const formik = useFormik({
     initialValues: {
@@ -76,13 +77,13 @@ const Login = () => {
         </motion.div>
         <motion.div
           className="loginForm"
-          initial={{ x: 100, opacity: 0 }}
+          initial={{ x: isSmallScreen ? -100 : 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1 }}>
           <form onSubmit={handleSubmit}>
             <div className="form1">
               <img src={userPc} alt="user" />
-              <h2>Log in</h2>
+              <h2>Log In</h2>
 
               <div className="input">
                 <label htmlFor="username">Username</label>
@@ -139,7 +140,10 @@ const Login = () => {
               <div className="singUp1">
                 <span>Don't have an account?</span>
 
-                <Link to={"/register"}>Sign up</Link>
+                <span>
+                  {" "}
+                  <Link to={"/register"}>Sign up</Link>
+                </span>
               </div>
             </div>
           </form>

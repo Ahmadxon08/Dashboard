@@ -22,18 +22,23 @@ const Sidebar = () => {
   const [selectedParentId, setSelectedParentId] = useState(null);
   const { t } = useTranslation();
   const [activeButton, setActiveButton] = useState("");
-  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+  // const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 768);
   const sidebarRef = useRef(null);
   const location = useLocation();
 
   ////right side api data start
-  const { setSelectedCategoryId, fetchProductsByCategoryId } = useCategoryStore(
-    (state) => ({
-      fetchProductsByCategoryId: state.fetchProductsByCategoryId,
-      setSelectedCategoryId: state.setSelectedCategoryId,
-    })
-  );
+  const {
+    setSelectedCategoryId,
+    isCategoriesOpen,
+    setIsCategoriesOpen,
+    fetchProductsByCategoryId,
+  } = useCategoryStore((state) => ({
+    isCategoriesOpen: state.isCategoriesOpen,
+    setIsCategoriesOpen: state.setIsCategoriesOpen,
+    fetchProductsByCategoryId: state.fetchProductsByCategoryId,
+    setSelectedCategoryId: state.setSelectedCategoryId,
+  }));
   ////////
 
   const selectedCategoryId2 = null;

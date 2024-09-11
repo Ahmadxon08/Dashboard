@@ -6,6 +6,8 @@ import useEye from "../../hooks/useEye";
 import { useSnackbar } from "notistack";
 import { registerValidationSchema } from "../validation";
 import { motion } from "framer-motion";
+import axios from "axios";
+import { main_url } from "../../utils/api";
 
 const rg = "./assets/img/register.jpg";
 const Register = () => {
@@ -15,21 +17,29 @@ const Register = () => {
   const formik = useFormik({
     initialValues: {
       username: "",
-      email: "",
       password: "",
       confirmPassword: "",
     },
     validationSchema: registerValidationSchema,
-    onSubmit: (values) => {
-      setTimeout(() => {
-        if (values) {
-          localStorage.setItem("user", JSON.stringify(values));
-          console.log(values);
+    onSubmit: async (values) => {
+      try {
+        const res = await axios.post(`${main_url}adduser`, {
+          userName: values.username,
+          passWord: values.password,
+        });
+        if (res.data.acknowledged) {
+          enqueueSnackbar("Registration successful!", { variant: "success" });
           navigate("/login");
-        } else {
-          navigate("/register");
+          console.log(res.data.acknowledged);
+          console.log(values);
+        } else if (res.data.error) {
+          enqueueSnackbar("Username already exists", { variant: "error" });
         }
-      }, 2000);
+      } catch (error) {
+        enqueueSnackbar("Something went wrong, please try again.", {
+          variant: "error",
+        });
+      }
     },
   });
   const { values, handleChange, handleSubmit, handleBlur, errors, touched } =
@@ -78,26 +88,7 @@ const Register = () => {
                   {touched.username && errors.username}
                 </span>
               </div>
-              <div className="input">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  label="Email"
-                  onPaste={handlePaste}
-                  value={values.email}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  style={{
-                    marginBottom: "20px",
-                    width: "80%",
-                  }}
-                />
-                <span className="err">
-                  {touched.email && errors.email && errors.email}
-                </span>
-              </div>
+
               <div className="input">
                 <label htmlFor="password">Password</label>
                 <div className="pwd">
@@ -147,7 +138,9 @@ const Register = () => {
 
               <div className="singUp1">
                 <span>Do you have an account?</span>
-                <Link to={"/login"}>Sign in</Link>
+                <span>
+                  <Link to={"/login"}>Sign in</Link>
+                </span>
               </div>
             </div>
           </form>

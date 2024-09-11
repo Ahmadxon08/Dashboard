@@ -228,47 +228,21 @@
               background: transparent;
             }
           }
-
           .singUp1 {
             display: flex;
             align-items: center;
+            margin-top: 10px;
+            width: 80%;
+            padding: 0 20px;
             justify-content: center;
-            width: 100%;
-            gap: 5px;
-            margin: 0 auto;
-            margin-top: 12px;
-            text-align: center;
-            position: relative;
+            gap: 30px;
             span {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              font-family: Roboto;
-              position: absolute;
-              font-size: 18px;
-              font-weight: 400;
-              width: 50%;
-              line-height: 14.52px;
-              text-align: center;
-              color: rgb(156, 152, 152);
-              left: 50px;
-              top: 20px;
-            }
-            a {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              text-decoration: none;
-              position: absolute;
-              top: 20px;
-              right: -60px;
-              color: #2693ec;
               font-family: Roboto;
               font-size: 18px;
-              justify-content: center;
               font-weight: 400;
-              line-height: 14.52px;
-              text-align: center;
+
+              cursor: pointer;
+              color: rgb(96, 90, 90);
             }
           }
         }
@@ -431,43 +405,18 @@
             .singUp1 {
               display: flex;
               align-items: center;
-
-              width: 100%;
-              gap: 15px;
-              margin: 0 auto;
-              margin-top: 5px;
-              text-align: center;
-              position: relative;
+              margin-top: 10px;
+              width: 80%;
+              padding: 0 20px;
+              justify-content: center;
+              gap: 30px;
               span {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-family: Roboto;
-                position: absolute;
-                font-size: 18px;
-                font-weight: 400;
-                width: 50%;
-                line-height: 14.52px;
-                text-align: center;
-                color: rgb(156, 152, 152);
-                left: 40px;
-                top: 20px;
-              }
-              a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                position: absolute;
-                top: 20px;
-                right: -80px;
-                color: #2693ec;
                 font-family: Roboto;
                 font-size: 18px;
-                justify-content: center;
                 font-weight: 400;
-                line-height: 14.52px;
-                text-align: center;
+
+                cursor: pointer;
+                color: rgb(96, 90, 90);
               }
             }
           }
@@ -630,43 +579,17 @@
             .singUp1 {
               display: flex;
               align-items: center;
-
-              width: 100%;
-              gap: 15px;
-              margin: 0 auto;
-              margin-top: 12px;
-              text-align: center;
-              position: relative;
+              margin-top: 10px;
+              width: 80%;
+              padding: 0 20px;
+              justify-content: center;
+              gap: 30px;
               span {
-                display: flex;
-                justify-content: center;
-                align-items: center;
                 font-family: Roboto;
-                position: absolute;
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 400;
-                width: 50%;
-                line-height: 14.52px;
-                text-align: center;
-                color: rgb(156, 152, 152);
-                left: 40px;
-                top: 20px;
-              }
-              a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                position: absolute;
-                top: 20px;
-                right: -80px;
-                color: #2693ec;
-                font-family: Roboto;
-                font-size: 18px;
-                justify-content: center;
-                font-weight: 400;
-                line-height: 14.52px;
-                text-align: center;
+                cursor: pointer;
+                color: rgb(96, 90, 90);
               }
             }
           }
@@ -695,7 +618,7 @@
       bottom: 0;
 
       .img {
-        display: flex;
+        display: none;
         align-items: center;
         width: 50%;
         height: 100%;
@@ -714,7 +637,7 @@
         align-items: center;
         height: 100%;
         padding: 30px;
-        width: 50%;
+        width: 100%;
 
         form {
           display: flex;
@@ -748,8 +671,8 @@
               display: flex;
               position: relative;
               top: -5%;
-              width: 100px;
-              height: 100px;
+              width: 150px;
+              height: 150px;
             }
 
             .input {
@@ -766,7 +689,7 @@
                 font-size: 18px;
                 font-weight: bold;
                 padding-bottom: 18px;
-                padding-left: 33px;
+                padding-left: 60px;
                 cursor: pointer;
                 color: rgb(96, 90, 90);
               }
@@ -790,12 +713,12 @@
                 position: relative;
                 top: -12px;
                 font-family: Roboto;
-                font-size: 12px;
+                font-size: 16px;
                 font-weight: 400;
                 line-height: 18px;
                 text-decoration: none;
                 color: red;
-                left: 33px;
+                left: 60px;
                 padding-bottom: 15px;
               }
             }
@@ -822,9 +745,25 @@
                 top: 50%;
                 right: 0;
                 width: 25px;
-                left: 78%;
+                left: 88%;
 
                 transform: translateY(-50%);
+              }
+            }
+            .singUp1 {
+              display: flex;
+              align-items: center;
+              margin-top: 10px;
+              width: 80%;
+              padding: 0 0px;
+              justify-content: center;
+              gap: 30px;
+              span {
+                font-family: Roboto;
+                font-size: 18px;
+                font-weight: 500;
+                cursor: pointer;
+                color: rgb(96, 90, 90);
               }
             }
           }
@@ -833,7 +772,7 @@
     }
   }
 }
-@media (max-width: 425px) {
+@media (max-width: 450px) {
   .login {
     display: flex;
     overflow: hidden;
@@ -854,7 +793,7 @@
       bottom: 0;
 
       .img {
-        display: flex;
+        display: none;
         align-items: center;
         width: 100%;
         height: 30%;
@@ -881,9 +820,9 @@
           flex-direction: column;
           justify-content: center;
           position: relative;
-          padding: 7px;
+          padding: 0px;
           width: 80%;
-          height: 95%;
+          height: 100%;
           gap: 15px;
           background: #fff;
           z-index: 11 !important;
@@ -896,10 +835,9 @@
             flex-direction: column;
             justify-content: center;
             position: relative;
-            padding: 0px 0;
+            padding: 0;
             width: 100%;
             height: 100%;
-
             gap: 10px;
             z-index: 11 !important;
             border-radius: 6px;
@@ -936,7 +874,7 @@
                 font-size: 18px;
                 font-weight: bold;
                 padding-bottom: 18px;
-                padding-left: 40px;
+                padding-left: 36px;
                 cursor: pointer;
                 color: rgb(96, 90, 90);
               }
@@ -949,14 +887,14 @@
                 font-weight: 500;
                 padding: 10px 0;
                 width: 100%;
-                padding-left: 12px;
+
                 font-family: Roboto;
                 padding-left: 12px;
                 border: #002bff;
                 margin: 0 auto;
               }
               span {
-                width: 90%;
+                width: 100%;
                 position: relative;
                 top: -12px;
                 font-family: Roboto;
@@ -965,7 +903,7 @@
                 line-height: 18px;
                 text-decoration: none;
                 color: red;
-                left: 40px;
+                left: 36px;
                 padding-bottom: 15px;
               }
             }
@@ -1000,43 +938,18 @@
             .singUp1 {
               display: flex;
               align-items: center;
+              margin-top: 10px;
+              width: 80%;
+              padding: 0 0px;
               justify-content: center;
-              width: 100%;
-              gap: 20px;
-              margin: 0 auto;
-              margin-top: 5px;
-              text-align: center;
-              position: relative;
+              gap: 4px;
               span {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-family: Roboto;
-                position: absolute;
-                font-size: 16px;
-                font-weight: 400;
-                width: 70%;
-                line-height: 14.52px;
-                text-align: center;
-                color: rgb(156, 152, 152);
-                left: 10px;
-                top: 20px;
-              }
-              a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                position: absolute;
-                top: 20px;
-                right: -80px;
-                color: #2693ec;
                 font-family: Roboto;
                 font-size: 16px;
-                justify-content: center;
                 font-weight: 400;
-                line-height: 14.52px;
-                text-align: center;
+
+                cursor: pointer;
+                color: rgb(96, 90, 90);
               }
             }
           }

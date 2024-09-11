@@ -11,7 +11,9 @@ const useCategoryStore = create((set, get) => ({
   productDetails: null,
   loading: false,
   error: null,
+  isCategoriesOpen: false,
 
+  setIsCategoriesOpen: (isOpen) => set({ isCategoriesOpen: isOpen }),
   setUniqueItems: (items) => set({ uniqueItems: items }),
 
   setSelectedCategoryId: (id) => {
