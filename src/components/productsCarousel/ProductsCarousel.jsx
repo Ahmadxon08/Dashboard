@@ -3,17 +3,21 @@
 import "./ProductsCarousel.scss";
 import { motion } from "framer-motion";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useCategoryStore from "../../store/useCategoryStore";
 
 const ProductsCarousel = ({ products }) => {
-  const [uniqueItems, setUniqueItems] = useState([]);
-  const { setSelectedCategoryId, fetchProductsByCategoryId } = useCategoryStore(
-    (state) => ({
-      fetchProductsByCategoryId: state.fetchProductsByCategoryId,
-      setSelectedCategoryId: state.setSelectedCategoryId,
-    })
-  );
+  const {
+    setSelectedCategoryId,
+    setUniqueItems,
+    uniqueItems,
+    fetchProductsByCategoryId,
+  } = useCategoryStore((state) => ({
+    uniqueItems: state.uniqueItems,
+    setUniqueItems: state.setUniqueItems,
+    fetchProductsByCategoryId: state.fetchProductsByCategoryId,
+    setSelectedCategoryId: state.setSelectedCategoryId,
+  }));
   useEffect(() => {
     if (products?.payLoad) {
       const seen = new Set();
@@ -31,9 +35,11 @@ const ProductsCarousel = ({ products }) => {
 
     fetchProductsByCategoryId(filterId);
   };
+  console.log("ssssssss", uniqueItems);
+
   return (
     <div className="productsFilter">
-      {uniqueItems.length > 0 &&
+      {uniqueItems &&
         uniqueItems.map((item, i) => (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

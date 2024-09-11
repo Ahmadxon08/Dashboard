@@ -16,8 +16,12 @@ import Products from "./page/products/Products";
 import ProductDetail from "./components/singleCard/ProductDetail";
 
 const App = () => {
-  const isLogened = JSON.parse(localStorage.getItem("user")) !== null;
-
+  let isLogened = false;
+  try {
+    isLogened = JSON.parse(localStorage.getItem("user")) !== null;
+  } catch (e) {
+    isLogened = false;
+  }
   return (
     <>
       <div className="app">
@@ -28,7 +32,7 @@ const App = () => {
 
           <Route element={<Private isLogened={isLogened} />}>
             <Route path="/" element={<Router />}>
-              <Route path="/" element={<Home />} />
+              <Route index element={<Home />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/users" element={<Users />} />
               <Route path="/productsByType" element={<ProductsByType />} />

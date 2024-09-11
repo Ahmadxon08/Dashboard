@@ -6,14 +6,16 @@ import { Link } from "react-router-dom";
 const ProductTable = ({ categories }) => {
   const [maxLetter, setMaxLetter] = useState(160);
 
-  const removeImageUrls = (description) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return description.replace(urlRegex, "").trim();
-  };
-
   const startsWithUrl = (description) => {
     const urlRegex = /^(https?:\/\/[^\s]+)/;
     return urlRegex.test(description);
+  };
+
+  const extractAndRemoveUrls = (description) => {
+    const urlPattern = /https:\/\/[^\s]+\.jpg/g;
+    const urls = description.match(urlPattern) || [];
+    const cleanedDescription = description.replace(urlPattern, "").trim();
+    return { cleanedDescription, urls };
   };
 
   const handleResize = () => {
@@ -22,7 +24,7 @@ const ProductTable = ({ categories }) => {
     } else if (window.innerWidth <= 768) {
       setMaxLetter(100);
     } else {
-      setMaxLetter(120);
+      setMaxLetter(160);
     }
   };
 
@@ -47,21 +49,44 @@ const ProductTable = ({ categories }) => {
       </thead>
       <tbody>
         {categories.map((category, index) => {
-          const hasUrl = startsWithUrl(category.description);
-          const truncatedDescription = removeImageUrls(
+          // URL'larni chiqarib olish
+          const { cleanedDescription } = extractAndRemoveUrls(
             category.description
-          ).slice(0, maxLetter);
-          const showMore = category.description.length > maxLetter;
+          );
+          const hasUrl = startsWithUrl(category.description);
+          const truncatedDescription = cleanedDescription.slice(0, maxLetter);
+          const showMore = cleanedDescription.length > maxLetter;
 
           return (
             <tr key={category._id || index}>
-              <td data-cell="No">{index + 1}</td>
+              <td
+                data-cell="No"
+                style={{
+                  color: "#000",
+                  fontSize: "18px",
+                  fontWeight: "bold",
+                }}>
+                {index + 1}
+              </td>
               <td data-cell="Image">
                 <img src={category.photo} alt="photo" />
               </td>
               <td data-cell="Title">
                 {category.title.slice(0, 15)}...
-                <Link to={`/product/${category.id}`}>see more</Link>
+                <br />
+                <Link
+                  to={`/product/${category.id}`}
+                  style={{
+                    color: "#007bff",
+                    textDecoration: "none",
+                    fontSize: "14px",
+                    backgroundColor: "#ccc",
+                    padding: "4px",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                  }}>
+                  see more
+                </Link>
               </td>
               <td data-cell="Rating">{category?.rating || 0}</td>
               <td data-cell="Price">
@@ -71,7 +96,8 @@ const ProductTable = ({ categories }) => {
               <td data-cell="Description">
                 {hasUrl
                   ? category.title
-                  : (truncatedDescription || "N/A") + (showMore ? "..." : "")}
+                  : (truncatedDescription || category.title) +
+                    (showMore ? "..." : "")}
               </td>
             </tr>
           );
@@ -91,7 +117,7 @@ ProductTable.propTypes = {
       rating: PropTypes.number,
       skuList: PropTypes.arrayOf(
         PropTypes.shape({
-          fullPrice: PropTypes.string,
+          fullPrice: PropTypes.number,
         })
       ),
       ordersAmount: PropTypes.number,

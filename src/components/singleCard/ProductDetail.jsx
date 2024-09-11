@@ -41,7 +41,6 @@ const ProductDetail = () => {
         ? productDetails[0]
         : productDetails;
 
-      // Tavsif va URL'larni chiqarib olish
       const { cleanedDescription, urls } = extractAndRemoveUrls(
         product.description
       );
@@ -54,13 +53,12 @@ const ProductDetail = () => {
 
   if (error) return <p>Error: {error}</p>;
 
-  if (!productDetails) return <p>Product not found.</p>;
-
-  // Agar productDetails array bo'lsa, birinchi elementni olish
   const product = Array.isArray(productDetails)
     ? productDetails[0]
     : productDetails;
   console.log(urls);
+  console.log("lohhhh", cleanedDescription);
+  console.log(product);
 
   return (
     <div className="productDetail">
@@ -71,7 +69,7 @@ const ProductDetail = () => {
         </div>
       ) : (
         <>
-          {product && (
+          {product ? (
             <div className="product_card">
               <div className="imgWrapper">
                 <img src={product.photo} alt={product.title} />
@@ -109,6 +107,8 @@ const ProductDetail = () => {
                 ))} */}
               </div>
             </div>
+          ) : (
+            <p>Product not found.</p>
           )}
         </>
       )}

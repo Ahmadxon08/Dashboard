@@ -36,6 +36,9 @@ const Login = () => {
         if (res.data?.verifyResult === "passed" && res.data?.token) {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("user", JSON.stringify(values));
+          console.log(res.data);
+
+          console.log(res.data.token, JSON.stringify(values));
 
           enqueueSnackbar("Login successful!", { variant: "success" });
           navigate("/");
@@ -59,6 +62,7 @@ const Login = () => {
     e.preventDefault();
     enqueueSnackbar("Pasting is not allowed", { variant: "error" });
   };
+
   return (
     <div className="login">
       <div className="loginBg"></div>

@@ -13,7 +13,6 @@ import {
 } from "react-icons/md";
 import useMainStore from "../../store/useMainStore";
 import { motion } from "framer-motion";
-// import useData from "../../utils/data";
 import useCategoryStore from "../../store/useCategoryStore";
 import useManuStore from "../../store/useMenuStore";
 
@@ -121,7 +120,10 @@ const Sidebar = () => {
     setSelectedCategoryId(childId);
     fetchProductsByCategoryId(childId);
   };
-
+  const handleChild2Click = (childId2) => {
+    setSelectedCategoryId(childId2);
+    fetchProductsByCategoryId(childId2);
+  };
   /////////////////////////////////////////////
   const toggleCategories = () => {
     setSelectedParentId(null);
@@ -267,44 +269,97 @@ const Sidebar = () => {
                       </Button>
                     </Link>
                     {selectedParentId === p.id && (
-                      <div className="children">
-                        {categoryChildren.length > 0 &&
-                          categoryChildren.map((child, index) => (
-                            <motion.div
-                              className="child"
-                              key={index}
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: index * 0.05 }}>
-                              <Link
-                                to={`/products?section=${encodeURIComponent(
-                                  p.title.toLowerCase()
-                                )}?&part=${encodeURIComponent(
-                                  child.title.toLowerCase()
-                                )}`}
-                                onClick={() => handleButtonClick(child.title)}>
-                                <Button
-                                  onClick={() => handleChildClick(child.id)}
-                                  sx={{
-                                    background:
-                                      activeButton === child.title
-                                        ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
-                                        : "inherit",
-                                  }}>
-                                  <span
-                                    style={{
-                                      color:
+                      <>
+                        <div className="children">
+                          {categoryChildren.length > 0 &&
+                            categoryChildren.map((child, index) => (
+                              <motion.div
+                                className="child"
+                                key={index}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.05 }}>
+                                <Link
+                                  to={`/products?section=${encodeURIComponent(
+                                    p.title.toLowerCase()
+                                  )}?&part=${encodeURIComponent(
+                                    child.title.toLowerCase()
+                                  )}`}
+                                  onClick={() =>
+                                    handleButtonClick(child.title)
+                                  }>
+                                  <Button
+                                    onClick={() => handleChildClick(child.id)}
+                                    sx={{
+                                      background:
                                         activeButton === child.title
-                                          ? "#7000ff"
-                                          : "#fff",
+                                          ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                                          : "inherit",
                                     }}>
-                                    {child.title}
-                                  </span>
-                                </Button>
-                              </Link>
-                            </motion.div>
-                          ))}
-                      </div>
+                                    <span
+                                      style={{
+                                        color:
+                                          activeButton === child.title
+                                            ? "#7000ff"
+                                            : "#fff",
+                                      }}>
+                                      {child.title}
+                                    </span>
+                                  </Button>
+                                </Link>
+                                {selectedParentId == child.id && (
+                                  <div className="children">
+                                    {categoryChildren.length > 0 &&
+                                      categoryChildren[0].map(
+                                        (child, index) => (
+                                          <motion.div
+                                            className="child"
+                                            key={index}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{
+                                              delay: index * 0.05,
+                                            }}>
+                                            <Link
+                                              to={`/products?section=${encodeURIComponent(
+                                                p.title.toLowerCase()
+                                              )}?&part=${encodeURIComponent(
+                                                child.title.toLowerCase()
+                                              )}`}
+                                              onClick={() =>
+                                                handleButtonClick(child.title)
+                                              }>
+                                              <Button
+                                                onClick={() =>
+                                                  handleChild2Click(child.id)
+                                                }
+                                                sx={{
+                                                  background:
+                                                    activeButton === child.title
+                                                      ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                                                      : "inherit",
+                                                }}>
+                                                <span
+                                                  style={{
+                                                    color:
+                                                      activeButton ===
+                                                      child.title
+                                                        ? "#7000ff"
+                                                        : "#fff",
+                                                  }}>
+                                                  {child.title}
+                                                </span>
+                                              </Button>
+                                            </Link>
+                                          </motion.div>
+                                        )
+                                      )}
+                                  </div>
+                                )}
+                              </motion.div>
+                            ))}
+                        </div>{" "}
+                      </>
                     )}
                   </motion.div>
                 ))}

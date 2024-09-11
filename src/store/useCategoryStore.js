@@ -6,10 +6,13 @@ const useCategoryStore = create((set, get) => ({
   selectedCategoryId: null,
   currentPage: 1,
   totalPages: 1,
+  uniqueItems: [],
   products: [],
   productDetails: null,
   loading: false,
   error: null,
+
+  setUniqueItems: (items) => set({ uniqueItems: items }),
 
   setSelectedCategoryId: (id) => {
     set({ selectedCategoryId: id });

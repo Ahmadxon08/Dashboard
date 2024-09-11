@@ -9,7 +9,6 @@ import ProductTable from "../../components/productsTable/ProductTable";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductsCarousel from "../../components/productsCarousel/ProductsCarousel";
-import { Link } from "react-router-dom";
 
 const Products = () => {
   const { t } = useTranslation();
@@ -53,7 +52,7 @@ const Products = () => {
   return (
     <section className="allProducts">
       <div className="all_product_head">
-        <div className="url">
+        {/* <div className="url">
           <span>
             <Link to={`/category/${selectedCategoryId}`}>
               {" "}
@@ -61,7 +60,7 @@ const Products = () => {
             </Link>
             /{textHeader.toLocaleLowerCase()}
           </span>
-        </div>
+        </div> */}
 
         <h2>{loading ? " " : textHeader}</h2>
         <h3>

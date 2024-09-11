@@ -23,8 +23,8 @@ const Home = () => {
           pageNum: "1",
         });
 
-        setCategories(response.data.payLoad); // Kategoriya ma'lumotlarini saqlash
-        setTotal(response.data.total); // Umumiy sonini olish
+        setCategories(response.data.payLoad);
+        setTotal(response.data.total);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
