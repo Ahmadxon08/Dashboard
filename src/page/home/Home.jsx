@@ -1,134 +1,93 @@
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import "./Home.scss";
 import Table1 from "../../components/table/Table";
-import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import { main_url } from "../../utils/api";
-import axios from "axios";
-// import  { useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
+import useSearchStore from "../../store/useSearchStore";
+import debounce from "lodash.debounce";
 
 const Home = () => {
-  const { t } = useTranslation();
-  const [categories, setCategories] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [pageNum, setPageNum] = useState(1);
-  const [total, setTotal] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  // const navigate = useNavigate();
 
-  // API ma'lumotlarini olish uchun useEffect
+  const {
+    products,
+    totals,
+    fetchProducts,
+
+    setSearchText,
+  } = useSearchStore((state) => ({
+    totals: state.totals,
+    products: state.products,
+    openSearch: state.openSearch,
+    fetchProducts: state.fetchProducts,
+    handleSearchClose: state.handleSearchClose,
+    setSearchText: state.setSearchText,
+  }));
+
+  // Using useCallback to debounce the fetchProducts method
+  const debouncedFetchProducts = useCallback(
+    debounce((value) => {
+      setSearchText(value);
+      fetchProducts(value, 1);
+    }, 500),
+    [setSearchText, fetchProducts]
+  );
+
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.post(`${main_url}category`, {
-          jss: { pathDepth: 3 },
-          pageNum: "1",
-        });
-
-        setCategories(response.data.payLoad);
-        setTotal(response.data.total);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
+    if (searchTerm.trim()) {
+      debouncedFetchProducts(searchTerm);
+    }
+    // Clean up debounce
+    return () => {
+      debouncedFetchProducts.cancel();
     };
+  }, [searchTerm, debouncedFetchProducts]);
 
-    fetchCategories();
-  }, [pageNum]);
-  console.log(categories);
-  console.log(total);
+  // const handleClose = () => {
+  //   setSearchTerm("");
+  //   handleSearchClose();
+  // };
+
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+  };
+
+  // const handleResultClick = (id) => {
+  //   handleClose();
+  //   navigate(`/single/${id}`);
+  // };
+  console.log(products);
 
   return (
     <div className="content">
       <section className="content_header">
         <div className="items">
           <div className="item">
-            <label htmlFor="name">{t("mainContent.productName")} :</label>
             <TextField
+              type="search"
+              className="input"
+              label="Search..."
               id="filled-basic"
               variant="filled"
-              name="name"
+              value={searchTerm}
+              onChange={handleSearchChange} // qiymat o'zgarishi hodisasi
               InputProps={{
                 style: {
+                  width: "100%",
                   height: "40px",
                 },
               }}
             />
+            {/* <Button variant="contained" onClick={handleSearch}>
+              {loading ? "Loading..." : t("mainContent.search")}
+            </Button> */}
+            <span>{totals ? `Total: ${totals}` : "No products found"}</span>
           </div>
-
-          <div className="item">
-            <label htmlFor="store">{t("mainContent.storeName")} :</label>
-            <TextField
-              id="filled-basic"
-              variant="filled"
-              name="store"
-              InputProps={{
-                style: {
-                  height: "40px",
-                },
-              }}
-            />
-          </div>
-        </div>
-        <div className="items">
-          <div className="item">
-            <label htmlFor="product">{t("mainContent.price")} :</label>
-            <TextField
-              id="filled-basic"
-              variant="filled"
-              name="price"
-              InputProps={{
-                style: {
-                  height: "40px",
-                },
-              }}
-            />
-          </div>
-
-          <div className="item">
-            <label htmlFor="order">{t("mainContent.orderBy")} :</label>
-            <TextField
-              id="filled-basic"
-              variant="filled"
-              name="order"
-              InputProps={{
-                style: {
-                  height: "40px",
-                },
-              }}
-            />
-          </div>
-        </div>
-        <div className="items">
-          <div className="item">
-            <label htmlFor="product">...</label>
-            <TextField
-              id="filled-basic"
-              variant="filled"
-              InputProps={{
-                style: {
-                  height: "40px",
-                },
-              }}
-            />
-          </div>
-
-          <div className="item">
-            <label htmlFor="produuct">...</label>
-            <TextField
-              id="filled-basic"
-              variant="filled"
-              InputProps={{
-                style: {
-                  height: "40px",
-                },
-              }}
-            />
-          </div>
-        </div>
-        <div className="btn1">
-          <Button variant="text">{t("mainContent.search")}</Button>
         </div>
       </section>
       <section className="content_body">
-        <Table1 />
+        <Table1 products={products} /> {/* Mahsulotlar jadvalda ko'rsatiladi */}
       </section>
     </div>
   );

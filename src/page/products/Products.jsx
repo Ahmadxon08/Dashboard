@@ -8,27 +8,30 @@ import useCategoryStore from "../../store/useCategoryStore";
 import ProductTable from "../../components/productsTable/ProductTable";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ProductsCarousel from "../../components/productsCarousel/ProductsCarousel";
+import ProductsCarousel from "../../components/productsFilter/ProductsCarousel";
 // import { Link } from "react-router-dom";
 
 const Products = () => {
   const { t } = useTranslation();
+  const itemsPerPage = 20;
 
   const {
     products,
     pageNum,
-    totalPages,
+    totalItems,
     loading,
     error,
     selectedCategoryId,
     fetchProductsByCategoryId,
     setPage,
+    uniqueItems,
   } = useCategoryStore((state) => ({
+    uniqueItems: state.uniqueItems,
     products: state.products,
     error: state.error,
     pageNum: state.currentPage,
     loading: state.loading,
-    totalPages: state.totalPages,
+    totalItems: state.totalItems,
     fetchProductsByCategoryId: state.fetchProductsByCategoryId,
     selectedCategoryId: state.selectedCategoryId,
     setPage: state.setPage,
@@ -43,6 +46,7 @@ const Products = () => {
     e.preventDefault();
     setPage(page);
   };
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const textHeader = localStorage.getItem("activeButton") || "";
 
@@ -50,26 +54,10 @@ const Products = () => {
 
   console.log("loading...", loading);
 
+  console.log("llllllllj", uniqueItems);
+
   return (
     <section className="allProducts">
-      <div className="all_product_head">
-        {/* <div className="url">
-          <span>
-            <Link to={`/category/${selectedCategoryId}`}>
-              {" "}
-              {textHeader.toLocaleLowerCase()}
-            </Link>
-            /{textHeader.toLocaleLowerCase()}
-          </span>
-        </div> */}
-
-        <h2>{loading ? " " : textHeader}</h2>
-        <h3>
-          {loading ? " " : t("categories.totalItems", { count: totalPages })}
-        </h3>
-        {loading ? "" : <ProductsCarousel products={products} />}
-      </div>
-
       {loading ? (
         <div className="loadingSpinner">
           <CircularProgress color="primary" className="load" />
@@ -77,19 +65,37 @@ const Products = () => {
         </div>
       ) : (
         <>
+          <div className="all_product_head">
+            <div className="url">
+              <span>
+                {/* {uniqueItems[0].map((item, i) => (
+                  // <span key={i}>{item.category.title}</span>
+                ))} */}
+              </span>
+            </div>
+
+            <h2>{textHeader}</h2>
+
+            <h3>{t("categories.totalItems", { count: totalItems })}</h3>
+            <ProductsCarousel products={products} />
+          </div>
+
           <div className="all_product_body">
             <ProductTable categories={products.payLoad || []} />
           </div>
+
           {error && (
             <div className="error">
               <h1>{t("error.fetchError")}</h1>
             </div>
           )}
+
           {products.length === 0 && !loading && (
             <div className="noProducts">
               <h1>{t("error.productNotFound")}</h1>
             </div>
           )}
+
           <div className="all_product_footer">
             <span style={{ marginRight: "20px" }}>
               {t("pagination.pageOf", { currentPage: pageNum, totalPages })}

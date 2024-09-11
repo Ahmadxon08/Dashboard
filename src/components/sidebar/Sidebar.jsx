@@ -19,10 +19,12 @@ import useManuStore from "../../store/useMenuStore";
 const logo = "./assets/img/logo.png";
 
 const Sidebar = () => {
+  const [selectedGrandParentId, setSelectedGrandParentId] = useState(null);
+
   const [selectedParentId, setSelectedParentId] = useState(null);
+  // const [selectedChildId, setSelectedChildId] = useState(null);
   const { t } = useTranslation();
   const [activeButton, setActiveButton] = useState("");
-  // const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 768);
   const sidebarRef = useRef(null);
   const location = useLocation();
@@ -32,8 +34,10 @@ const Sidebar = () => {
     setSelectedCategoryId,
     isCategoriesOpen,
     setIsCategoriesOpen,
+    uniqueItems,
     fetchProductsByCategoryId,
   } = useCategoryStore((state) => ({
+    uniqueItems: state.uniqueItems,
     isCategoriesOpen: state.isCategoriesOpen,
     setIsCategoriesOpen: state.setIsCategoriesOpen,
     fetchProductsByCategoryId: state.fetchProductsByCategoryId,
@@ -41,14 +45,19 @@ const Sidebar = () => {
   }));
   ////////
 
+  useEffect(() => {
+    // Sahifa URL-ni saqlash
+    localStorage.setItem("previousPage", location.pathname);
+  }, [location.pathname]);
+
   const selectedCategoryId2 = null;
 
-  const { parents, fetchParents, categoryChildren, fetchCategoryChildren } =
+  const { grandParents, fetchGrandParents, parents, fetchParents } =
     useManuStore((state) => ({
+      grandParents: state.grandParents,
+      fetchGrandParents: state.fetchGrandParents,
       parents: state.parents,
       fetchParents: state.fetchParents,
-      categoryChildren: state.categoryChildren,
-      fetchCategoryChildren: state.fetchCategoryChildren,
     }));
   ///////////// this is for responsive views
   useEffect(() => {
@@ -101,44 +110,56 @@ const Sidebar = () => {
   }, [openSidebar]);
   //////////////////////////////////
   useEffect(() => {
-    fetchParents();
-  }, [fetchParents]);
+    fetchGrandParents();
+  }, [fetchGrandParents]);
 
   useEffect(() => {
     if (selectedCategoryId2 !== null) {
-      fetchCategoryChildren(selectedCategoryId2);
+      fetchParents(selectedCategoryId2);
     }
   }, [selectedCategoryId2]);
-  console.log("parent", parents);
-  console.log("child", categoryChildren);
+  console.log("parent", grandParents);
+  console.log("child", parents);
 
-  const handleParentClick = (parentId) => {
-    if (selectedParentId === parentId) {
-      setSelectedParentId(null);
+  const handleGrandParentClick = (parentId) => {
+    if (selectedGrandParentId === parentId) {
+      setSelectedGrandParentId(null);
     } else {
-      setSelectedParentId(parentId);
+      setSelectedGrandParentId(parentId);
       setSelectedCategoryId(parentId);
-      fetchCategoryChildren(parentId);
+      fetchParents(parentId);
     }
   };
-  const handleChildClick = (childId) => {
-    setSelectedCategoryId(childId);
-    fetchProductsByCategoryId(childId);
+  const handleParentClick = (childId) => {
+    if (selectedParentId === childId) {
+      setSelectedParentId(null);
+    } else {
+      setSelectedCategoryId(childId);
+      fetchProductsByCategoryId(childId);
+    }
   };
   const handleChild2Click = (childId2) => {
+    // Fetch products for the selected child category
     setSelectedCategoryId(childId2);
     fetchProductsByCategoryId(childId2);
   };
   /////////////////////////////////////////////
   const toggleCategories = () => {
-    setSelectedParentId(null);
+    setSelectedGrandParentId(null);
     setIsCategoriesOpen(!isCategoriesOpen);
   };
-  console.log(selectedParentId);
+  console.log(selectedGrandParentId);
   const handleCloseBar = () => {
-    setSelectedParentId(null);
+    setSelectedGrandParentId(null);
     handleCloseSidebar();
   };
+  const filteredItems = uniqueItems
+    .flat()
+    .filter((item) => item.parentId === selectedParentId);
+
+  console.log("jjjjjjjjj", filteredItems);
+
+  console.log("fiter ids", uniqueItems);
 
   return (
     <div
@@ -224,9 +245,11 @@ const Sidebar = () => {
 
           {isCategoriesOpen && (
             <div className="categoriesMenu">
-              {parents
+              {grandParents
                 .filter(
-                  (p) => selectedParentId === null || p.id === selectedParentId
+                  (p) =>
+                    selectedGrandParentId === null ||
+                    p.id === selectedGrandParentId
                 )
                 .map((p, index) => (
                   <motion.div
@@ -241,7 +264,7 @@ const Sidebar = () => {
                       )}`}
                       onClick={() => handleButtonClick(p.title)}>
                       <Button
-                        onClick={() => handleParentClick(p.id)}
+                        onClick={() => handleGrandParentClick(p.id)}
                         style={{
                           display: p.id ? "flex" : "none",
                         }}
@@ -252,7 +275,7 @@ const Sidebar = () => {
                               : "inherit",
                           marginBottom: activeButton === p.title ? "6px" : "0",
                         }}>
-                        {selectedParentId && (
+                        {selectedGrandParentId && (
                           <MdKeyboardDoubleArrowLeft
                             onClick={() => handleParentClick(p.id)}
                             size={22}
@@ -273,11 +296,11 @@ const Sidebar = () => {
                         </span>
                       </Button>
                     </Link>
-                    {selectedParentId === p.id && (
+                    {selectedGrandParentId === p.id && (
                       <>
                         <div className="children">
-                          {categoryChildren.length > 0 &&
-                            categoryChildren.map((child, index) => (
+                          {parents.length > 0 &&
+                            parents.map((parent, index) => (
                               <motion.div
                                 className="child"
                                 key={index}
@@ -288,77 +311,73 @@ const Sidebar = () => {
                                   to={`/products?section=${encodeURIComponent(
                                     p.title.toLowerCase()
                                   )}?&part=${encodeURIComponent(
-                                    child.title.toLowerCase()
+                                    parent.title.toLowerCase()
                                   )}`}
                                   onClick={() =>
-                                    handleButtonClick(child.title)
+                                    handleButtonClick(parent.title)
                                   }>
                                   <Button
-                                    onClick={() => handleChildClick(child.id)}
+                                    onClick={() => handleParentClick(parent.id)}
                                     sx={{
                                       background:
-                                        activeButton === child.title
+                                        activeButton === parent.title
                                           ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
                                           : "inherit",
                                     }}>
                                     <span
                                       style={{
                                         color:
-                                          activeButton === child.title
+                                          activeButton === parent.title
                                             ? "#7000ff"
                                             : "#fff",
                                       }}>
-                                      {child.title}
+                                      {parent.title}
                                     </span>
                                   </Button>
                                 </Link>
-                                {selectedParentId == child.id && (
+                                {selectedParentId === parent.id && (
                                   <div className="children">
-                                    {categoryChildren.length > 0 &&
-                                      categoryChildren[0].map(
-                                        (child, index) => (
-                                          <motion.div
-                                            className="child"
-                                            key={index}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{
-                                              delay: index * 0.05,
+                                    {filteredItems.map((child, index) => (
+                                      <motion.div
+                                        className="child"
+                                        key={index}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{
+                                          delay: index * 0.05,
+                                        }}>
+                                        <Link
+                                          to={`/products?section=${encodeURIComponent(
+                                            p.title.toLowerCase()
+                                          )}?&part=${encodeURIComponent(
+                                            child.title.toLowerCase()
+                                          )}`}
+                                          onClick={() =>
+                                            handleButtonClick(child.title)
+                                          }>
+                                          <Button
+                                            onClick={() =>
+                                              handleChild2Click(child.id)
+                                            }
+                                            sx={{
+                                              background:
+                                                activeButton === child.title
+                                                  ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
+                                                  : "inherit",
                                             }}>
-                                            <Link
-                                              to={`/products?section=${encodeURIComponent(
-                                                p.title.toLowerCase()
-                                              )}?&part=${encodeURIComponent(
-                                                child.title.toLowerCase()
-                                              )}`}
-                                              onClick={() =>
-                                                handleButtonClick(child.title)
-                                              }>
-                                              <Button
-                                                onClick={() =>
-                                                  handleChild2Click(child.id)
-                                                }
-                                                sx={{
-                                                  background:
-                                                    activeButton === child.title
-                                                      ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
-                                                      : "inherit",
-                                                }}>
-                                                <span
-                                                  style={{
-                                                    color:
-                                                      activeButton ===
-                                                      child.title
-                                                        ? "#7000ff"
-                                                        : "#fff",
-                                                  }}>
-                                                  {child.title}
-                                                </span>
-                                              </Button>
-                                            </Link>
-                                          </motion.div>
-                                        )
-                                      )}
+                                            <span
+                                              style={{
+                                                color:
+                                                  activeButton === child.title
+                                                    ? "#7000ff"
+                                                    : "#fff",
+                                              }}>
+                                              {child.category.title}
+                                            </span>
+                                          </Button>
+                                        </Link>
+                                      </motion.div>
+                                    ))}
                                   </div>
                                 )}
                               </motion.div>

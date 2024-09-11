@@ -5,7 +5,7 @@ import axios from "axios";
 const useCategoryStore = create((set, get) => ({
   selectedCategoryId: null,
   currentPage: 1,
-  totalPages: 1,
+  totalItems: 1,
   uniqueItems: [],
   products: [],
   productDetails: null,
@@ -39,7 +39,7 @@ const useCategoryStore = create((set, get) => ({
       );
       set({
         products: response.data,
-        totalPages: response.data.total,
+        totalItems: response.data.total,
         currentPage: pageNum,
       });
     } catch (err) {
@@ -65,6 +65,11 @@ const useCategoryStore = create((set, get) => ({
       set({ loading: false });
     }
   },
+
+  filterItemByCategoryId: (id) =>
+    set((state) => ({
+      uniqueItems: state.uniqueItems.filter((item) => item.category.id === id),
+    })),
 }));
 
 export default useCategoryStore;

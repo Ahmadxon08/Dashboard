@@ -32,7 +32,10 @@ const Header = () => {
     setSelectedCategoryId(null);
     setIsCategoriesOpen(false);
     localStorage.removeItem("activeButton");
-    handleSearchOpen(false);
+  };
+
+  const handleOpenSearch = (e) => {
+    e.stopPropagation(), e.preventDefault(), handleSearchOpen(true);
   };
   return (
     <header>
@@ -54,7 +57,7 @@ const Header = () => {
           <nav>
             <Select1 />
             <div className="auth">
-              <Button variant="text" onClick={() => handleSearchOpen()}>
+              <Button variant="text" onClick={handleOpenSearch}>
                 ...
                 <SearchModal />
               </Button>

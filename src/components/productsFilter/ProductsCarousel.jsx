@@ -11,8 +11,10 @@ const ProductsCarousel = ({ products }) => {
     setSelectedCategoryId,
     setUniqueItems,
     uniqueItems,
+    filterItemByCategoryId,
     fetchProductsByCategoryId,
   } = useCategoryStore((state) => ({
+    filterItemByCategoryId: state.filterItemByCategoryId,
     uniqueItems: state.uniqueItems,
     setUniqueItems: state.setUniqueItems,
     fetchProductsByCategoryId: state.fetchProductsByCategoryId,
@@ -32,7 +34,7 @@ const ProductsCarousel = ({ products }) => {
 
   const handleFilteredClick = (filterId) => {
     setSelectedCategoryId(filterId);
-
+    filterItemByCategoryId(filterId);
     fetchProductsByCategoryId(filterId);
   };
   console.log("ssssssss", uniqueItems);

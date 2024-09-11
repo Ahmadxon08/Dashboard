@@ -76,6 +76,7 @@ function SearchModal() {
     handleClose();
     navigate(`/single/${id}`);
   };
+  console.log(products);
 
   return (
     <>

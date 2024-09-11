@@ -4,17 +4,17 @@ import { create } from "zustand";
 const useMenuStore = create((set) => ({
   loading: false,
   error: null,
+  grandParents: [],
   parents: [],
-  categoryChildren: [],
   selectedParentId: null,
 
-  fetchParents: async () => {
+  fetchGrandParents: async () => {
     set({ loading: true, error: null });
     try {
       const res = await axios.get(
         "http://65.1.136.0:5050/api/categoryTopLevel"
       );
-      set({ parents: res.data });
+      set({ grandParents: res.data });
     } catch (error) {
       set({ error: error.message });
     } finally {
@@ -22,14 +22,14 @@ const useMenuStore = create((set) => ({
     }
   },
 
-  fetchCategoryChildren: async (categoryId) => {
+  fetchParents: async (categoryId) => {
     set({ loading: true, error: null });
     try {
       const res = await axios.post(
         "http://65.1.136.0:5050/api/categoryChildren",
         { categoryid: categoryId }
       );
-      set({ categoryChildren: res.data });
+      set({ parents: res.data });
     } catch (error) {
       set({ error: error.message });
     } finally {

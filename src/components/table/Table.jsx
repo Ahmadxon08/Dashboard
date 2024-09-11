@@ -1,93 +1,138 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import Table from "react-bootstrap/Table";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-
 import "./Table.scss";
-// import { useApiContext } from "../../context/Context";
 import { useTranslation } from "react-i18next";
-import useStore from "../../store/useStore";
+import { Link } from "react-router-dom";
 
 const itemsPerPage = 6;
 
-const Table1 = () => {
-  //// page trasnlator
+const Table1 = ({ products }) => {
   const { t } = useTranslation();
 
-  ////
+  const [maxLetter, setMaxLetter] = useState(160);
 
-  //// using usestore in order to use function and so on
-  const { items, fetchApi } = useStore((state) => ({
-    fetchApi: state.fetchApi,
-    items: state.items,
-  }));
+  const startsWithUrl = (description) => {
+    const urlRegex = /^(https?:\/\/[^\s]+)/;
+    return urlRegex.test(description);
+  };
+
+  const extractAndRemoveUrls = (description) => {
+    const urlPattern = /https:\/\/[^\s]+\.jpg/g;
+    const urls = description.match(urlPattern) || [];
+    const cleanedDescription = description.replace(urlPattern, "").trim();
+    return { cleanedDescription, urls };
+  };
+
+  const handleResize = () => {
+    if (window.innerWidth <= 425) {
+      setMaxLetter(50);
+    } else if (window.innerWidth <= 768) {
+      setMaxLetter(100);
+    } else {
+      setMaxLetter(160);
+    }
+  };
 
   useEffect(() => {
-    async function loadData() {
-      await fetchApi();
-    }
-
-    loadData();
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  ////////////////////////////////////
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (event, pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  ///pagination
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
-  const currentProducts = items.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
-  const pageNumbers = Math.ceil(items.length / itemsPerPage);
-
-  const truncateText = (text, maxLength) => {
-    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
-  };
+  const totalPages = Math.ceil(products.length / itemsPerPage);
 
   return (
-    <div style={{ width: "100%", overflowX: "auto" }} className="table">
-      <Table bordered hover responsive="lg" style={{ width: "100%" }}>
-        <thead
-          className="table_head"
-          style={{
-            backgroundColor: "#f5f5f5",
-          }}>
+    <div style={{ width: "100%", overflowX: "auto" }} className="tableContent">
+      <span>{("total Results", currentPage.length)}</span>
+      <table style={{ width: "100%" }}>
+        <thead>
           <tr>
             <th>#</th>
-            <th>Categories Name</th>
-            <th>Product Name</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Rating</th>
             <th>Price</th>
-            <th>Description ...</th>
+            <th>Order</th>
+            <th>Description</th>
           </tr>
         </thead>
         <tbody>
-          {currentProducts.map((item, index) => (
-            <tr
-              key={index}
-              style={{
-                cursor: "pointer",
-                transition: "all .5s",
-              }}>
-              <td>{indexOfFirstProduct + index + 1}</td>
-              <td>{item.category}</td>
-              <td>{item.brand}</td>
-              <td>{item.price} $</td>
-              <td
-                style={{
-                  maxWidth: "160px",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}>
-                {truncateText(item.description, 100)}..
-              </td>
-            </tr>
-          ))}
+          {currentProducts.map((category, index) => {
+            const { cleanedDescription } = extractAndRemoveUrls(
+              category.description
+            );
+            const hasUrl = startsWithUrl(category.description);
+            const truncatedDescription = cleanedDescription.slice(0, maxLetter);
+            const showMore = cleanedDescription.length > maxLetter;
+
+            return (
+              <tr key={category._id || index}>
+                <td
+                  data-cell="No"
+                  style={{
+                    color: "#000",
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                  }}>
+                  {indexOfFirstProduct + index + 1}
+                </td>
+                <td data-cell="Image">
+                  <img
+                    src={category.photo}
+                    alt="photo"
+                    width={30}
+                    height={30}
+                  />
+                </td>
+                <td data-cell="Title">
+                  {category.title.slice(0, 15)}...
+                  <br />
+                  <Link
+                    to={`/product/${category.id}`}
+                    style={{
+                      color: "#007bff",
+                      textDecoration: "none",
+                      fontSize: "14px",
+                      backgroundColor: "#ccc",
+                      padding: "4px",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}>
+                    see more
+                  </Link>
+                </td>
+                <td data-cell="Rating">{category?.rating || 0}</td>
+                <td data-cell="Price">
+                  {category.skuList[0]?.fullPrice || "N/A"} Uzs
+                </td>
+                <td data-cell="Order">{category.ordersAmount || 0}</td>
+                <td data-cell="Description">
+                  {hasUrl
+                    ? category.title
+                    : (truncatedDescription || category.title) +
+                      (showMore ? "..." : "")}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
-      </Table>
+      </table>
 
       <div
         style={{
@@ -98,11 +143,11 @@ const Table1 = () => {
           paddingRight: "60px",
         }}>
         <span style={{ marginRight: "20px" }}>
-          {t("pagination.pageOf", { currentPage, totalPages: pageNumbers })}
+          {t("pagination.pageOf", { currentPage, totalPages })}
         </span>
         <Stack spacing={2}>
           <Pagination
-            count={pageNumbers}
+            count={totalPages}
             page={currentPage}
             onChange={handlePageChange}
             siblingCount={1}
