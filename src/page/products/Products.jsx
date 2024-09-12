@@ -33,11 +33,13 @@ const Products = () => {
     fetchProductsByCategoryId,
     setPage,
     uniqueItems,
+    productDetails,
     selectedParentId,
     selectedGrandParentId,
     setSelectedGrandParentId,
     setSelectedParentId,
   } = useCategoryStore((state) => ({
+    productDetails: state.productDetails,
     selectedGrandParentId: state.selectedGrandParentId,
     selectedParentId: state.selectedParentId,
     setSelectedGrandParentId: state.setSelectedGrandParentId,
@@ -120,6 +122,7 @@ const Products = () => {
   console.log("loading...", loading);
 
   console.log("llllllllj", uniqueItems);
+  console.log("selectedss", productDetails);
 
   return (
     <section className="allProducts">

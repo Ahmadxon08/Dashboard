@@ -48,7 +48,11 @@
         display: flex;
         color: #1d1a1a;
         font-size: 17px;
+        transition: all 0.3s;
         font-family: Roboto;
+        &:hover {
+          transform: scale(1.009);
+        }
       }
     }
   }

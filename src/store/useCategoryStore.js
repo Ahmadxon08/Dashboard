@@ -73,7 +73,7 @@ const useCategoryStore = create((set, get) => ({
 
   filterItemByCategoryId: (id) =>
     set((state) => ({
-      uniqueItems: state.uniqueItems.filter((item) => item.category.id === id),
+      uniqueItems: state?.uniqueItems.filter((item) => item.id === id),
     })),
 }));
 

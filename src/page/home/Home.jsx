@@ -11,7 +11,7 @@ const Home = () => {
 
   const {
     products,
-    totals,
+
     fetchProducts,
 
     setSearchText,
@@ -53,10 +53,6 @@ const Home = () => {
     setSearchTerm(value);
   };
 
-  // const handleResultClick = (id) => {
-  //   handleClose();
-  //   navigate(`/single/${id}`);
-  // };
   console.log(products);
 
   return (
@@ -64,6 +60,7 @@ const Home = () => {
       <section className="content_header">
         <div className="items">
           <div className="item">
+            <span>Search Product</span>
             <TextField
               type="search"
               className="input"
@@ -71,7 +68,7 @@ const Home = () => {
               id="filled-basic"
               variant="filled"
               value={searchTerm}
-              onChange={handleSearchChange} // qiymat o'zgarishi hodisasi
+              onChange={handleSearchChange}
               InputProps={{
                 style: {
                   width: "100%",
@@ -79,10 +76,6 @@ const Home = () => {
                 },
               }}
             />
-            {/* <Button variant="contained" onClick={handleSearch}>
-              {loading ? "Loading..." : t("mainContent.search")}
-            </Button> */}
-            <span>{totals ? `Total: ${totals}` : "No products found"}</span>
           </div>
         </div>
       </section>

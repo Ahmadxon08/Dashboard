@@ -148,12 +148,12 @@ const Sidebar = () => {
       fetchProductsByCategoryId(childId);
     }
   };
-  const handleChild2Click = (childId2) => {
-    // Fetch products for the selected child category
-    setSelectedCategoryId(childId2);
-    fetchProductsByCategoryId(childId2);
-    console.log("ss333", childId2);
-  };
+  // const handleChild2Click = (childId2) => {
+  //   // Fetch products for the selected child category
+  //   setSelectedCategoryId(childId2);
+  //   fetchProductsByCategoryId(childId2);
+  //   console.log("ss333", childId2);
+  // };
   /////////////////////////////////////////////
   const toggleCategories = () => {
     setSelectedGrandParentId(null);
@@ -164,11 +164,11 @@ const Sidebar = () => {
     setSelectedGrandParentId(null);
     handleCloseSidebar();
   };
-  const filteredItems = uniqueItems
-    .flat()
-    .filter((item) => item.parentId === selectedParentId);
+  // const filteredItems = uniqueItems
+  //   .flat()
+  //   .filter((item) => item.parentId === selectedParentId);
 
-  console.log("jjjjjjjjj", filteredItems);
+  // console.log("jjjjjjjjj", filteredItems);
 
   console.log("fiter ids", uniqueItems);
 
@@ -361,7 +361,7 @@ const Sidebar = () => {
                                     </span>
                                   </Button>
                                 </Link>
-                                {selectedParentId === parent.id && (
+                                {/* {selectedParentId === parent.id && (
                                   <div className="children">
                                     {filteredItems.map((child, index) => (
                                       <motion.div
@@ -405,7 +405,7 @@ const Sidebar = () => {
                                       </motion.div>
                                     ))}
                                   </div>
-                                )}
+                                )} */}
                               </motion.div>
                             ))}
                         </div>{" "}

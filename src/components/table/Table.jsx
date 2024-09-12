@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import "./Table.scss";
@@ -11,35 +11,35 @@ const itemsPerPage = 6;
 const Table1 = ({ products }) => {
   const { t } = useTranslation();
 
-  const [maxLetter, setMaxLetter] = useState(160);
+  // const [maxLetter, setMaxLetter] = useState(160);
 
-  const startsWithUrl = (description) => {
-    const urlRegex = /^(https?:\/\/[^\s]+)/;
-    return urlRegex.test(description);
-  };
+  // const startsWithUrl = (description) => {
+  //   const urlRegex = /^(https?:\/\/[^\s]+)/;
+  //   return urlRegex.test(description);
+  // };
 
-  const extractAndRemoveUrls = (description) => {
-    const urlPattern = /https:\/\/[^\s]+\.jpg/g;
-    const urls = description.match(urlPattern) || [];
-    const cleanedDescription = description.replace(urlPattern, "").trim();
-    return { cleanedDescription, urls };
-  };
+  // const extractAndRemoveUrls = (description) => {
+  //   const urlPattern = /https:\/\/[^\s]+\.jpg/g;
+  //   const urls = description.match(urlPattern) || [];
+  //   const cleanedDescription = description.replace(urlPattern, "").trim();
+  //   return { cleanedDescription, urls };
+  // };
 
-  const handleResize = () => {
-    if (window.innerWidth <= 425) {
-      setMaxLetter(50);
-    } else if (window.innerWidth <= 768) {
-      setMaxLetter(100);
-    } else {
-      setMaxLetter(160);
-    }
-  };
+  // const handleResize = () => {
+  //   if (window.innerWidth <= 425) {
+  //     setMaxLetter(50);
+  //   } else if (window.innerWidth <= 768) {
+  //     setMaxLetter(100);
+  //   } else {
+  //     setMaxLetter(160);
+  //   }
+  // };
 
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  // useEffect(() => {
+  //   handleResize();
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,19 +67,19 @@ const Table1 = ({ products }) => {
             <th>Image</th>
             <th>Title</th>
             <th>Rating</th>
-            <th>Price</th>
+
             <th>Order</th>
             <th>Description</th>
           </tr>
         </thead>
         <tbody>
           {currentProducts.map((category, index) => {
-            const { cleanedDescription } = extractAndRemoveUrls(
-              category.description
-            );
-            const hasUrl = startsWithUrl(category.description);
-            const truncatedDescription = cleanedDescription.slice(0, maxLetter);
-            const showMore = cleanedDescription.length > maxLetter;
+            // const { cleanedDescription } = extractAndRemoveUrls(
+            //   category.description
+            // );
+            // const hasUrl = startsWithUrl(category.description);
+            // const truncatedDescription = cleanedDescription.slice(0, maxLetter);
+            // const showMore = cleanedDescription.length > maxLetter;
 
             return (
               <tr key={category._id || index}>
@@ -118,15 +118,14 @@ const Table1 = ({ products }) => {
                   </Link>
                 </td>
                 <td data-cell="Rating">{category?.rating || 0}</td>
-                <td data-cell="Price">
-                  {category.skuList[0]?.fullPrice || "N/A"} Uzs
-                </td>
-                <td data-cell="Order">{category.ordersAmount || 0}</td>
+
+                <td data-cell="Order">{category.seller.orders || 0}</td>
                 <td data-cell="Description">
-                  {hasUrl
+                  {category.title}
+                  {/* {hasUrl
                     ? category.title
                     : (truncatedDescription || category.title) +
-                      (showMore ? "..." : "")}
+                      (showMore ? "..." : "")} */}
                 </td>
               </tr>
             );

@@ -2,8 +2,12 @@
 import PropTypes from "prop-types";
 // import { useEffect,  } from "react";
 import { Link } from "react-router-dom";
+import useCategoryStore from "../../store/useCategoryStore";
 
 const ProductTable = ({ categories }) => {
+  const { uniqueItems } = useCategoryStore((state) => ({
+    uniqueItems: state.uniqueItems,
+  }));
   // const [maxLetter, setMaxLetter] = useState(160);
 
   // const startsWithUrl = (description) => {
@@ -38,6 +42,7 @@ const ProductTable = ({ categories }) => {
   //   return () => window.removeEventListener("resize", handleResize);
   // }, []);
   console.log("cateee", categories);
+  console.log("filteres proo", uniqueItems);
 
   return (
     <table>
@@ -47,7 +52,7 @@ const ProductTable = ({ categories }) => {
           <th>Image</th>
           <th>Title</th>
           <th>Rating</th>
-          <th>Price</th>
+          {/* <th>Price</th> */}
           <th>Order</th>
           <th>Description</th>
         </tr>
@@ -95,9 +100,8 @@ const ProductTable = ({ categories }) => {
                 </Link>
               </td>
               <td data-cell="Rating">{category?.seller.rating || 0}</td>
-              <td data-cell="Price">
-                {/* {category.skuList[0]?.fullPrice || "N/A"} so'm */}
-              </td>
+              {/* <td data-cell="Price">
+              </td> */}
               <td data-cell="Order">{category.ordersAmount || 0}</td>
               <td data-cell="Description">
                 {category.title}

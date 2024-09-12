@@ -8,12 +8,14 @@ import useCategoryStore from "../../store/useCategoryStore";
 
 const ProductsFilter = ({ products }) => {
   const {
+    selectedCategoryId,
     setSelectedCategoryId,
     setUniqueItems,
     uniqueItems,
     filterItemByCategoryId,
     fetchProductsByCategoryId,
   } = useCategoryStore((state) => ({
+    selectedCategoryId: state.selectedCategoryId,
     filterItemByCategoryId: state.filterItemByCategoryId,
     uniqueItems: state.uniqueItems,
     setUniqueItems: state.setUniqueItems,
@@ -21,14 +23,11 @@ const ProductsFilter = ({ products }) => {
     setSelectedCategoryId: state.setSelectedCategoryId,
   }));
   useEffect(() => {
-    console.log("Products payload:", products?.payLoad);
-    if (products?.payLoad && Array.isArray(products.payLoad)) {
+    if (products?.payLoad) {
       const seen = new Set();
-      const filteredProducts = products.payLoad.filter((item) => {
-        console.log("Item:", item);
-        const categoryId = item?.id;
-        const duplicate = seen.has(categoryId);
-        seen.add(categoryId);
+      const filteredProducts = products?.payLoad.filter((item) => {
+        const duplicate = seen.has(item?.id);
+        seen.add(item?.id);
         return !duplicate;
       });
       setUniqueItems(filteredProducts);
@@ -39,7 +38,11 @@ const ProductsFilter = ({ products }) => {
     setSelectedCategoryId(filterId);
     filterItemByCategoryId(filterId);
     fetchProductsByCategoryId(filterId);
+    console.log("Selected Category ID:", filterId);
   };
+
+  console.log("selected", selectedCategoryId);
+
   console.log("ssssssss", uniqueItems);
 
   return (
@@ -54,6 +57,7 @@ const ProductsFilter = ({ products }) => {
             key={item.id}
             custom={i}
             onClick={() => handleFilteredClick(item.id)}>
+            {console.log(item.id)}
             <span>{item.title || "No Title"}</span>{" "}
           </motion.div>
         ))}
