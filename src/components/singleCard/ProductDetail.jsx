@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useCategoryStore from "../../store/useCategoryStore";
 import "./ProductDetail.scss";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 
 // URL'larni chiqarib olish va tavsifdan olib tashlash funksiyasi
 const extractAndRemoveUrls = (description) => {
@@ -24,6 +24,7 @@ const ProductDetail = () => {
       loading: state.loading,
       error: state.error,
     }));
+  const navigate = useNavigate();
 
   // Tavsif va URL'larni saqlash uchun state
   const [cleanedDescription, setCleanedDescription] = useState("");
@@ -60,6 +61,10 @@ const ProductDetail = () => {
   console.log("lohhhh", cleanedDescription);
   console.log(product);
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="productDetail">
       {loading ? (
@@ -69,6 +74,17 @@ const ProductDetail = () => {
         </div>
       ) : (
         <>
+          {" "}
+          <Button
+            variant="text"
+            onClick={handleBack}
+            style={{
+              backgroundColor: "#7000ff",
+              color: "#fff",
+              marginLeft: "10px",
+            }}>
+            back
+          </Button>
           {product ? (
             <div className="product_card">
               <div className="imgWrapper">

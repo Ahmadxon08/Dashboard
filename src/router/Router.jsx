@@ -3,7 +3,7 @@ import Header from "../components/header/Header";
 import Sidebar from "../components/sidebar/Sidebar";
 import "./Router.scss";
 import { Outlet, useLocation } from "react-router-dom";
-import Backtop from "../components/backtop/Backtop";
+// import Backtop from "../components/backtop/Backtop";
 
 const Router = () => {
   const location = useLocation();
@@ -21,7 +21,6 @@ const Router = () => {
         </div>
         <div className="content1">
           <Outlet />
-          <Backtop />
         </div>
       </div>
     </>

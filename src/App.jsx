@@ -14,7 +14,7 @@ import ProductsByType from "./page/productsByType/ProductsByType";
 import ProductsSearch from "./page/productsSearch/ProductsSearch";
 import Products from "./page/products/Products";
 import ProductDetail from "./components/singleCard/ProductDetail";
-
+import Backtop from "./components/backtop/Backtop";
 const App = () => {
   let isLogened = false;
   try {
@@ -43,6 +43,7 @@ const App = () => {
             </Route>
           </Route>
         </Routes>
+        <Backtop />
       </div>
     </>
   );

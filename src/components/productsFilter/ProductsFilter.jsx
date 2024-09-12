@@ -7,14 +7,19 @@ import { useEffect } from "react";
 import useCategoryStore from "../../store/useCategoryStore";
 
 const ProductsFilter = ({ products }) => {
+  // const [filterSelectId, setFilterSelectId] = useState(null);
   const {
     selectedCategoryId,
     setSelectedCategoryId,
     setUniqueItems,
     uniqueItems,
+    filterSelectId,
     filterItemByCategoryId,
+    setFilterSelectId,
     fetchProductsByCategoryId,
   } = useCategoryStore((state) => ({
+    setFilterSelectId: state.setFilterSelectId,
+    filterSelectId: state.filterSelectId,
     selectedCategoryId: state.selectedCategoryId,
     filterItemByCategoryId: state.filterItemByCategoryId,
     uniqueItems: state.uniqueItems,
@@ -35,12 +40,18 @@ const ProductsFilter = ({ products }) => {
   }, [products]);
 
   const handleFilteredClick = (filterId) => {
-    setSelectedCategoryId(filterId);
-    filterItemByCategoryId(filterId);
-    fetchProductsByCategoryId(filterId);
+    if (filterSelectId === filterId) {
+      setFilterSelectId(null);
+    } else {
+      setFilterSelectId(filterId);
+      setSelectedCategoryId(filterId);
+      filterItemByCategoryId(filterId);
+      fetchProductsByCategoryId(filterId);
+    }
+
     console.log("Selected Category ID:", filterId);
   };
-
+  console.log("Selected Category ID:", filterSelectId);
   console.log("selected", selectedCategoryId);
 
   console.log("ssssssss", uniqueItems);

@@ -14,10 +14,13 @@ const useCategoryStore = create((set, get) => ({
   isCategoriesOpen: false,
   selectedGrandParentId: null,
   selectedParentId: null,
+  filterSelectId: null,
 
   setSelectedParentId: (id) => set({ selectedParentId: id }),
   setSelectedGrandParentId: (id) => set({ selectedGrandParentId: id }),
+  setFilterSelectId: (id) => set({ filterSelectId: id }),
 
+  ////
   setIsCategoriesOpen: (isOpen) => set({ isCategoriesOpen: isOpen }),
   setUniqueItems: (items) => set({ uniqueItems: items }),
 

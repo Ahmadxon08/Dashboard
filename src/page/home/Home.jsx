@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { CircularProgress, TextField } from "@mui/material";
 import "./Home.scss";
 import Table1 from "../../components/table/Table";
 import { useCallback, useEffect, useState } from "react";
@@ -11,11 +11,12 @@ const Home = () => {
 
   const {
     products,
-
+    loading,
     fetchProducts,
 
     setSearchText,
   } = useSearchStore((state) => ({
+    loading: state.loading,
     totals: state.totals,
     products: state.products,
     openSearch: state.openSearch,
@@ -80,7 +81,14 @@ const Home = () => {
         </div>
       </section>
       <section className="content_body">
-        <Table1 products={products} /> {/* Mahsulotlar jadvalda ko'rsatiladi */}
+        {loading ? (
+          <div className="loadingSpinner">
+            <CircularProgress color="primary" className="load" />
+            <span>Loading...</span>
+          </div>
+        ) : (
+          <Table1 products={products} />
+        )}
       </section>
     </div>
   );

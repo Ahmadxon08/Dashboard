@@ -38,6 +38,8 @@ const Login = () => {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("user", JSON.stringify(values));
           console.log(res.data);
+          // Sahifani qayta yuklash
+          // window.location.reload();
 
           console.log(res.data.token, JSON.stringify(values));
 
@@ -131,7 +133,6 @@ const Login = () => {
                 </span>
               </div>
               <Button
-                href={values ? "/" : "/login"}
                 type="submit"
                 variant="contained"
                 className="glow-on-hover">

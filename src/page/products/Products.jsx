@@ -28,6 +28,7 @@ const Products = () => {
     pageNum,
     totalItems,
     loading,
+    setIsCategoriesOpen,
     error,
     selectedCategoryId,
     fetchProductsByCategoryId,
@@ -39,6 +40,7 @@ const Products = () => {
     setSelectedGrandParentId,
     setSelectedParentId,
   } = useCategoryStore((state) => ({
+    setIsCategoriesOpen: state.setIsCategoriesOpen,
     productDetails: state.productDetails,
     selectedGrandParentId: state.selectedGrandParentId,
     selectedParentId: state.selectedParentId,
@@ -86,6 +88,8 @@ const Products = () => {
   }, [fetchGrandParents]);
   console.log("Link categroy", categoryId);
   const handleCategoryIdClick = () => {
+    setSelectedCategoryId(null);
+    setIsCategoriesOpen(false);
     localStorage.removeItem("parent");
     localStorage.removeItem("grandParent");
     localStorage.removeItem("activeButton");

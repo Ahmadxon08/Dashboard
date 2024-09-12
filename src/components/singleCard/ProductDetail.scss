@@ -1,9 +1,10 @@
 .productDetail {
   background: #fff;
-  min-height: 100vh;
+  min-height: 110vh;
   padding: 30px;
   width: 100%;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
+  gap: 20px;
   .loadingSpinner {
     display: flex !important;
     justify-content: center;
@@ -28,6 +29,9 @@
       font-family: Roboto;
       font-weight: 500;
     }
+  }
+  button {
+    margin-bottom: 20px;
   }
   .product_card {
     display: flex;
