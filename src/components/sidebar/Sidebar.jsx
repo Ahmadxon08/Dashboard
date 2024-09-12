@@ -170,7 +170,7 @@ const Sidebar = () => {
           <Link to="/" className="logo">
             <Button variant="text">
               <img src={logo} alt="logo" width={30} height={30} />
-              <span>Datasupermen</span>
+              <span>Datasuperman</span>
             </Button>
           </Link>
           <Link to="/" onClick={() => handleButtonClick("home")}>

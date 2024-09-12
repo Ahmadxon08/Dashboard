@@ -215,7 +215,7 @@
       flex-direction: column;
       min-height: 90vh;
       justify-content: start;
-      width: 250px !important;
+      width: 220px !important;
       background-color: #7000ff;
       .logo {
         display: flex;
@@ -226,12 +226,12 @@
         button {
           text-transform: none;
           img {
-            width: 50px;
-            height: 50px;
+            width: 30px;
+            height: 30px;
           }
           span {
             font-family: Roboto;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 600;
             line-height: 14.52px;
             text-align: left;
@@ -255,7 +255,7 @@
     z-index: auto;
 
     .left {
-      width: 280px !important;
+      width: 250px !important;
     }
   }
 }

@@ -50,7 +50,7 @@ const Header = () => {
           <Link to="/" className="logo" onClick={handelCloseSidebar}>
             <Button variant="text">
               <img src={logo} alt="logo" />
-              <span>Datasupermen</span>
+              <span>Datasuperman</span>
             </Button>
           </Link>
 

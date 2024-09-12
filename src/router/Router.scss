@@ -22,7 +22,7 @@
     position: relative;
   }
 }
-@media (max-width: 1440px) {
+@media (max-width: 1640px) {
   .router {
     width: 100%;
     height: 100%;
@@ -36,17 +36,17 @@
       top: 12.7%;
       width: 15%;
       left: 0;
-      z-index: 333222;
+      z-index: 222;
     }
     .content1 {
       display: flex;
-      width: 77%;
+      width: 82%;
       margin-right: 0 auto;
     }
   }
 }
 
-@media (max-width: 1440px) {
+@media (min-width: 1024px) and (max-width: 1440px) {
   .router {
     width: 100%;
     height: 100%;
@@ -60,7 +60,7 @@
       top: 12.7%;
       width: 22%;
       left: 0;
-      z-index: 333222;
+      z-index: 222;
     }
     .content1 {
       display: flex;
@@ -83,7 +83,7 @@
       top: 12.7%;
       width: 18%;
       left: 0;
-      z-index: 333222;
+      z-index: 2255552;
     }
     .content1 {
       display: flex;
@@ -103,6 +103,14 @@
       display: flex;
       width: 100%;
       margin: 0 auto;
+    }
+    .side {
+      position: fixed;
+      height: 100%;
+      top: 12.7%;
+      width: 18%;
+      left: 0;
+      z-index: 2255552;
     }
   }
 }
