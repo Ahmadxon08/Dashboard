@@ -8,14 +8,22 @@ import useCategoryStore from "../../store/useCategoryStore";
 import ProductTable from "../../components/productsTable/ProductTable";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ProductsCarousel from "../../components/productsFilter/ProductsCarousel";
+import useMenuStore from "../../store/useMenuStore";
+import ProductsFilter from "../../components/productsFilter/ProductsFilter";
 // import { Link } from "react-router-dom";
 
 const Products = () => {
   const { t } = useTranslation();
   const itemsPerPage = 20;
 
+  ////these are the stores that using for state management
+  const { fetchGrandParents, fetchParents } = useMenuStore((state) => ({
+    fetchGrandParents: state.fetchGrandParents,
+    grandParents: state.grandParents,
+    fetchParents: state.fetchParents,
+  }));
   const {
+    setSelectedCategoryId,
     products,
     pageNum,
     totalItems,
@@ -25,7 +33,15 @@ const Products = () => {
     fetchProductsByCategoryId,
     setPage,
     uniqueItems,
+    selectedParentId,
+    selectedGrandParentId,
+    setSelectedGrandParentId,
+    setSelectedParentId,
   } = useCategoryStore((state) => ({
+    selectedGrandParentId: state.selectedGrandParentId,
+    selectedParentId: state.selectedParentId,
+    setSelectedGrandParentId: state.setSelectedGrandParentId,
+    setSelectedParentId: state.setSelectedParentId,
     uniqueItems: state.uniqueItems,
     products: state.products,
     error: state.error,
@@ -35,7 +51,9 @@ const Products = () => {
     fetchProductsByCategoryId: state.fetchProductsByCategoryId,
     selectedCategoryId: state.selectedCategoryId,
     setPage: state.setPage,
+    setSelectedCategoryId: state.setSelectedCategoryId,
   }));
+  ///////////////////////////// ending state////////////////
   useEffect(() => {
     if (selectedCategoryId) {
       fetchProductsByCategoryId(selectedCategoryId, pageNum);
@@ -47,8 +65,55 @@ const Products = () => {
     setPage(page);
   };
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const selectedCategoryId2 = null;
+  const textHeader = localStorage.getItem("activeButton") || "Kатегории";
+  //////Product section navigation
+  const grandParentString = localStorage.getItem("grandParent");
+  const grandParent = grandParentString ? JSON.parse(grandParentString) : null;
+  const parentString = localStorage.getItem("parent");
+  const parent = parentString ? JSON.parse(parentString) : null;
+  const categoryIdString = localStorage.getItem("linkIdForCategory");
+  const categoryId = categoryIdString ? JSON.parse(categoryIdString) : null;
+  useEffect(() => {
+    if (selectedCategoryId2 !== null) {
+      fetchParents(selectedCategoryId2);
+    }
+  }, [selectedCategoryId2]);
+  useEffect(() => {
+    fetchGrandParents();
+  }, [fetchGrandParents]);
+  console.log("Link categroy", categoryId);
+  const handleCategoryIdClick = () => {
+    localStorage.removeItem("parent");
+    localStorage.removeItem("grandParent");
+    localStorage.removeItem("activeButton");
+    if (selectedGrandParentId === categoryId) {
+      setSelectedGrandParentId(null);
+      console.log("Link categroy", categoryId);
+      fetchProductsByCategoryId(categoryId);
+    } else {
+      setSelectedCategoryId(categoryId);
+    }
+  };
+  const handleGrandParentClick = (grandParentId) => {
+    localStorage.removeItem("parent");
+    if (selectedGrandParentId === grandParentId) {
+      console.log(grandParentId);
+      fetchProductsByCategoryId(grandParentId);
+    }
+  };
+  // Ota kategoriyasini bosganda nima bo'lishini hal qilish
+  const handleParentClick = (parentId) => {
+    if (selectedParentId === parentId) {
+      setSelectedParentId(null);
+      console.log("parent  siddebar", parentId);
+    } else {
+      setSelectedCategoryId(parentId);
+      fetchProductsByCategoryId(parentId);
+    }
+  };
 
-  const textHeader = localStorage.getItem("activeButton") || "";
+  console.log("grandparent", grandParent);
 
   console.log("this is link ", products);
 
@@ -67,17 +132,23 @@ const Products = () => {
         <>
           <div className="all_product_head">
             <div className="url">
-              <span>
-                {/* {uniqueItems[0].map((item, i) => (
-                  // <span key={i}>{item.category.title}</span>
-                ))} */}
+              <span className="home_link">{t(`sidebar.home`)}</span>
+              <small>/</small>
+              <span onClick={handleCategoryIdClick}>Kатегории </span>
+              <small> {grandParent?.title ? "/" : ""}</small>
+              <span onClick={() => handleGrandParentClick(grandParent?.id)}>
+                {grandParent?.title}
+              </span>
+              <small> {parent?.title ? "/" : ""}</small>
+              <span onClick={() => handleParentClick(parent?.id)}>
+                {parent?.title}
               </span>
             </div>
 
             <h2>{textHeader}</h2>
 
             <h3>{t("categories.totalItems", { count: totalItems })}</h3>
-            <ProductsCarousel products={products} />
+            <ProductsFilter products={products} />
           </div>
 
           <div className="all_product_body">

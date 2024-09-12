@@ -19,10 +19,9 @@ import useManuStore from "../../store/useMenuStore";
 const logo = "./assets/img/logo.png";
 
 const Sidebar = () => {
-  const [selectedGrandParentId, setSelectedGrandParentId] = useState(null);
+  // const [selectedGrandParentId, setSelectedGrandParentId] = useState(null);
 
-  const [selectedParentId, setSelectedParentId] = useState(null);
-  // const [selectedChildId, setSelectedChildId] = useState(null);
+  // const [selectedParentId, setSelectedParentId] = useState(null);
   const { t } = useTranslation();
   const [activeButton, setActiveButton] = useState("");
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 768);
@@ -35,8 +34,16 @@ const Sidebar = () => {
     isCategoriesOpen,
     setIsCategoriesOpen,
     uniqueItems,
+    selectedParentId,
+    selectedGrandParentId,
+    setSelectedGrandParentId,
+    setSelectedParentId,
     fetchProductsByCategoryId,
   } = useCategoryStore((state) => ({
+    selectedGrandParentId: state.selectedGrandParentId,
+    selectedParentId: state.selectedParentId,
+    setSelectedGrandParentId: state.setSelectedGrandParentId,
+    setSelectedParentId: state.setSelectedParentId,
     uniqueItems: state.uniqueItems,
     isCategoriesOpen: state.isCategoriesOpen,
     setIsCategoriesOpen: state.setIsCategoriesOpen,
@@ -122,8 +129,10 @@ const Sidebar = () => {
   console.log("child", parents);
 
   const handleGrandParentClick = (parentId) => {
+    localStorage.setItem("linkIdForCategory", JSON.stringify(parentId));
     if (selectedGrandParentId === parentId) {
       setSelectedGrandParentId(null);
+      console.log(parentId);
     } else {
       setSelectedGrandParentId(parentId);
       setSelectedCategoryId(parentId);
@@ -133,6 +142,7 @@ const Sidebar = () => {
   const handleParentClick = (childId) => {
     if (selectedParentId === childId) {
       setSelectedParentId(null);
+      console.log("parent  siddebar", childId);
     } else {
       setSelectedCategoryId(childId);
       fetchProductsByCategoryId(childId);
@@ -142,6 +152,7 @@ const Sidebar = () => {
     // Fetch products for the selected child category
     setSelectedCategoryId(childId2);
     fetchProductsByCategoryId(childId2);
+    console.log("ss333", childId2);
   };
   /////////////////////////////////////////////
   const toggleCategories = () => {
@@ -264,7 +275,13 @@ const Sidebar = () => {
                       )}`}
                       onClick={() => handleButtonClick(p.title)}>
                       <Button
-                        onClick={() => handleGrandParentClick(p.id)}
+                        onClick={() => {
+                          localStorage.setItem(
+                            "grandParent",
+                            JSON.stringify(p)
+                          );
+                          handleGrandParentClick(p.id);
+                        }}
                         style={{
                           display: p.id ? "flex" : "none",
                         }}
@@ -277,7 +294,10 @@ const Sidebar = () => {
                         }}>
                         {selectedGrandParentId && (
                           <MdKeyboardDoubleArrowLeft
-                            onClick={() => handleParentClick(p.id)}
+                            onClick={() => {
+                              localStorage.removeItem("parent");
+                              handleParentClick(p.id);
+                            }}
                             size={22}
                             style={{
                               position: "absolute",
@@ -317,7 +337,13 @@ const Sidebar = () => {
                                     handleButtonClick(parent.title)
                                   }>
                                   <Button
-                                    onClick={() => handleParentClick(parent.id)}
+                                    onClick={() => {
+                                      handleParentClick(parent.id);
+                                      localStorage.setItem(
+                                        "parent",
+                                        JSON.stringify(parent)
+                                      );
+                                    }}
                                     sx={{
                                       background:
                                         activeButton === parent.title

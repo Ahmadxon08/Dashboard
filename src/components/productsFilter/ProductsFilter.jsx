@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 
-import "./ProductsCarousel.scss";
+import "./ProductsFilter.scss";
 import { motion } from "framer-motion";
 
 import { useEffect } from "react";
 import useCategoryStore from "../../store/useCategoryStore";
 
-const ProductsCarousel = ({ products }) => {
+const ProductsFilter = ({ products }) => {
   const {
     setSelectedCategoryId,
     setUniqueItems,
@@ -21,11 +21,14 @@ const ProductsCarousel = ({ products }) => {
     setSelectedCategoryId: state.setSelectedCategoryId,
   }));
   useEffect(() => {
-    if (products?.payLoad) {
+    console.log("Products payload:", products?.payLoad);
+    if (products?.payLoad && Array.isArray(products.payLoad)) {
       const seen = new Set();
       const filteredProducts = products.payLoad.filter((item) => {
-        const duplicate = seen.has(item.category.id);
-        seen.add(item.category.id);
+        console.log("Item:", item);
+        const categoryId = item?.id;
+        const duplicate = seen.has(categoryId);
+        seen.add(categoryId);
         return !duplicate;
       });
       setUniqueItems(filteredProducts);
@@ -50,12 +53,12 @@ const ProductsCarousel = ({ products }) => {
             className="filter"
             key={item.id}
             custom={i}
-            onClick={() => handleFilteredClick(item.category.id)}>
-            <span>{item.category.title}</span>
+            onClick={() => handleFilteredClick(item.id)}>
+            <span>{item.title || "No Title"}</span>{" "}
           </motion.div>
         ))}
     </div>
   );
 };
 
-export default ProductsCarousel;
+export default ProductsFilter;

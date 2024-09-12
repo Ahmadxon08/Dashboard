@@ -12,6 +12,11 @@ const useCategoryStore = create((set, get) => ({
   loading: false,
   error: null,
   isCategoriesOpen: false,
+  selectedGrandParentId: null,
+  selectedParentId: null,
+
+  setSelectedParentId: (id) => set({ selectedParentId: id }),
+  setSelectedGrandParentId: (id) => set({ selectedGrandParentId: id }),
 
   setIsCategoriesOpen: (isOpen) => set({ isCategoriesOpen: isOpen }),
   setUniqueItems: (items) => set({ uniqueItems: items }),

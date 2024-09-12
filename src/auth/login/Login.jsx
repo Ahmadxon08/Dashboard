@@ -131,6 +131,7 @@ const Login = () => {
                 </span>
               </div>
               <Button
+                href={values ? "/" : "/login"}
                 type="submit"
                 variant="contained"
                 className="glow-on-hover">
