@@ -10,11 +10,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import useMenuStore from "../../store/useMenuStore";
 import ProductsFilter from "../../components/productsFilter/ProductsFilter";
+import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 const Products = () => {
   const { t } = useTranslation();
   const itemsPerPage = 20;
+  const navigate = useNavigate();
 
   ////these are the stores that using for state management
   const { fetchGrandParents, fetchParents } = useMenuStore((state) => ({
@@ -87,9 +89,9 @@ const Products = () => {
     fetchGrandParents();
   }, [fetchGrandParents]);
   console.log("Link categroy", categoryId);
+
   const handleCategoryIdClick = () => {
     setSelectedCategoryId(null);
-    setIsCategoriesOpen(false);
     localStorage.removeItem("parent");
     localStorage.removeItem("grandParent");
     localStorage.removeItem("activeButton");
@@ -118,6 +120,15 @@ const Products = () => {
       fetchProductsByCategoryId(parentId);
     }
   };
+  const handleHomeClick = () => {
+    setSelectedCategoryId(null);
+    setIsCategoriesOpen(false);
+    localStorage.removeItem("activeButton");
+    localStorage.removeItem("parent");
+    localStorage.removeItem("grandParent");
+    fetchProductsByCategoryId(null, 1);
+    navigate("/");
+  };
 
   console.log("grandparent", grandParent);
 
@@ -139,7 +150,9 @@ const Products = () => {
         <>
           <div className="all_product_head">
             <div className="url">
-              <span className="home_link">{t(`sidebar.home`)}</span>
+              <span className="home_link" onClick={handleHomeClick}>
+                {t(`sidebar.home`)}
+              </span>
               <small>/</small>
               <span onClick={handleCategoryIdClick}>Kатегории </span>
               <small> {grandParent?.title ? "/" : ""}</small>

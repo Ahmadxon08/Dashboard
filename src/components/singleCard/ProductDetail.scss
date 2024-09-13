@@ -39,7 +39,7 @@
     width: 100%;
     height: 100%;
     justify-content: space-between;
-
+    gap: 30px;
     border-radius: 15px;
     .imgWrapper {
       display: flex;
@@ -96,7 +96,7 @@
       }
       p {
         font-family: Roboto;
-        font-size: 18px;
+        font-size: 15px;
         font-weight: 500;
         line-height: 1.7;
         color: #4e4848;

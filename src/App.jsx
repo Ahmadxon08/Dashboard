@@ -15,6 +15,7 @@ import ProductsSearch from "./page/productsSearch/ProductsSearch";
 import Products from "./page/products/Products";
 import ProductDetail from "./components/singleCard/ProductDetail";
 import Backtop from "./components/backtop/Backtop";
+import Slider from "./components/slider/Slider";
 const App = () => {
   let isLogened = false;
   try {
@@ -22,6 +23,7 @@ const App = () => {
   } catch (e) {
     isLogened = false;
   }
+
   return (
     <>
       <div className="app">
@@ -35,6 +37,7 @@ const App = () => {
               <Route index element={<Home />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/slider" element={<Slider />} />
               <Route path="/productsByType" element={<ProductsByType />} />
               <Route path="/productsSearch" element={<ProductsSearch />} />
               <Route path="/product/:id" element={<ProductDetail />} />

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import useCategoryStore from "../../store/useCategoryStore";
 import "./ProductDetail.scss";
 import { Button, CircularProgress } from "@mui/material";
+import Chart from "../chart/Chart";
+import Slider from "../slider/Slider";
 
 // URL'larni chiqarib olish va tavsifdan olib tashlash funksiyasi
 const extractAndRemoveUrls = (description) => {
@@ -64,6 +66,7 @@ const ProductDetail = () => {
   const handleBack = () => {
     navigate(-1);
   };
+  console.log("images massive", urls);
 
   return (
     <div className="productDetail">
@@ -88,7 +91,11 @@ const ProductDetail = () => {
           {product ? (
             <div className="product_card">
               <div className="imgWrapper">
-                <img src={product.photo} alt={product.title} />
+                {urls.length > 0 ? (
+                  <Slider urls={urls} />
+                ) : (
+                  <img src={product.photo} alt={product.title} />
+                )}
               </div>
               <div className="product_text">
                 <h1>{product.title}</h1>
@@ -116,11 +123,8 @@ const ProductDetail = () => {
                   )}
                 </span>
 
-                <span>Price: {product.skuList[0]?.fullPrice} UZS </span>
                 <span>Available: {product.skuList[0]?.availableAmount}</span>
-                {/* {urls.map((url, i) => (
-                  <img src={url} key={i} alt="" width={182} height={192} />
-                ))} */}
+                <Chart product={product} />
               </div>
             </div>
           ) : (
