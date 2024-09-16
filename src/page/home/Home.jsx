@@ -4,7 +4,6 @@ import Table1 from "../../components/table/Table";
 import { useCallback, useEffect, useState } from "react";
 import useSearchStore from "../../store/useSearchStore";
 import debounce from "lodash.debounce";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -62,15 +61,6 @@ const Home = () => {
       <section className="content_header">
         <div className="items">
           <div className="item">
-            <Link
-              to={"/slider"}
-              style={{
-                backgroundColor: "red",
-                color: "#fff",
-                textDecoration: "none",
-              }}>
-              slider
-            </Link>
             <span>Search Product</span>
             <TextField
               type="search"

@@ -11,10 +11,14 @@ const useCategoryStore = create((set, get) => ({
   productDetails: null,
   loading: false,
   error: null,
+  filterSelects: [],
   isCategoriesOpen: false,
   selectedGrandParentId: null,
   selectedParentId: null,
   filterSelectId: null,
+
+  setFilterSelects: (newFilterSelects) =>
+    set({ filterSelects: newFilterSelects }),
 
   setSelectedParentId: (id) => set({ selectedParentId: id }),
   setSelectedGrandParentId: (id) => set({ selectedGrandParentId: id }),
@@ -66,7 +70,9 @@ const useCategoryStore = create((set, get) => ({
           productid: productId,
         }
       );
-      set({ productDetails: response.data });
+      set({
+        productDetails: response.data,
+      });
     } catch (error) {
       set({ error: error.message });
     } finally {

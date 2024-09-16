@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick-theme.css";
 import useMenuStore from "../../store/useMenuStore";
 import ProductsFilter from "../../components/productsFilter/ProductsFilter";
 import { useNavigate } from "react-router-dom";
+// import FilteredProductTable from "../../components/filteredProductTable/FilteredProductTable";
 // import { Link } from "react-router-dom";
 
 const Products = () => {
@@ -35,6 +36,7 @@ const Products = () => {
     selectedCategoryId,
     fetchProductsByCategoryId,
     setPage,
+    filterSelects,
     uniqueItems,
     productDetails,
     selectedParentId,
@@ -42,6 +44,7 @@ const Products = () => {
     setSelectedGrandParentId,
     setSelectedParentId,
   } = useCategoryStore((state) => ({
+    filterSelects: state.filterSelects,
     setIsCategoriesOpen: state.setIsCategoriesOpen,
     productDetails: state.productDetails,
     selectedGrandParentId: state.selectedGrandParentId,
@@ -130,6 +133,8 @@ const Products = () => {
     navigate("/");
   };
 
+  console.log("filtering products", filterSelects);
+
   console.log("grandparent", grandParent);
 
   console.log("this is link ", products);
@@ -172,6 +177,7 @@ const Products = () => {
           </div>
 
           <div className="all_product_body">
+            {/* <FilteredProductTable /> */}
             <ProductTable categories={products.payLoad || []} />
           </div>
 

@@ -13,9 +13,9 @@ import SearchProducts from "./page/searchProducts/SearchProducts";
 import ProductsByType from "./page/productsByType/ProductsByType";
 import ProductsSearch from "./page/productsSearch/ProductsSearch";
 import Products from "./page/products/Products";
-import ProductDetail from "./components/singleCard/ProductDetail";
 import Backtop from "./components/backtop/Backtop";
 import Slider from "./components/slider/Slider";
+import ProductDetail from "./components/productDetails/ProductDetail";
 const App = () => {
   let isLogened = false;
   try {

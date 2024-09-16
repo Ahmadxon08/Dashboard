@@ -1,4 +1,14 @@
 .chart-container {
-  width: 300px;
-  height: 150px;
+  width: 500px; // Standart o'lchamlar
+  height: 300px;
+
+  @media (max-width: 768px) {
+    width: 300px;
+    height: 150px;
+  }
+
+  @media (max-width: 425px) {
+    width: 90%; // Kichik ekranlar uchun o'lchamni to'liq qilish
+    height: 260px;
+  }
 }

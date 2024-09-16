@@ -5,19 +5,23 @@ import { motion } from "framer-motion";
 
 import { useEffect } from "react";
 import useCategoryStore from "../../store/useCategoryStore";
+import { Link, useParams } from "react-router-dom";
 
 const ProductsFilter = ({ products }) => {
   // const [filterSelectId, setFilterSelectId] = useState(null);
+  const { id } = useParams();
   const {
     selectedCategoryId,
-    setSelectedCategoryId,
     setUniqueItems,
     uniqueItems,
     filterSelectId,
-    filterItemByCategoryId,
-    setFilterSelectId,
-    fetchProductsByCategoryId,
+    setFilterSelects,
+    fetchProductDetails,
+    productDetails,
   } = useCategoryStore((state) => ({
+    setFilterSelects: state.setFilterSelects,
+    productDetails: state.productDetails,
+    fetchProductDetails: state.fetchProductDetails,
     setFilterSelectId: state.setFilterSelectId,
     filterSelectId: state.filterSelectId,
     selectedCategoryId: state.selectedCategoryId,
@@ -38,16 +42,21 @@ const ProductsFilter = ({ products }) => {
       setUniqueItems(filteredProducts);
     }
   }, [products]);
+  ////to get filtered product
+
+  useEffect(() => {
+    if (id) {
+      fetchProductDetails(id);
+    }
+  }, [id, fetchProductDetails]);
+
+  useEffect(() => {
+    setFilterSelects(productDetails);
+  }, [setFilterSelects, productDetails]);
+  /////////////////
 
   const handleFilteredClick = (filterId) => {
-    if (filterSelectId === filterId) {
-      setFilterSelectId(null);
-    } else {
-      setFilterSelectId(filterId);
-      setSelectedCategoryId(filterId);
-      filterItemByCategoryId(filterId);
-      fetchProductsByCategoryId(filterId);
-    }
+    fetchProductDetails(filterId);
 
     console.log("Selected Category ID:", filterId);
   };
@@ -55,6 +64,7 @@ const ProductsFilter = ({ products }) => {
   console.log("selected", selectedCategoryId);
 
   console.log("ssssssss", uniqueItems);
+  console.log("filtered products", productDetails);
 
   return (
     <div className="productsFilter">
@@ -68,8 +78,9 @@ const ProductsFilter = ({ products }) => {
             key={item.id}
             custom={i}
             onClick={() => handleFilteredClick(item.id)}>
-            {console.log(item.id)}
-            <span>{item.title || "No Title"}</span>{" "}
+            <Link key={i} to={`/product/${item.id}`}>
+              <span>{item.title || "No Title"}</span>
+            </Link>
           </motion.div>
         ))}
     </div>

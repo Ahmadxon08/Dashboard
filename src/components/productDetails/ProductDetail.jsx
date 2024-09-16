@@ -19,8 +19,9 @@ const ProductDetail = () => {
   const { id } = useParams();
   console.log("Product ID:", id);
 
-  const { productDetails, fetchProductDetails, loading, error } =
+  const { productDetails, filterSelects, fetchProductDetails, loading, error } =
     useCategoryStore((state) => ({
+      filterSelects: state.filterSelects,
       productDetails: state.productDetails,
       fetchProductDetails: state.fetchProductDetails,
       loading: state.loading,
@@ -28,7 +29,6 @@ const ProductDetail = () => {
     }));
   const navigate = useNavigate();
 
-  // Tavsif va URL'larni saqlash uchun state
   const [cleanedDescription, setCleanedDescription] = useState("");
   const [urls, setUrls] = useState([]);
 
@@ -44,15 +44,17 @@ const ProductDetail = () => {
         ? productDetails[0]
         : productDetails;
 
-      const { cleanedDescription, urls } = extractAndRemoveUrls(
-        product.description
-      );
-
-      // State'ni yangilash
-      setCleanedDescription(cleanedDescription);
-      setUrls(urls);
+      if (product && product.description) {
+        const { cleanedDescription, urls } = extractAndRemoveUrls(
+          product.description
+        );
+        setCleanedDescription(cleanedDescription);
+        setUrls(urls);
+      }
     }
   }, [productDetails]);
+
+  console.log(filterSelects);
 
   if (error) return <p>Error: {error}</p>;
 

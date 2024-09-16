@@ -1,37 +1,13 @@
 /* eslint-disable react/prop-types */
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-  TimeScale, // TimeScale ni import qilish
-} from "chart.js";
+import ReactECharts from "echarts-for-react";
 import { eachDayOfInterval, format } from "date-fns";
-import "chartjs-adapter-date-fns"; // Date-fns adapterini import qilish
+import "./Chart.scss";
 
-// Chart.js modullarini ro'yxatdan o'tkazish
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-  TimeScale // TimeScale ni ro'yxatdan o'tkazish
-);
-
-const LineChart = ({ product }) => {
+const LineChartCostume = ({ product }) => {
   if (!product || !product.skuList || product.skuList.length === 0) {
     return <p>No data available</p>;
   }
 
-  // Ma'lumotlarni tayyorlash
   const generateDates = (startDate, endDate) => {
     const days = eachDayOfInterval({
       start: new Date(startDate),
@@ -44,14 +20,11 @@ const LineChart = ({ product }) => {
   const productTimestamp = product.timestamp || "2024-08-01";
   const currentTimestamp = new Date();
 
-  // Barcha kunlar orasidagi sanalarni olish
   const dates = generateDates(productTimestamp, currentTimestamp);
 
-  // SKU List'dagi narxlarni yig'ish
   const fullPrices = product.skuList.map((item) => item.fullPrice || 0);
   const purchasePrices = product.skuList.map((item) => item.purchasePrice || 0);
 
-  // Agar sanalar va narxlar soni mos kelmasa, ularni moslashtirish
   if (fullPrices.length < dates.length) {
     const difference = dates.length - fullPrices.length;
     for (let i = 0; i < difference; i++) {
@@ -60,75 +33,55 @@ const LineChart = ({ product }) => {
     }
   }
 
-  const data = {
-    labels: dates, // Sanalar ro'yxati
-    datasets: [
+  const chartData = dates.map((date, index) => ({
+    date,
+    fullPrice: fullPrices[index],
+    purchasePrice: purchasePrices[index],
+  }));
+
+  const option = {
+    title: {
+      text: "",
+    },
+    tooltip: {
+      trigger: "axis",
+    },
+    legend: {
+      data: ["Full Price", "Purchase Price"],
+      top: 20,
+    },
+    xAxis: {
+      type: "category",
+      data: chartData.map((data) => data.date),
+      name: "",
+    },
+    yAxis: {
+      type: "value",
+      name: "",
+    },
+    series: [
       {
-        label: "Full Price",
-        data: fullPrices,
-        borderColor: "rgba(75, 192, 192, 1)",
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        fill: false,
+        name: "Full Price",
+        type: "line",
+        data: chartData.map((data) => data.fullPrice),
+        smooth: true,
+        color: "#82ca9d",
       },
       {
-        label: "Purchase Price",
-        data: purchasePrices,
-        borderColor: "rgba(153, 102, 255, 1)",
-        backgroundColor: "rgba(153, 102, 255, 0.2)",
-        fill: false,
+        name: "Purchase Price",
+        type: "line",
+        data: chartData.map((data) => data.purchasePrice),
+        smooth: true,
+        color: "#8884d8",
       },
     ],
   };
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      tooltip: {
-        callbacks: {
-          label: function (tooltipItem) {
-            return tooltipItem.dataset.label + ": " + tooltipItem.raw;
-          },
-        },
-      },
-    },
-    scales: {
-      x: {
-        type: "time", // vaqt o'lchami uchun
-        time: {
-          unit: "day", // kunlik bo'lishi kerak
-        },
-        ticks: {
-          maxTicksLimit: 10,
-          autoSkip: true,
-        },
-      },
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
   return (
-    <div style={{ width: "500px", height: "300px" }}>
-      <h2
-        style={{
-          textAlign: "left",
-          marginBottom: "10px",
-          fontSize: "18px",
-          fontWeight: "bold",
-          textTransform: "uppercase",
-        }}>
-        Prices
-      </h2>
-      <Line
-        data={data}
-        options={options}
-        // O'lchamlarni CSS orqali o'zgartirdik
-      />
+    <div className="chart-container" style={{ width: "100%", height: "400px" }}>
+      <ReactECharts option={option} />
     </div>
   );
 };
 
-export default LineChart;
+export default LineChartCostume;

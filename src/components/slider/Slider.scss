@@ -3,15 +3,38 @@
   align-items: start;
   width: 70%;
   height: 100%;
+  position: relative; // Slider konteyneriga position: relative qo'shish
+
   .image_wrapper {
     display: flex;
     align-items: start;
-
+    width: 100%;
+    height: 100%;
     img {
-      width: 100%;
+      width: "trasnparent" !important;
       height: 600px !important;
       object-fit: cover;
     }
+  }
+
+  .carousel .control-arrow {
+    background-color: rgba(0, 0, 0, 0.5); // Arrow'ning fon rangini o'zgartirish
+    border-radius: 50%; // Yuvarlak shaklda bo'lishi
+    width: 46px; // Arrow'ning kengligi
+    height: 50px; // Arrow'ning bo'yi
+    opacity: 0.8; // Arrow'ning shaffofligi
+    z-index: 1; // Arrow'ni yuqoriga qo'yish
+    position: absolute; // Arrow'larni mutlaq pozitsiya bilan joylashtirish
+    top: 50%; // Vertikal markazga joylashtirish
+    transform: translateY(-50%); // Vertikal markazni to'g'rilash
+  }
+
+  .carousel .control-prev.control-arrow {
+    left: 10px; // Oldingi стрелkaga chapdan joylash
+  }
+
+  .carousel .control-next.control-arrow {
+    right: 10px; // Keyingi стрелkaga o'ngdan joylash
   }
 }
 
@@ -21,15 +44,42 @@
     align-items: center;
     width: 100%;
     height: 120%;
+
     .image_wrapper {
       display: flex;
       align-items: start;
       height: 120%;
+
       img {
         width: 100%;
         height: 700px !important;
         object-fit: cover;
       }
+    }
+
+    .carousel .control-arrow {
+      background-color: rgba(
+        0,
+        0,
+        0,
+        0.5
+      ); // Arrow'ning fon rangini o'zgartirish
+      border-radius: 50%; // Yuvarlak shaklda bo'lishi
+      width: 46px; // Arrow'ning kengligi
+      height: 50px; // Arrow'ning bo'yi
+      opacity: 0.8; // Arrow'ning shaffofligi
+      z-index: 1; // Arrow'ni yuqoriga qo'yish
+      position: absolute; // Arrow'larni mutlaq pozitsiya bilan joylashtirish
+      top: 50%; // Vertikal markazga joylashtirish
+      transform: translateY(-50%); // Vertikal markazni to'g'rilash
+    }
+
+    .carousel .control-prev.control-arrow {
+      left: 5px; // Oldingi стрелkaga chapdan joylash
+    }
+
+    .carousel .control-next.control-arrow {
+      right: 5px; // Keyingi стрелkaga o'ngdan joylash
     }
   }
 }
