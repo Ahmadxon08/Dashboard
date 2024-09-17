@@ -110,6 +110,8 @@ const Products = () => {
     localStorage.removeItem("parent");
     if (selectedGrandParentId === grandParentId) {
       console.log(grandParentId);
+      setSelectedCategoryId(grandParentId);
+
       fetchProductsByCategoryId(grandParentId);
     }
   };

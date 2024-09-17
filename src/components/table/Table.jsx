@@ -74,13 +74,6 @@ const Table1 = ({ products }) => {
         </thead>
         <tbody>
           {currentProducts.map((category, index) => {
-            // const { cleanedDescription } = extractAndRemoveUrls(
-            //   category.description
-            // );
-            // const hasUrl = startsWithUrl(category.description);
-            // const truncatedDescription = cleanedDescription.slice(0, maxLetter);
-            // const showMore = cleanedDescription.length > maxLetter;
-
             return (
               <tr key={category._id || index}>
                 <td
@@ -120,13 +113,7 @@ const Table1 = ({ products }) => {
                 <td data-cell="Rating">{category?.rating || 0}</td>
 
                 <td data-cell="Order">{category.seller.orders || 0}</td>
-                <td data-cell="Description">
-                  {category.title}
-                  {/* {hasUrl
-                    ? category.title
-                    : (truncatedDescription || category.title) +
-                      (showMore ? "..." : "")} */}
-                </td>
+                <td data-cell="Description">{category.title}</td>
               </tr>
             );
           })}

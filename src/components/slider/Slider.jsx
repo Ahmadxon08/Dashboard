@@ -1,11 +1,9 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/prop-types */
 import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "./Slider.scss"; // Custom CSS faylni import qilish
+import "./Slider.scss";
 
 const Slider = ({ urls }) => {
-  // Agar urls array bo'lsa, split funksiyasiga ehtiyoj qolmaydi
   const imageUrls = Array.isArray(urls)
     ? urls[0].split("][").map((url) => url.replace(/[\[\]]/g, ""))
     : urls.split("][").map((url) => url.replace(/[\[\]]/g, ""));

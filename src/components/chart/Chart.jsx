@@ -8,6 +8,7 @@ const LineChartCostume = ({ product }) => {
     return <p>No data available</p>;
   }
 
+  // Ma'lumotlarni tayyorlash
   const generateDates = (startDate, endDate) => {
     const days = eachDayOfInterval({
       start: new Date(startDate),
@@ -20,11 +21,14 @@ const LineChartCostume = ({ product }) => {
   const productTimestamp = product.timestamp || "2024-08-01";
   const currentTimestamp = new Date();
 
+  // Barcha kunlar orasidagi sanalarni olish
   const dates = generateDates(productTimestamp, currentTimestamp);
 
+  // SKU List'dagi narxlarni yig'ish
   const fullPrices = product.skuList.map((item) => item.fullPrice || 0);
   const purchasePrices = product.skuList.map((item) => item.purchasePrice || 0);
 
+  // Agar sanalar va narxlar soni mos kelmasa, ularni moslashtirish
   if (fullPrices.length < dates.length) {
     const difference = dates.length - fullPrices.length;
     for (let i = 0; i < difference; i++) {
@@ -33,6 +37,7 @@ const LineChartCostume = ({ product }) => {
     }
   }
 
+  // ECharts uchun ma'lumotlar tayyorlash
   const chartData = dates.map((date, index) => ({
     date,
     fullPrice: fullPrices[index],
@@ -57,7 +62,7 @@ const LineChartCostume = ({ product }) => {
     },
     yAxis: {
       type: "value",
-      name: "",
+      name: "Price",
     },
     series: [
       {

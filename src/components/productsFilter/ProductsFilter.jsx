@@ -8,7 +8,6 @@ import useCategoryStore from "../../store/useCategoryStore";
 import { Link, useParams } from "react-router-dom";
 
 const ProductsFilter = ({ products }) => {
-  // const [filterSelectId, setFilterSelectId] = useState(null);
   const { id } = useParams();
   const {
     selectedCategoryId,

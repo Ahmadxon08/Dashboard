@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import PropTypes from "prop-types";
-// import { useEffect,  } from "react";
 import { Link } from "react-router-dom";
 import useCategoryStore from "../../store/useCategoryStore";
 
@@ -8,7 +7,6 @@ const ProductTable = ({ categories }) => {
   const { uniqueItems } = useCategoryStore((state) => ({
     uniqueItems: state.uniqueItems,
   }));
-  // const [maxLetter, setMaxLetter] = useState(160);
 
   // const startsWithUrl = (description) => {
   //   if (!description) return false;
@@ -52,22 +50,12 @@ const ProductTable = ({ categories }) => {
           <th>Image</th>
           <th>Title</th>
           <th>Rating</th>
-          {/* <th>Price</th> */}
           <th>Order</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
         {categories.map((category, index) => {
-          // URL'larni chiqarib olish
-          // const { cleanedDescription } = extractAndRemoveUrls(
-          //   category.description
-          // );
-          // const hasUrl = startsWithUrl(category.description);
-          // const truncatedDescription = cleanedDescription.slice(0, maxLetter);
-          // const showMore = cleanedDescription.length > maxLetter;
-          // console.log(category);
-
           return (
             <tr key={category.id || index}>
               <td
@@ -100,16 +88,9 @@ const ProductTable = ({ categories }) => {
                 </Link>
               </td>
               <td data-cell="Rating">{category?.seller.rating || 0}</td>
-              {/* <td data-cell="Price">
-              </td> */}
+
               <td data-cell="Order">{category.ordersAmount || 0}</td>
-              <td data-cell="Description">
-                {category.title}
-                {/* {hasUrl
-                  ? category.title
-                  : (truncatedDescription || category.title) +
-                    (showMore ? "..." : "")} */}
-              </td>
+              <td data-cell="Description">{category.title}</td>
             </tr>
           );
         })}
