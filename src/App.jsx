@@ -7,7 +7,6 @@ import Register from "./auth/register/Register";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./page/home/Home";
 import Categories from "./page/categories/Categories";
-import Users from "./page/users/Users";
 import NotFound from "./page/not-found/NotFound";
 import SearchProducts from "./page/searchProducts/SearchProducts";
 import ProductsByType from "./page/productsByType/ProductsByType";
@@ -36,7 +35,6 @@ const App = () => {
             <Route path="/" element={<Router />}>
               <Route index element={<Home />} />
               <Route path="/categories" element={<Categories />} />
-              <Route path="/users" element={<Users />} />
               <Route path="/slider" element={<Slider />} />
               <Route path="/productsByType" element={<ProductsByType />} />
               <Route path="/productsSearch" element={<ProductsSearch />} />

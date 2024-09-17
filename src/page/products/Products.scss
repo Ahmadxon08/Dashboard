@@ -50,8 +50,13 @@
         font-size: 17px;
         transition: all 0.3s;
         font-family: Roboto;
+        padding: 0 5px;
+
         &:hover {
           transform: scale(1.009);
+          background: #00000057;
+          padding: 0 5px;
+          border-radius: 4px;
         }
       }
     }

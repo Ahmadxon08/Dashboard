@@ -37,6 +37,8 @@ const Header = () => {
   const handleOpenSearch = (e) => {
     e.stopPropagation(), e.preventDefault(), handleSearchOpen(true);
   };
+  console.log(handleOpenSearch);
+
   return (
     <header>
       <div className="container1">
@@ -57,7 +59,7 @@ const Header = () => {
           <nav>
             <Select1 />
             <div className="auth">
-              <Button variant="text" onClick={handleOpenSearch}>
+              <Button variant="text">
                 ...
                 <SearchModal />
               </Button>
