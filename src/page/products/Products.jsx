@@ -11,8 +11,6 @@ import "slick-carousel/slick/slick-theme.css";
 import useMenuStore from "../../store/useMenuStore";
 import ProductsFilter from "../../components/productsFilter/ProductsFilter";
 import { useNavigate } from "react-router-dom";
-// import FilteredProductTable from "../../components/filteredProductTable/FilteredProductTable";
-// import { Link } from "react-router-dom";
 
 const Products = () => {
   const { t } = useTranslation();
@@ -179,7 +177,6 @@ const Products = () => {
           </div>
 
           <div className="all_product_body">
-            {/* <FilteredProductTable /> */}
             <ProductTable categories={products.payLoad || []} />
           </div>
 

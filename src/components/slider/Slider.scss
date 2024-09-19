@@ -7,35 +7,61 @@
 
   .image_wrapper {
     display: flex;
-    align-items: start;
+    align-items: center;
     width: 100%;
     height: 100%;
     img {
-      width: "trasnparent" !important;
-      height: 600px !important;
+      width: 100% !important;
+      height: 600px !important; // Rasmlarning balandligi 600px qilib o'rnatiladi
       object-fit: cover;
     }
   }
-
-  .carousel .control-arrow {
-    background-color: rgba(0, 0, 0, 0.5); // Arrow'ning fon rangini o'zgartirish
-    border-radius: 50%; // Yuvarlak shaklda bo'lishi
-    width: 46px; // Arrow'ning kengligi
-    height: 50px; // Arrow'ning bo'yi
-    opacity: 0.8; // Arrow'ning shaffofligi
-    z-index: 1; // Arrow'ni yuqoriga qo'yish
-    position: absolute; // Arrow'larni mutlaq pozitsiya bilan joylashtirish
-    top: 50%; // Vertikal markazga joylashtirish
-    transform: translateY(-50%); // Vertikal markazni to'g'rilash
+  .carousel {
+    position: relative !important;
+    display: flex !important;
+    button {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      border-radius: 50% !important; // Tugmalarni yumaloq shaklga keltirish
+      width: 46px !important; // Tugmalar kengligi
+      height: 50px !important; // Tugmalar bo'yi
+      opacity: 0.8 !important; // Shaffoflik darajasi
+      z-index: 10 !important; // Tugmalarni yuqoriga ko'tarish
+      position: absolute !important; // Mutlaq pozitsiya bilan joylashtirish
+      top: 100%; // Vertikal markazga joylashtirish
+      transform: translateY(-50%) !important;
+    }
   }
+  // .carousel .control-arrow {
+  //   background-color: rgba(0, 0, 0, 0.5) !important;
+  //   border-radius: 50% !important; // Tugmalarni yumaloq shaklga keltirish
+  //   width: 46px !important; // Tugmalar kengligi
+  //   height: 50px !important; // Tugmalar bo'yi
+  //   opacity: 0.8 !important; // Shaffoflik darajasi
+  //   z-index: 10 !important; // Tugmalarni yuqoriga ko'tarish
+  //   position: absolute !important; // Mutlaq pozitsiya bilan joylashtirish
+  //   top: 50%; // Vertikal markazga joylashtirish
+  //   transform: translateY(-50%) !important; // Vertikal markazni to'g'irlash
+  // }
 
-  .carousel .control-prev.control-arrow {
-    left: 10px; // Oldingi стрелkaga chapdan joylash
-  }
+  // .carousel.control-prev.control-arrow {
+  //   position: absolute !important; // Mutlaq pozitsiya bilan joylashtirish
+  //   top: 50%; // Vertikal markazga joylashtirish
+  //   transform: translateY(-50%) !important;
+  //   left: 10px !important; // Chapga joylash
+  // }
+  // .carousel.control-arrow {
+  //   visibility: visible !important;
+  //   display: block !important;
+  // }
 
-  .carousel .control-next.control-arrow {
-    right: 10px; // Keyingi стрелkaga o'ngdan joylash
-  }
+  // .carousel .control-next.control-arrow {
+  //   right: 10px !important; // O'ngga joylash
+  // }
+
+  // .carousel .slide {
+  //   position: relative !important; // Slaydlarni pozitsiya qilish
+  //   z-index: 1 !important; // Slaydning past z-index qiymati
+  // }
 }
 
 @media (max-width: 768px) {

@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import "./Table.scss";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-const itemsPerPage = 6;
+const itemsPerPage = 20;
 
 const Table1 = ({ products }) => {
   const { t } = useTranslation();
@@ -48,6 +48,14 @@ const Table1 = ({ products }) => {
     setCurrentPage(pageNumber);
   };
 
+  // /backtop
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [currentPage]);
+  ////////
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
   const currentProducts = products.slice(
@@ -58,7 +66,7 @@ const Table1 = ({ products }) => {
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
   return (
-    <div style={{ width: "100%", overflowX: "auto" }} className="tableContent">
+    <div style={{ width: "100%" }} className="tableContent">
       <span>{("total Results", currentPage.length)}</span>
       <table style={{ width: "100%" }}>
         <thead>

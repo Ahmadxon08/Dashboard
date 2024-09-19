@@ -41,6 +41,7 @@ const App = () => {
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/products" element={<Products />} />
               <Route path="/searchpro" element={<SearchProducts />} />
+              <Route path="/typeby" element={<ProductsByType />} />
             </Route>
           </Route>
         </Routes>

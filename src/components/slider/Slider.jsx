@@ -19,6 +19,7 @@ const Slider = ({ urls }) => {
   const onClickThumb = (index) => {
     console.log(`Thumb bosildi: ${index}`);
   };
+  const limitedImageUrls = imageUrls.slice(0, 7);
 
   return (
     <div className="contum_slider">
@@ -28,7 +29,7 @@ const Slider = ({ urls }) => {
         onChange={onChange}
         onClickItem={onClickItem}
         onClickThumb={onClickThumb}>
-        {imageUrls?.map((url, index) => (
+        {limitedImageUrls?.map((url, index) => (
           <div key={index} className="image_wrapper">
             <img src={url} alt={`Image ${index + 1}`} />
           </div>

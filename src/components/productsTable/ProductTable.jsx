@@ -50,7 +50,7 @@ const ProductTable = ({ categories }) => {
           <th>Image</th>
           <th>Title</th>
           <th>Rating</th>
-          <th>Order</th>
+          <th> Order</th>
           <th>Description</th>
         </tr>
       </thead>

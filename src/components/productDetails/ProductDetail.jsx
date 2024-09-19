@@ -102,8 +102,6 @@ const ProductDetail = () => {
               <div className="product_text">
                 <h1>{product.title}</h1>
 
-                <p>{cleanedDescription}</p>
-
                 <div className="line"></div>
 
                 <span>
