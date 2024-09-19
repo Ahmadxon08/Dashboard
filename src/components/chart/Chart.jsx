@@ -52,7 +52,7 @@ const LineChartCostume = ({ product }) => {
       trigger: "axis",
     },
     legend: {
-      data: ["Full Price", "Purchase Price"],
+      data: ["Full Price"],
       top: 20,
     },
     xAxis: {
@@ -71,13 +71,6 @@ const LineChartCostume = ({ product }) => {
         data: chartData.map((data) => data.fullPrice),
         smooth: true,
         color: "#82ca9d",
-      },
-      {
-        name: "Purchase Price",
-        type: "line",
-        data: chartData.map((data) => data.purchasePrice),
-        smooth: true,
-        color: "#8884d8",
       },
     ],
   };
