@@ -3,8 +3,7 @@
   align-items: start;
   width: 70%;
   height: 100%;
-  position: relative; // Slider konteyneriga position: relative qo'shish
-
+  position: relative;
   .image_wrapper {
     display: flex;
     align-items: center;
@@ -12,7 +11,7 @@
     height: 100%;
     img {
       width: 100% !important;
-      height: 600px !important; // Rasmlarning balandligi 600px qilib o'rnatiladi
+      height: 600px !important;
       object-fit: cover;
     }
   }
@@ -21,47 +20,41 @@
     display: flex !important;
     button {
       background-color: rgba(0, 0, 0, 0.5) !important;
-      border-radius: 50% !important; // Tugmalarni yumaloq shaklga keltirish
-      width: 46px !important; // Tugmalar kengligi
-      height: 50px !important; // Tugmalar bo'yi
-      opacity: 0.8 !important; // Shaffoflik darajasi
-      z-index: 10 !important; // Tugmalarni yuqoriga ko'tarish
-      position: absolute !important; // Mutlaq pozitsiya bilan joylashtirish
-      top: 100%; // Vertikal markazga joylashtirish
+      border-radius: 50% !important;
+      width: 46px !important;
+      height: 50px !important;
+      opacity: 0.8 !important;
+      z-index: 10 !important;
+      position: absolute !important;
+      top: 100%;
       transform: translateY(-50%) !important;
     }
   }
-  // .carousel .control-arrow {
-  //   background-color: rgba(0, 0, 0, 0.5) !important;
-  //   border-radius: 50% !important; // Tugmalarni yumaloq shaklga keltirish
-  //   width: 46px !important; // Tugmalar kengligi
-  //   height: 50px !important; // Tugmalar bo'yi
-  //   opacity: 0.8 !important; // Shaffoflik darajasi
-  //   z-index: 10 !important; // Tugmalarni yuqoriga ko'tarish
-  //   position: absolute !important; // Mutlaq pozitsiya bilan joylashtirish
-  //   top: 50%; // Vertikal markazga joylashtirish
-  //   transform: translateY(-50%) !important; // Vertikal markazni to'g'irlash
-  // }
+  .carousel .control-arrow {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 50% !important;
+    width: 46px !important;
+    height: 50px !important;
+    opacity: 0.8 !important;
+    z-index: 10 !important;
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%) !important;
+  }
 
-  // .carousel.control-prev.control-arrow {
-  //   position: absolute !important; // Mutlaq pozitsiya bilan joylashtirish
-  //   top: 50%; // Vertikal markazga joylashtirish
-  //   transform: translateY(-50%) !important;
-  //   left: 10px !important; // Chapga joylash
-  // }
-  // .carousel.control-arrow {
-  //   visibility: visible !important;
-  //   display: block !important;
-  // }
+  .carousel.control-arrow {
+    visibility: visible !important;
+    display: block !important;
+  }
 
-  // .carousel .control-next.control-arrow {
-  //   right: 10px !important; // O'ngga joylash
-  // }
+  .carousel .control-next.control-arrow {
+    right: 0px !important;
+  }
 
-  // .carousel .slide {
-  //   position: relative !important; // Slaydlarni pozitsiya qilish
-  //   z-index: 1 !important; // Slaydning past z-index qiymati
-  // }
+  .carousel .slide {
+    position: relative !important;
+    z-index: 1 !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -84,28 +77,23 @@
     }
 
     .carousel .control-arrow {
-      background-color: rgba(
-        0,
-        0,
-        0,
-        0.5
-      ); // Arrow'ning fon rangini o'zgartirish
-      border-radius: 50%; // Yuvarlak shaklda bo'lishi
-      width: 46px; // Arrow'ning kengligi
-      height: 50px; // Arrow'ning bo'yi
-      opacity: 0.8; // Arrow'ning shaffofligi
-      z-index: 1; // Arrow'ni yuqoriga qo'yish
-      position: absolute; // Arrow'larni mutlaq pozitsiya bilan joylashtirish
-      top: 50%; // Vertikal markazga joylashtirish
-      transform: translateY(-50%); // Vertikal markazni to'g'rilash
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      width: 46px;
+      height: 50px;
+      opacity: 0.8;
+      z-index: 1;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     .carousel .control-prev.control-arrow {
-      left: 5px; // Oldingi стрелkaga chapdan joylash
+      left: 5px;
     }
 
     .carousel .control-next.control-arrow {
-      right: 5px; // Keyingi стрелkaga o'ngdan joylash
+      right: 5px;
     }
   }
 }

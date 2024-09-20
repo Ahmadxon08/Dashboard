@@ -3,15 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
-.control-arrow.control-next.control-disabled {
-  display: none !important;
-}
-.control-arrow.control-prev.control-disabled {
-  display: none !important;
-}
+
 .control-arrow {
   position: relative;
-  top: 50%;
+  top: 50% !important;
   transform: translateY(-50%);
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.5);
@@ -21,6 +16,33 @@
   opacity: 0.8;
   cursor: pointer;
 }
+
+.carousel {
+  display: flex !important;
+  position: relative !important;
+  justify-content: center;
+
+  button {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 50% !important;
+    width: 46px !important;
+    height: 50px !important;
+    opacity: 0.8 !important;
+    z-index: 10 !important;
+    position: absolute !important;
+    top: 100%; // Tugmalarni vertikal markazga joylashtirish
+    transform: translateY(-50%);
+
+    // Tugmalarni chap va o'ngga joylashtirish
+    &:first-of-type {
+      left: 10px; // Chap tugma
+    }
+    &:last-of-type {
+      right: 10px; // O'ng tugma
+    }
+  }
+}
+
 .thumbs {
   padding: 0 !important;
   padding-left: 0 !important;
