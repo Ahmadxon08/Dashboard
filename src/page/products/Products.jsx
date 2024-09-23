@@ -199,7 +199,7 @@ const Products = () => {
             <Stack spacing={2}>
               <Pagination
                 count={totalPages}
-                page={pageNum}
+                page={+pageNum}
                 onChange={handlePageChange}
                 siblingCount={1}
                 boundaryCount={1}

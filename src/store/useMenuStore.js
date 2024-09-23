@@ -8,11 +8,11 @@ const useMenuStore = create((set) => ({
   parents: [],
   selectedParentId: null,
 
-  fetchGrandParents: async () => {
+  fetchGrandParents: async (language) => {
     set({ loading: true, error: null });
     try {
       const res = await axios.get(
-        "http://65.1.136.0:5050/api/categoryTopLevel"
+        `http://65.1.136.0:5050/api/categoryTopLevel?lan=${language}` // o'zgartirish
       );
       set({ grandParents: res.data });
     } catch (error) {
@@ -22,11 +22,11 @@ const useMenuStore = create((set) => ({
     }
   },
 
-  fetchParents: async (categoryId) => {
+  fetchParents: async (categoryId, language) => {
     set({ loading: true, error: null });
     try {
       const res = await axios.post(
-        "http://65.1.136.0:5050/api/categoryChildren",
+        `http://65.1.136.0:5050/api/categoryChildren?lan=${language}`,
         { categoryid: categoryId }
       );
       set({ parents: res.data });

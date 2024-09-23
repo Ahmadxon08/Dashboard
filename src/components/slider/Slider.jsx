@@ -15,7 +15,7 @@ const Slider = ({ urls }) => {
   const onClickItem = (index) => {
     console.log(`Element bosildi: ${index}`);
   };
-
+  4;
   const onClickThumb = (index) => {
     console.log(`Thumb bosildi: ${index}`);
   };

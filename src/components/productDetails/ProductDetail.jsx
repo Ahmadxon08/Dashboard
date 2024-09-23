@@ -123,7 +123,15 @@ const ProductDetail = () => {
                   )}
                 </span>
 
-                <span>Available: {product.skuList[0]?.availableAmount}</span>
+                <span>
+                  Available:
+                  {product.skuList?.length > 0 ? (
+                    product.skuList[0]?.availableAmount
+                  ) : (
+                    <span>Not available</span>
+                  )}
+                </span>
+
                 <Chart product={product} />
               </div>
             </div>

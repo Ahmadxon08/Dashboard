@@ -37,20 +37,23 @@ const useCategoryStore = create((set, get) => ({
   },
 
   fetchProductsByCategoryId: async (
-    categoryId,
-    pageNum = get().currentPage
+    categoryId = get().selectedCategoryId,
+    pageNum = get().currentPage,
+    language
   ) => {
     set({ loading: true, error: null });
     try {
+      if (!categoryId) throw new Error("Category ID is required");
+
       const response = await axios.post(
-        "http://65.1.136.0:5050/api/productsByCategoryId",
+        `http://65.1.136.0:5050/api/productsByCategoryId?lan=${language}`,
         {
           categoryid: categoryId,
           pageNum: pageNum,
         }
       );
       set({
-        products: response.data,
+        products: response.data, // ma'lumotlar `response.data.products` bo'lishi mumkin
         totalItems: response.data.total,
         currentPage: pageNum,
       });
@@ -61,11 +64,11 @@ const useCategoryStore = create((set, get) => ({
     }
   },
 
-  fetchProductDetails: async (productId) => {
+  fetchProductDetails: async (productId, language) => {
     set({ loading: true, error: null });
     try {
       const response = await axios.post(
-        `http://65.1.136.0:5050/api/productsByProductId`,
+        `http://65.1.136.0:5050/api/productsByProductId?lan=${language}`,
         {
           productid: productId,
         }

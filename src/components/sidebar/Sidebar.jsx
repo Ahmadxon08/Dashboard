@@ -4,7 +4,6 @@ import "./Sidebar.scss";
 import { GoHome } from "react-icons/go";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { FiUsers } from "react-icons/fi";
 import { BsCollection } from "react-icons/bs";
 import {
   MdKeyboardArrowRight,
@@ -19,9 +18,6 @@ import useManuStore from "../../store/useMenuStore";
 const logo = "./assets/img/logo.png";
 
 const Sidebar = () => {
-  // const [selectedGrandParentId, setSelectedGrandParentId] = useState(null);
-
-  // const [selectedParentId, setSelectedParentId] = useState(null);
   const { t } = useTranslation();
   const [activeButton, setActiveButton] = useState("");
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 768);
@@ -148,12 +144,7 @@ const Sidebar = () => {
       fetchProductsByCategoryId(childId);
     }
   };
-  // const handleChild2Click = (childId2) => {
-  //   // Fetch products for the selected child category
-  //   setSelectedCategoryId(childId2);
-  //   fetchProductsByCategoryId(childId2);
-  //   console.log("ss333", childId2);
-  // };
+
   /////////////////////////////////////////////
   const toggleCategories = () => {
     setSelectedGrandParentId(null);
@@ -319,7 +310,8 @@ const Sidebar = () => {
                     {selectedGrandParentId === p.id && (
                       <>
                         <div className="children">
-                          {parents.length > 0 &&
+                          {Array.isArray(parents) &&
+                            parents.length > 0 &&
                             parents.map((parent, index) => (
                               <motion.div
                                 className="child"
@@ -415,29 +407,6 @@ const Sidebar = () => {
                 ))}
             </div>
           )}
-
-          <Link to="/users" onClick={() => handleButtonClick("users")}>
-            <Button
-              style={{
-                background:
-                  activeButton === "users"
-                    ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
-                    : "inherit",
-              }}>
-              <FiUsers
-                size={22}
-                style={{
-                  color: activeButton === "users" ? "#7000ff" : "#fff",
-                }}
-              />
-              <span
-                style={{
-                  color: activeButton === "users" ? "#7000ff" : "#fff",
-                }}>
-                {t("sidebar.users")}
-              </span>
-            </Button>
-          </Link>
         </div>
       </div>
       <div className="rigth" onClick={handleCloseBar}></div>
