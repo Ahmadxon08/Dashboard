@@ -100,6 +100,14 @@
     "deleteTitle": "您想删除此用户吗？",
     "deleteMessage": "删除此用户将永久删除其数据。您确定要继续吗？",
     "cancel": "取消",
-    "delete": "删除"
+    "delete": "删除",
+    "logout": "登出"
+  },
+  "table": {
+    "image": "图片",
+    "title": "标题",
+    "rating": "评分",
+    "order": "订单",
+    "description": "描述"
   }
 }

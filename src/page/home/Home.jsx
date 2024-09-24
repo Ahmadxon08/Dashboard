@@ -1,9 +1,10 @@
-import { CircularProgress, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import "./Home.scss";
 import Table1 from "../../components/table/Table";
 import { useCallback, useEffect, useState } from "react";
 import useSearchStore from "../../store/useSearchStore";
 import debounce from "lodash.debounce";
+import Loading from "../../components/loader/Loading";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -82,10 +83,11 @@ const Home = () => {
       </section>
       <section className="content_body">
         {loading ? (
-          <div className="loadingSpinner">
-            <CircularProgress color="primary" className="load" />
-            <span>Loading...</span>
-          </div>
+          // <div className="loadingSpinner">
+          //   <CircularProgress color="primary" className="load" />
+          //   <span>Loading...</span>
+          // </div>
+          <Loading />
         ) : (
           <Table1 products={products} />
         )}

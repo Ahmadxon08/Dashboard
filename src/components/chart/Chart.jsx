@@ -4,11 +4,11 @@ import { eachDayOfInterval, format } from "date-fns";
 import "./Chart.scss";
 
 const LineChartCostume = ({ product }) => {
-  if (!product || !product.skuList || product.skuList.length === 0) {
+  if (!product || !product.skuList) {
     return <p>No data available</p>;
   }
 
-  // Ma'lumotlarni tayyorlash
+  // Prepare data for the chart
   const generateDates = (startDate, endDate) => {
     const days = eachDayOfInterval({
       start: new Date(startDate),
@@ -21,38 +21,39 @@ const LineChartCostume = ({ product }) => {
   const productTimestamp = product.timestamp || "2024-08-01";
   const currentTimestamp = new Date();
 
-  // Barcha kunlar orasidagi sanalarni olish
+  // Get all dates between the product's timestamp and the current date
   const dates = generateDates(productTimestamp, currentTimestamp);
 
-  // SKU List'dagi narxlarni yig'ish
+  // Extract price data
   const fullPrices = product.skuList.map((item) => item.fullPrice || 0);
   const purchasePrices = product.skuList.map((item) => item.purchasePrice || 0);
 
-  // Agar sanalar va narxlar soni mos kelmasa, ularni moslashtirish
-  if (fullPrices.length < dates.length) {
-    const difference = dates.length - fullPrices.length;
-    for (let i = 0; i < difference; i++) {
-      fullPrices.push(0);
-      purchasePrices.push(0);
-    }
-  }
+  // Add zeros to align with dates if necessary
+  while (fullPrices.length < dates.length) fullPrices.push(0);
+  while (purchasePrices.length < dates.length) purchasePrices.push(0);
 
-  // ECharts uchun ma'lumotlar tayyorlash
+  // Extract seller rating and reviews
+  const sellerRating = product.rating || product.seller.rating;
+  const reviewsAmount = product.seller.reviews || 0;
+
+  // Prepare chart data
   const chartData = dates.map((date, index) => ({
     date,
     fullPrice: fullPrices[index],
     purchasePrice: purchasePrices[index],
+    sellerRating: sellerRating,
+    reviewsAmount: reviewsAmount,
   }));
 
   const option = {
     title: {
-      text: "",
+      text: "Product Prices, Rating, and Reviews",
     },
     tooltip: {
       trigger: "axis",
     },
     legend: {
-      data: ["Full Price"],
+      data: [" Price", "Seller Rating", "Reviews Amount"],
       top: 20,
     },
     xAxis: {
@@ -60,17 +61,39 @@ const LineChartCostume = ({ product }) => {
       data: chartData.map((data) => data.date),
       name: "",
     },
-    yAxis: {
-      type: "value",
-      name: "Price",
-    },
+    yAxis: [
+      {
+        type: "value",
+        name: "Price",
+      },
+      {
+        type: "value",
+        name: "Rating/Reviews",
+        position: "right",
+      },
+    ],
     series: [
       {
-        name: "Full Price",
+        name: " Price",
         type: "line",
         data: chartData.map((data) => data.fullPrice),
         smooth: true,
         color: "#82ca9d",
+      },
+      {
+        name: "Seller Rating",
+        type: "line",
+        data: chartData.map(() => sellerRating), // Constant rating value
+        smooth: true,
+        color: "#ff7300",
+      },
+      {
+        name: "Reviews Amount",
+        type: "line",
+        yAxisIndex: 1, // Use the second y-axis for reviews
+        data: chartData.map(() => reviewsAmount), // Constant reviews amount
+        smooth: true,
+        color: "#ff0000",
       },
     ],
   };

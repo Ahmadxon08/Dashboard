@@ -7,35 +7,63 @@ import useMenuStore from "../../store/useMenuStore";
 import useCategoryStore from "../../store/useCategoryStore";
 import { useParams } from "react-router-dom";
 
+// Til flaglari
 const ru = "assets/img/ru.png";
 const en = "assets/img/en.png";
 const uz = "assets/img/uz.png";
-// const china = "assets/img/china.png";
+const china = "assets/img/china.png";
 
 const Select1 = () => {
   const { i18n } = useTranslation();
   const { id } = useParams();
 
-  const [language, setLanguage] = useState(i18n.language || "en"); // o'zgarish
+  // default tilni "en" ga o'rnatamiz
+  const [language, setLanguage] = useState(i18n.language || "en");
+
+  // localStorage dan saqlangan tilni olish
   useEffect(() => {
     const savedLanguage = localStorage.getItem("changeLg");
     if (savedLanguage) {
       i18n.changeLanguage(savedLanguage);
       setLanguage(savedLanguage);
+    } else {
+      i18n.changeLanguage(language);
+    }
+  }, []);
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("changeLg");
+
+    // faqat mavjud qiymatlar uchun
+    if (storedLanguage && ["en", "uz", "zh", "ru"].includes(storedLanguage)) {
+      setLanguage(storedLanguage);
+    } else {
+      setLanguage("en"); // Agar xato bo'lsa, default til
     }
   }, []);
 
   const handleChange = (e) => {
     const selectedLanguage = e.target.value;
+
+    // i18n ga yangi tilni o'rnatish
     i18n.changeLanguage(selectedLanguage);
+
+    // Local storage ga saqlash
     setLanguage(selectedLanguage);
     localStorage.setItem("changeLg", selectedLanguage);
+
+    // API chaqiruvlarini bajarish
+    fetchGrandParents(selectedLanguage);
+    fetchParents(selectedGrandParentId, selectedLanguage);
+    fetchProductsByCategoryId(selectedParentId, selectedLanguage);
+    fetchProductDetails(id, selectedLanguage);
   };
 
   useEffect(() => {
     setLanguage(i18n.language);
   }, [i18n.language]);
 
+  // Store dan kerakli qiymatlarni olish
   const {
     selectedGrandParentId,
     fetchProductDetails,
@@ -45,13 +73,14 @@ const Select1 = () => {
     fetchProductDetails: state.fetchProductDetails,
     selectedParentId: state.selectedParentId,
     selectedGrandParentId: state.selectedGrandParentId,
-    fetchProductsByCategoryId: state.fetchProductsByCategoryId, // grandparent id ni olish
+    fetchProductsByCategoryId: state.fetchProductsByCategoryId,
   }));
-  const { fetchGrandParents, fetchParents, grandParents } = useMenuStore(
+
+  const { fetchGrandParents, setActiveButton, fetchParents } = useMenuStore(
     (state) => ({
-      grandParents: state.grandParents, // grandParents ni olish
       fetchParents: state.fetchParents,
       fetchGrandParents: state.fetchGrandParents,
+      setActiveButton: state.setActiveButton,
     })
   );
 
@@ -59,47 +88,51 @@ const Select1 = () => {
     fetchProducts: state.fetchProducts,
   }));
 
+  // Mahsulotlarni boshlang'ich til bilan yuklash
   useEffect(() => {
     fetchProducts("", 1);
-  }, [language, fetchProducts]); // add language
-
+  }, [language, fetchProducts]); // Til o'zgarganda qayta chaqirish
   useEffect(() => {
-    fetchGrandParents(language);
-  }, [language, fetchGrandParents]);
+    const fetchData = async () => {
+      try {
+        // Fetching all data in parallel
+        await Promise.all([
+          fetchGrandParents(language),
+          fetchParents(selectedGrandParentId, language),
+          fetchProductsByCategoryId(selectedParentId, language),
+          fetchProductDetails(id, language),
+        ]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
+    fetchData();
+  }, [
+    language,
+    selectedGrandParentId,
+    selectedParentId,
+    id,
+    fetchGrandParents,
+    fetchParents,
+    fetchProductsByCategoryId,
+    fetchProductDetails,
+  ]);
+
+  //////////////Change active button name
   useEffect(() => {
-    fetchParents(selectedGrandParentId, language);
-  }, [language, selectedGrandParentId, fetchParents]);
-
-  useEffect(() => {
-    fetchProductsByCategoryId(selectedParentId, language);
-  }, [language, selectedParentId, fetchProductsByCategoryId]);
-
-  useEffect(() => {
-    fetchProductDetails(id, language);
-  }, [language, id, fetchProductDetails]);
-
+    const storedButton = localStorage.getItem("activeButton");
+    if (storedButton) {
+      setActiveButton(storedButton);
+    }
+  }, [i18n.language, setActiveButton]);
+  // Tillarning ro'yxati
   const languages = [
-    {
-      icon: en,
-      value: "en",
-      label: "English",
-    },
+    { icon: en, value: "en", label: "English" },
+    { icon: uz, value: "uz", label: "Uzbek" },
+    { icon: china, value: "zh", label: "Chinese" },
     { icon: ru, value: "ru", label: "Russian" },
-    {
-      icon: uz,
-      value: "uz",
-      label: "Uzbek",
-    },
-    // {
-    //   icon: china,
-    //   value: "ch",
-    //   label: "Chinese",
-    // },
   ];
-  console.log(grandParents);
-
-  console.log("id for parent", selectedGrandParentId);
 
   return (
     <Box sx={{ minWidth: 120 }}>
@@ -107,8 +140,8 @@ const Select1 = () => {
         id="standard-select-language"
         select
         label="Languages"
-        value={language} // to'g'ri qiymat
-        onChange={handleChange}
+        value={language} // Tanlangan til
+        onChange={handleChange} // O'zgarishlarni boshqarish
         variant="standard"
         sx={{
           minWidth: 120,
@@ -150,6 +183,9 @@ const Select1 = () => {
               display: "flex",
               alignItems: "center",
               padding: "3px",
+              "& img": {
+                objectFit: "contain",
+              },
             }}>
             <img
               src={option.icon}

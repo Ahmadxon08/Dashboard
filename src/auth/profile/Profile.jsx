@@ -64,10 +64,10 @@ const Profile = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            {t("dialog.cancel")}
           </Button>
           <Button variant="primary" onClick={handleLogOut}>
-            Log Out
+            {t("dialog.logout")}
           </Button>
         </Modal.Footer>
       </Modal>

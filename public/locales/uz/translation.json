@@ -102,6 +102,14 @@
     "deleteTitle": "Ushbu foydalanuvchini o'chirmoqchimisiz?",
     "deleteMessage": "Ushbu foydalanuvchini o'chirish uning ma'lumotlarini doimo o'chirib yuboradi. Davom etishni xohlaysizmi?",
     "cancel": "Bekor qilish",
-    "delete": "O'chirish"
+    "delete": "O'chirish",
+    "logout": "Chiqish"
+  },
+  "table": {
+    "image": "Rasm",
+    "title": "Sarlavha",
+    "rating": "Reyting",
+    "order": "Buyurtma",
+    "description": "Tavsif"
   }
 }

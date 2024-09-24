@@ -3,9 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useCategoryStore from "../../store/useCategoryStore";
 import "./ProductDetail.scss";
-import { Button, CircularProgress } from "@mui/material";
+import { Button } from "@mui/material";
 import Chart from "../chart/Chart";
 import Slider from "../slider/Slider";
+import Loading from "../loader/Loading";
 
 // URL'larni chiqarib olish va tavsifdan olib tashlash funksiyasi
 const extractAndRemoveUrls = (description) => {
@@ -73,10 +74,7 @@ const ProductDetail = () => {
   return (
     <div className="productDetail">
       {loading ? (
-        <div className="loadingSpinner">
-          <CircularProgress color="primary" className="load" />
-          <span>Loading...</span>
-        </div>
+        <Loading />
       ) : (
         <>
           {" "}

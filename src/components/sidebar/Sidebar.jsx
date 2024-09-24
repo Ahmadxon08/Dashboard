@@ -14,16 +14,24 @@ import useMainStore from "../../store/useMainStore";
 import { motion } from "framer-motion";
 import useCategoryStore from "../../store/useCategoryStore";
 import useManuStore from "../../store/useMenuStore";
+import useMenuStore from "../../store/useMenuStore";
 
 const logo = "./assets/img/logo.png";
 
 const Sidebar = () => {
   const { t } = useTranslation();
-  const [activeButton, setActiveButton] = useState("");
+  // const [activeButton, setActiveButton] = useState("");
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 768);
   const sidebarRef = useRef(null);
   const location = useLocation();
 
+  const { setActiveButton, activeButton, setCategoryTitle } = useMenuStore(
+    (state) => ({
+      setActiveButton: state.setActiveButton,
+      activeButton: state.activeButton,
+      setCategoryTitle: state.setCategoryTitle,
+    })
+  );
   ////right side api data start
   const {
     setSelectedCategoryId,
@@ -91,6 +99,9 @@ const Sidebar = () => {
     window.scrollTo(0, 0);
     localStorage.setItem("activeButton", buttonName);
     setActiveButton(buttonName);
+    const categoryTitle = t("sidebar.categories"); // Tarjima qilingan sarlavhani olish
+    setCategoryTitle(categoryTitle);
+    console.log("sidebar", categoryTitle);
   };
 
   const { handleCloseSidebar, handleOpenSidebar, openSidebar } = useMainStore(
@@ -175,11 +186,11 @@ const Sidebar = () => {
               <span>Datasuperman</span>
             </Button>
           </Link>
-          <Link to="/" onClick={() => handleButtonClick("home")}>
+          <Link to="/" onClick={() => handleButtonClick(t("sidebar.home"))}>
             <Button
               style={{
                 background:
-                  activeButton === "home"
+                  activeButton === t("sidebar.home")
                     ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
                     : "inherit",
               }}>
@@ -201,13 +212,13 @@ const Sidebar = () => {
           <Button
             sx={{ borderRadius: "0" }}
             onClick={() => {
-              handleButtonClick("categories");
+              handleButtonClick(t("sidebar.categories"));
               toggleCategories();
             }}
             style={{
               margin: "5px 0px",
               background:
-                activeButton === "categories"
+                activeButton === t("sidebar.categories")
                   ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
                   : "inherit",
             }}>

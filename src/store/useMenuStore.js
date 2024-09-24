@@ -7,6 +7,11 @@ const useMenuStore = create((set) => ({
   grandParents: [],
   parents: [],
   selectedParentId: null,
+  categoryTitle: null,
+  categoryChildTitle: null,
+
+  setCategoryTitle: (title) => set({ categoryTitle: title }),
+  setCategoryChildTitle: (title) => set({ categoryChildTitle: title }),
 
   fetchGrandParents: async (language) => {
     set({ loading: true, error: null });
@@ -35,6 +40,11 @@ const useMenuStore = create((set) => ({
     } finally {
       set({ loading: false });
     }
+  },
+  activeButton: localStorage.getItem("activeButton") || "",
+  setActiveButton: (buttonName) => {
+    localStorage.setItem("activeButton", buttonName);
+    set({ activeButton: buttonName });
   },
 
   selectParent: (parentId) => set({ selectedParentId: parentId }),

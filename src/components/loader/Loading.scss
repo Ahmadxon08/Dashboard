@@ -1,0 +1,57 @@
+.loading_product {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.692); /* Orqa fon rangini o'zgartirish */
+  z-index: 2333330;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading_product_item {
+  width: 200px; /* O'lchovlar o'zgartirilishi mumkin */
+  height: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radius_loading,
+.radius_loading1 {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.radius_loading {
+  background-color: rgba(203, 203, 203, 0.822);
+  animation: playLine 0.9s infinite alternate;
+}
+
+.radius_loading1 {
+  background-color: rgba(250, 250, 250, 0.838);
+  animation: playLine1 0.9s infinite alternate;
+}
+
+@keyframes playLine {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes playLine1 {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}

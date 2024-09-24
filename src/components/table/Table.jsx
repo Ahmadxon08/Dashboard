@@ -72,12 +72,11 @@ const Table1 = ({ products }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Rating</th>
-
-            <th>Order</th>
-            <th>Description</th>
+            <th>{t("table.image")}</th>
+            <th>{t("table.title")}</th>
+            <th>{t("table.rating")}</th>
+            <th>{t("table.order")}</th>
+            <th>{t("table.description")}</th>
           </tr>
         </thead>
         <tbody>

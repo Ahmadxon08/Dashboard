@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import CircularProgress from "@mui/material/CircularProgress";
 import "./Products.scss";
 import { useTranslation } from "react-i18next";
 import useCategoryStore from "../../store/useCategoryStore";
@@ -9,8 +8,8 @@ import ProductTable from "../../components/productsTable/ProductTable";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import useMenuStore from "../../store/useMenuStore";
-import ProductsFilter from "../../components/productsFilter/ProductsFilter";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../components/loader/Loading";
 
 const Products = () => {
   const { t } = useTranslation();
@@ -132,6 +131,13 @@ const Products = () => {
     fetchProductsByCategoryId(null, 1);
     navigate("/");
   };
+  const { categoryTitle } = useMenuStore((state) => ({
+    setActiveButton: state.setActiveButton,
+    activeButton: state.activeButton,
+    categoryTitle: state.categoryTitle,
+  }));
+  // const activeButton = localStorage.getItem("activeButton"); // Kalit bo'yicha qiymatni olish
+  // const categoryTitle = activeButton; // Olingan qiymatni ishlatish
 
   console.log("filtering products", filterSelects);
 
@@ -143,14 +149,12 @@ const Products = () => {
 
   console.log("llllllllj", uniqueItems);
   console.log("selectedss", productDetails);
+  console.log("produceeeee", categoryTitle);
 
   return (
     <section className="allProducts">
       {loading ? (
-        <div className="loadingSpinner">
-          <CircularProgress color="primary" className="load" />
-          <span>Loading...</span>
-        </div>
+        <Loading />
       ) : (
         <>
           <div className="all_product_head">
@@ -159,7 +163,7 @@ const Products = () => {
                 {t(`sidebar.home`)}
               </span>
               <small>/</small>
-              <span onClick={handleCategoryIdClick}>Kатегории </span>
+              <span onClick={handleCategoryIdClick}>{categoryTitle}</span>
               <small> {grandParent?.title ? "/" : ""}</small>
               <span onClick={() => handleGrandParentClick(grandParent?.id)}>
                 {grandParent?.title}
@@ -173,7 +177,6 @@ const Products = () => {
             <h2>{textHeader}</h2>
 
             <h3>{t("categories.totalItems", { count: totalItems })}</h3>
-            <ProductsFilter products={products} />
           </div>
 
           <div className="all_product_body">
