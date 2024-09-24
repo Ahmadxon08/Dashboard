@@ -3,7 +3,7 @@ import ReactECharts from "echarts-for-react";
 import { eachDayOfInterval, format } from "date-fns";
 import "./Chart.scss";
 
-const LineChartCostume = ({ product }) => {
+const ChartForRating = ({ product }) => {
   if (!product || !product.skuList) {
     return <p>No data available</p>;
   }
@@ -24,27 +24,26 @@ const LineChartCostume = ({ product }) => {
   // Get all dates between the product's timestamp and the current date
   const dates = generateDates(productTimestamp, currentTimestamp);
 
-  // Extract price data
-  const fullPrices = product.skuList.map((item) => item.fullPrice || 0);
-
-  // Add zeros to align with dates if necessary
-  while (fullPrices.length < dates.length) fullPrices.push(0);
+  // Extract seller rating and reviews
+  const sellerRating = product.rating || product.seller.rating;
+  const reviewsAmount = product.seller.reviews || 0;
 
   // Prepare chart data
-  const chartData = dates.map((date, index) => ({
+  const chartData = dates.map((date) => ({
     date,
-    fullPrice: fullPrices[index],
+    sellerRating: sellerRating,
+    reviewsAmount: reviewsAmount,
   }));
 
   const option = {
     title: {
-      text: "Product Price Over Time",
+      text: "Seller Rating Over Time",
     },
     tooltip: {
       trigger: "axis",
     },
     legend: {
-      data: ["Price"],
+      data: ["Seller Rating"],
       top: 20,
     },
     xAxis: {
@@ -52,17 +51,19 @@ const LineChartCostume = ({ product }) => {
       data: chartData.map((data) => data.date),
       name: "",
     },
-    yAxis: {
-      type: "value",
-      name: "Price",
-    },
+    yAxis: [
+      {
+        type: "value",
+        name: "Seller Rating",
+      },
+    ],
     series: [
       {
-        name: "Price",
+        name: "Seller Rating",
         type: "line",
-        data: chartData.map((data) => data.fullPrice),
+        data: chartData.map(() => sellerRating), // Constant rating value
         smooth: true,
-        color: "#82ca9d",
+        color: "#ff7300",
       },
     ],
   };
@@ -76,4 +77,4 @@ const LineChartCostume = ({ product }) => {
   );
 };
 
-export default LineChartCostume;
+export default ChartForRating;

@@ -101,7 +101,8 @@
     "deleteMessage": "Deleting this user will permanently remove their data. Are you sure you want to proceed?",
     "cancel": "Cancel",
     "delete": "Delete",
-    "logout": "Log out"
+    "logout": "Log out",
+    "languages": "Languages"
   },
   "table": {
     "image": "Image",

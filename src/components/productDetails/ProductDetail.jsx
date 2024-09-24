@@ -7,6 +7,8 @@ import { Button } from "@mui/material";
 import Chart from "../chart/Chart";
 import Slider from "../slider/Slider";
 import Loading from "../loader/Loading";
+import ChartForViewer from "../chart/ChartForViewer";
+import ChartForRating from "../chart/ChartForRating";
 
 // URL'larni chiqarib olish va tavsifdan olib tashlash funksiyasi
 const extractAndRemoveUrls = (description) => {
@@ -102,7 +104,7 @@ const ProductDetail = () => {
 
                 <div className="line"></div>
 
-                <span>
+                {/* <span>
                   {product.rating > 0 ? (
                     <span>
                       Rating: <b>{product.rating}</b>
@@ -128,9 +130,11 @@ const ProductDetail = () => {
                   ) : (
                     <span>Not available</span>
                   )}
-                </span>
+                </span> */}
 
                 <Chart product={product} />
+                <ChartForViewer product={product} />
+                <ChartForRating product={product} />
               </div>
             </div>
           ) : (

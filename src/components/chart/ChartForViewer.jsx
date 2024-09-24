@@ -3,7 +3,7 @@ import ReactECharts from "echarts-for-react";
 import { eachDayOfInterval, format } from "date-fns";
 import "./Chart.scss";
 
-const LineChartCostume = ({ product }) => {
+const ChartForViewer = ({ product }) => {
   if (!product || !product.skuList) {
     return <p>No data available</p>;
   }
@@ -24,27 +24,24 @@ const LineChartCostume = ({ product }) => {
   // Get all dates between the product's timestamp and the current date
   const dates = generateDates(productTimestamp, currentTimestamp);
 
-  // Extract price data
-  const fullPrices = product.skuList.map((item) => item.fullPrice || 0);
-
-  // Add zeros to align with dates if necessary
-  while (fullPrices.length < dates.length) fullPrices.push(0);
+  // Extract seller rating and reviews
+  const reviewsAmount = product.seller.reviews || 0;
 
   // Prepare chart data
-  const chartData = dates.map((date, index) => ({
+  const chartData = dates.map((date) => ({
     date,
-    fullPrice: fullPrices[index],
+    reviewsAmount: reviewsAmount,
   }));
 
   const option = {
     title: {
-      text: "Product Price Over Time",
+      text: "Reviews Amount Over Time",
     },
     tooltip: {
       trigger: "axis",
     },
     legend: {
-      data: ["Price"],
+      data: ["Reviews Amount"],
       top: 20,
     },
     xAxis: {
@@ -54,15 +51,15 @@ const LineChartCostume = ({ product }) => {
     },
     yAxis: {
       type: "value",
-      name: "Price",
+      name: "Reviews Amount",
     },
     series: [
       {
-        name: "Price",
+        name: "Reviews Amount",
         type: "line",
-        data: chartData.map((data) => data.fullPrice),
+        data: chartData.map(() => reviewsAmount), // Constant reviews amount
         smooth: true,
-        color: "#82ca9d",
+        color: "#ff0000",
       },
     ],
   };
@@ -76,4 +73,4 @@ const LineChartCostume = ({ product }) => {
   );
 };
 
-export default LineChartCostume;
+export default ChartForViewer;

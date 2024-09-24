@@ -163,7 +163,9 @@ const Products = () => {
                 {t(`sidebar.home`)}
               </span>
               <small>/</small>
-              <span onClick={handleCategoryIdClick}>{categoryTitle}</span>
+              <span onClick={handleCategoryIdClick}>
+                {t(`sidebar.categories`)}
+              </span>
               <small> {grandParent?.title ? "/" : ""}</small>
               <span onClick={() => handleGrandParentClick(grandParent?.id)}>
                 {grandParent?.title}

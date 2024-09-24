@@ -53,7 +53,7 @@ const useCategoryStore = create((set, get) => ({
         }
       );
       set({
-        products: response.data, // ma'lumotlar `response.data.products` bo'lishi mumkin
+        products: response.data,
         totalItems: response.data.total,
         currentPage: pageNum,
       });

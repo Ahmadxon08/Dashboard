@@ -6,6 +6,7 @@ import useSearchStore from "../../store/useSearchStore";
 import useMenuStore from "../../store/useMenuStore";
 import useCategoryStore from "../../store/useCategoryStore";
 import { useParams } from "react-router-dom";
+import debounce from "lodash.debounce";
 
 // Til flaglari
 const ru = "assets/img/ru.png";
@@ -14,7 +15,7 @@ const uz = "assets/img/uz.png";
 const china = "assets/img/china.png";
 
 const Select1 = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const { id } = useParams();
 
   // default tilni "en" ga o'rnatamiz
@@ -91,34 +92,23 @@ const Select1 = () => {
   // Mahsulotlarni boshlang'ich til bilan yuklash
   useEffect(() => {
     fetchProducts("", 1);
-  }, [language, fetchProducts]); // Til o'zgarganda qayta chaqirish
+  }, [language, fetchProducts]); //
+  const fetchDataDebounced = debounce(async () => {
+    try {
+      await Promise.all([
+        fetchGrandParents(language),
+        fetchParents(selectedGrandParentId, language),
+        fetchProductsByCategoryId(selectedParentId, language),
+        fetchProductDetails(id, language),
+      ]);
+    } catch (error) {
+      console.error("Ma'lumotlarni olishda xato:", error);
+    }
+  }, 300); // Kerak bo'lsa, kechikishni moslashtiring
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetching all data in parallel
-        await Promise.all([
-          fetchGrandParents(language),
-          fetchParents(selectedGrandParentId, language),
-          fetchProductsByCategoryId(selectedParentId, language),
-          fetchProductDetails(id, language),
-        ]);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [
-    language,
-    selectedGrandParentId,
-    selectedParentId,
-    id,
-    fetchGrandParents,
-    fetchParents,
-    fetchProductsByCategoryId,
-    fetchProductDetails,
-  ]);
-
+    fetchDataDebounced();
+  }, [language, selectedGrandParentId, selectedParentId, id]);
   //////////////Change active button name
   useEffect(() => {
     const storedButton = localStorage.getItem("activeButton");
@@ -137,9 +127,9 @@ const Select1 = () => {
   return (
     <Box sx={{ minWidth: 120 }}>
       <TextField
-        id="standard-select-language"
+        id="standard-select-language" // Bu 'id' 'label' bilan mos keladi
         select
-        label="Languages"
+        label={t("dialog.languages")}
         value={language} // Tanlangan til
         onChange={handleChange} // O'zgarishlarni boshqarish
         variant="standard"

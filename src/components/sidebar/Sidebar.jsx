@@ -97,10 +97,10 @@ const Sidebar = () => {
 
   const handleButtonClick = (buttonName) => {
     window.scrollTo(0, 0);
-    localStorage.setItem("activeButton", buttonName);
-    setActiveButton(buttonName);
+    // localStorage.setItem("activeButton", buttonName);
+    setCategoryTitle(buttonName);
     const categoryTitle = t("sidebar.categories"); // Tarjima qilingan sarlavhani olish
-    setCategoryTitle(categoryTitle);
+    setCategoryTitle(buttonName);
     console.log("sidebar", categoryTitle);
   };
 
@@ -146,13 +146,24 @@ const Sidebar = () => {
       fetchParents(parentId);
     }
   };
+
+  const handleRemoveParent = () => {
+    setSelectedParentId(null);
+    localStorage.removeItem("parent");
+  };
   const handleParentClick = (childId) => {
     if (selectedParentId === childId) {
+      // Tanlangan parent o'chirilmoqda
       setSelectedParentId(null);
-      console.log("parent  siddebar", childId);
+      handleRemoveParent();
+      console.log("parent sidebar", childId);
     } else {
+      // Yangi parent tanlanmoqda
       setSelectedCategoryId(childId);
       fetchProductsByCategoryId(childId);
+
+      // Tanlangan parent ID'sini localStorage'ga saqlash
+      localStorage.setItem("parent", childId);
     }
   };
 
@@ -166,11 +177,6 @@ const Sidebar = () => {
     setSelectedGrandParentId(null);
     handleCloseSidebar();
   };
-  // const filteredItems = uniqueItems
-  //   .flat()
-  //   .filter((item) => item.parentId === selectedParentId);
-
-  // console.log("jjjjjjjjj", filteredItems);
 
   console.log("fiter ids", uniqueItems);
 
@@ -297,7 +303,6 @@ const Sidebar = () => {
                         {selectedGrandParentId && (
                           <MdKeyboardDoubleArrowLeft
                             onClick={() => {
-                              localStorage.removeItem("parent");
                               handleParentClick(p.id);
                             }}
                             size={22}

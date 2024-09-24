@@ -70,7 +70,9 @@ const ProductTable = ({ categories }) => {
                 {index + 1}
               </td>
               <td data-cell="Image">
-                <img src={category.photo} alt="photo" />
+                {category?.photo && (
+                  <img src={category?.photo} alt="Category" />
+                )}
               </td>
               <td data-cell="Title">
                 {category?.seller?.title.slice(0, 15)}...
