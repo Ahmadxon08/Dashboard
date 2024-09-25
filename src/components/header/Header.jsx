@@ -51,7 +51,14 @@ const Header = () => {
           </Button>
           <Link to="/" className="logo" onClick={handelCloseSidebar}>
             <Button variant="text">
-              <img src={logo} alt="logo" />
+              <img
+                src={logo}
+                alt="logo"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "./assets/img/logo.png";
+                }}
+              />
               <span>Datasuperman</span>
             </Button>
           </Link>
