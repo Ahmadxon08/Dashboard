@@ -104,11 +104,23 @@
     "logout": "Log out",
     "languages": "Languages"
   },
+  "chart": {
+    "reviewTitle": "Reviews Amount Over Time",
+    "reviewer": "Reviews Amount",
+    "ratingTitle": "Sales Rating Over Time",
+    "rating": "Sales Rating",
+    "priceTitle": "Product Price Over Time",
+    "price": "Price"
+  },
   "table": {
     "image": "Image",
     "title": "Title",
     "rating": "Rating",
     "order": "Order",
-    "description": "Description"
+    "description": "Description",
+    "back": "Back",
+    "remain": "Remaining Products",
+    "noProduct": "No Product Available",
+    "sold": "Sold"
   }
 }

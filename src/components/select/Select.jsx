@@ -8,63 +8,23 @@ import useCategoryStore from "../../store/useCategoryStore";
 import { useParams } from "react-router-dom";
 import debounce from "lodash.debounce";
 
-// Til flaglari
-const ru = "assets/img/ru.png";
-const en = "assets/img/en.png";
-const uz = "assets/img/uz.png";
-const china = "assets/img/china.png";
+// Rasm yo'llari
+const flags = {
+  en: "/assets/img/en.png",
+  uz: "/assets/img/uz.png",
+  zh: "/assets/img/china.png",
+  ru: "/assets/img/ru.png",
+};
+
+const fallbackImage = "/assets/img/default.png"; // Zahira rasm
 
 const Select1 = () => {
   const { i18n, t } = useTranslation();
   const { id } = useParams();
+  const [language, setLanguage] = useState(
+    localStorage.getItem("changeLg") || i18n.language || "en"
+  );
 
-  // default tilni "en" ga o'rnatamiz
-  const [language, setLanguage] = useState(i18n.language || "en");
-
-  // localStorage dan saqlangan tilni olish
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("changeLg");
-    if (savedLanguage) {
-      i18n.changeLanguage(savedLanguage);
-      setLanguage(savedLanguage);
-    } else {
-      i18n.changeLanguage(language);
-    }
-  }, []);
-
-  useEffect(() => {
-    const storedLanguage = localStorage.getItem("changeLg");
-
-    // faqat mavjud qiymatlar uchun
-    if (storedLanguage && ["en", "uz", "zh", "ru"].includes(storedLanguage)) {
-      setLanguage(storedLanguage);
-    } else {
-      setLanguage("en"); // Agar xato bo'lsa, default til
-    }
-  }, []);
-
-  const handleChange = (e) => {
-    const selectedLanguage = e.target.value;
-
-    // i18n ga yangi tilni o'rnatish
-    i18n.changeLanguage(selectedLanguage);
-
-    // Local storage ga saqlash
-    setLanguage(selectedLanguage);
-    localStorage.setItem("changeLg", selectedLanguage);
-
-    // API chaqiruvlarini bajarish
-    fetchGrandParents(selectedLanguage);
-    fetchParents(selectedGrandParentId, selectedLanguage);
-    fetchProductsByCategoryId(selectedParentId, selectedLanguage);
-    fetchProductDetails(id, selectedLanguage);
-  };
-
-  useEffect(() => {
-    setLanguage(i18n.language);
-  }, [i18n.language]);
-
-  // Store dan kerakli qiymatlarni olish
   const {
     selectedGrandParentId,
     fetchProductDetails,
@@ -77,23 +37,26 @@ const Select1 = () => {
     fetchProductsByCategoryId: state.fetchProductsByCategoryId,
   }));
 
-  const { fetchGrandParents, setActiveButton, fetchParents } = useMenuStore(
-    (state) => ({
-      fetchParents: state.fetchParents,
-      fetchGrandParents: state.fetchGrandParents,
-      setActiveButton: state.setActiveButton,
-    })
-  );
+  const { fetchGrandParents, setActiveButton, fetchParents } = useMenuStore();
+  const { fetchProducts } = useSearchStore();
 
-  const { fetchProducts } = useSearchStore((state) => ({
-    fetchProducts: state.fetchProducts,
-  }));
-
-  // Mahsulotlarni boshlang'ich til bilan yuklash
   useEffect(() => {
-    fetchProducts("", 1);
-  }, [language, fetchProducts]); //
-  const fetchDataDebounced = debounce(async () => {
+    const storedLanguage = localStorage.getItem("changeLg");
+    if (storedLanguage && ["en", "uz", "zh", "ru"].includes(storedLanguage)) {
+      i18n.changeLanguage(storedLanguage);
+      setLanguage(storedLanguage);
+    }
+  }, [i18n]);
+
+  const handleLanguageChange = (e) => {
+    const newLanguage = e.target.value;
+    i18n.changeLanguage(newLanguage);
+    localStorage.setItem("changeLg", newLanguage);
+    setLanguage(newLanguage);
+    fetchData();
+  };
+
+  const fetchData = debounce(async () => {
     try {
       await Promise.all([
         fetchGrandParents(language),
@@ -104,53 +67,51 @@ const Select1 = () => {
     } catch (error) {
       console.error("Ma'lumotlarni olishda xato:", error);
     }
-  }, 300); // Kerak bo'lsa, kechikishni moslashtiring
+  }, 300); // Debouncing the API calls
 
   useEffect(() => {
-    fetchDataDebounced();
+    fetchProducts("", 1);
+    fetchData();
   }, [language, selectedGrandParentId, selectedParentId, id]);
-  //////////////Change active button name
+
   useEffect(() => {
     const storedButton = localStorage.getItem("activeButton");
     if (storedButton) {
       setActiveButton(storedButton);
     }
   }, [i18n.language, setActiveButton]);
-  // Tillarning ro'yxati
+
   const languages = [
-    { icon: en, value: "en", label: "English" },
-    { icon: uz, value: "uz", label: "Uzbek" },
-    { icon: china, value: "zh", label: "Chinese" },
-    { icon: ru, value: "ru", label: "Russian" },
+    { value: "en", label: "English", icon: flags.en },
+    { value: "uz", label: "Uzbek", icon: flags.uz },
+    { value: "zh", label: "Chinese", icon: flags.zh },
+    { value: "ru", label: "Russian", icon: flags.ru },
   ];
+
+  // Rasm yuklanmaganida zahira rasm qo'shish funksiyasi
+  const handleImageError = (e) => {
+    e.target.src = fallbackImage;
+  };
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <TextField
-        id="standard-select-language" // Bu 'id' 'label' bilan mos keladi
+        id="language-select"
         select
         label={t("dialog.languages")}
-        value={language} // Tanlangan til
-        onChange={handleChange} // O'zgarishlarni boshqarish
+        value={language}
+        onChange={handleLanguageChange}
         variant="standard"
         sx={{
           minWidth: 120,
           color: "#7000ff",
-          "& .MuiInputLabel-root": {
-            color: "#7000ff",
-          },
-          "& .MuiInputLabel-root.Mui-focused": {
-            color: "#7000ff",
-          },
-          "& .MuiInput-underline:before": {
-            borderBottomColor: "#7000ff",
-          },
+          "& .MuiInputLabel-root": { color: "#7000ff" },
+          "& .MuiInputLabel-root.Mui-focused": { color: "#7000ff" },
+          "& .MuiInput-underline:before": { borderBottomColor: "#7000ff" },
           "& .MuiInput-underline:hover:before": {
             borderBottomColor: "#7000ff",
           },
-          "& .MuiInput-underline:after": {
-            borderBottomColor: "#7000ff",
-          },
+          "& .MuiInput-underline:after": { borderBottomColor: "#7000ff" },
         }}
         SelectProps={{
           MenuProps: {
@@ -165,36 +126,21 @@ const Select1 = () => {
             },
           },
         }}>
-        {languages.map((option) => (
+        {languages.map(({ value, label, icon }) => (
           <MenuItem
-            key={option.value}
-            value={option.value}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              padding: "3px",
-              "& img": {
-                objectFit: "contain",
-              },
-            }}>
+            key={value}
+            value={value}
+            sx={{ display: "flex", alignItems: "center" }}>
             <img
-              src={option.icon}
-              alt={`${option.label} flag`}
+              src={icon}
+              alt={`${label} flag`}
               width={22}
               height={29}
-              style={{
-                objectFit: "center",
-                verticalAlign: "middle",
-              }}
+              style={{ verticalAlign: "middle" }}
+              onError={handleImageError} // Agar rasm yuklanmasa zahira rasmga o'tadi
             />
-            <span
-              style={{
-                fontFamily: "Roboto",
-                paddingTop: "6px",
-                marginLeft: "10px",
-                textTransform: "capitalize",
-              }}>
-              {option.label}
+            <span style={{ marginLeft: "10px", textTransform: "capitalize" }}>
+              {label}
             </span>
           </MenuItem>
         ))}

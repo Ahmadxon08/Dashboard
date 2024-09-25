@@ -104,11 +104,24 @@
     "logout": "登出",
     "languages": "语言"
   },
+  "chart": {
+    "reviewTitle": "评论数量随时间变化",
+    "reviewer": "评论数量",
+    "ratingTitle": "销售评分随时间变化",
+    "rating": "销售评分",
+    "priceTitle": "产品价格随时间变化",
+    "price": "价格"
+  },
+
   "table": {
     "image": "图片",
     "title": "标题",
     "rating": "评分",
     "order": "订单",
-    "description": "描述"
+    "description": "描述",
+    "back": "返回",
+    "remain": "剩余产品",
+    "noProduct": "没有可用产品",
+    "sold": "已售出"
   }
 }

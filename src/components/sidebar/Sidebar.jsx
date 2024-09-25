@@ -369,51 +369,6 @@ const Sidebar = () => {
                                     </span>
                                   </Button>
                                 </Link>
-                                {/* {selectedParentId === parent.id && (
-                                  <div className="children">
-                                    {filteredItems.map((child, index) => (
-                                      <motion.div
-                                        className="child"
-                                        key={index}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{
-                                          delay: index * 0.05,
-                                        }}>
-                                        <Link
-                                          to={`/products?section=${encodeURIComponent(
-                                            p.title.toLowerCase()
-                                          )}?&part=${encodeURIComponent(
-                                            child.title.toLowerCase()
-                                          )}`}
-                                          onClick={() =>
-                                            handleButtonClick(child.title)
-                                          }>
-                                          <Button
-                                            onClick={() =>
-                                              handleChild2Click(child.id)
-                                            }
-                                            sx={{
-                                              background:
-                                                activeButton === child.title
-                                                  ? "linear-gradient(45deg, #9b6cff, #d1a3ff)"
-                                                  : "inherit",
-                                            }}>
-                                            <span
-                                              style={{
-                                                color:
-                                                  activeButton === child.title
-                                                    ? "#7000ff"
-                                                    : "#fff",
-                                              }}>
-                                              {child.category.title}
-                                            </span>
-                                          </Button>
-                                        </Link>
-                                      </motion.div>
-                                    ))}
-                                  </div>
-                                )} */}
                               </motion.div>
                             ))}
                         </div>{" "}

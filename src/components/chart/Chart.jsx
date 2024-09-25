@@ -2,8 +2,10 @@
 import ReactECharts from "echarts-for-react";
 import { eachDayOfInterval, format } from "date-fns";
 import "./Chart.scss";
+import { useTranslation } from "react-i18next";
 
 const LineChartCostume = ({ product }) => {
+  const { t } = useTranslation();
   if (!product || !product.skuList) {
     return <p>No data available</p>;
   }
@@ -25,7 +27,7 @@ const LineChartCostume = ({ product }) => {
   const dates = generateDates(productTimestamp, currentTimestamp);
 
   // Extract price data
-  const fullPrices = product.skuList.map((item) => item.fullPrice || 0);
+  const fullPrices = product.skuList.map((item) => item.purchasePrice || 0);
 
   // Add zeros to align with dates if necessary
   while (fullPrices.length < dates.length) fullPrices.push(0);
@@ -38,27 +40,26 @@ const LineChartCostume = ({ product }) => {
 
   const option = {
     title: {
-      text: "Product Price Over Time",
+      text: t("chart.priceTitle"),
     },
     tooltip: {
       trigger: "axis",
     },
     legend: {
-      data: ["Price"],
+      data: [t("chart.price")], // legend ma'lumotlarini yangilash
       top: 20,
     },
     xAxis: {
       type: "category",
       data: chartData.map((data) => data.date),
-      name: "",
     },
     yAxis: {
       type: "value",
-      name: "Price",
+      name: t("chart.price"),
     },
     series: [
       {
-        name: "Price",
+        name: t("chart.price"), // seriya nomini yangilash
         type: "line",
         data: chartData.map((data) => data.fullPrice),
         smooth: true,
@@ -70,7 +71,7 @@ const LineChartCostume = ({ product }) => {
   return (
     <div
       className="chart-container"
-      style={{ width: "80%", maxHeight: "250px" }}>
+      style={{ width: "90%", maxHeight: "250px" }}>
       <ReactECharts option={option} />
     </div>
   );

@@ -35,19 +35,26 @@
 
     // Tugmalarni chap va o'ngga joylashtirish
     &:first-of-type {
-      left: 10px; // Chap tugma
+      left: 3% !important; // Chap tugma
     }
     &:last-of-type {
-      right: 10px; // O'ng tugma
+      right: 7% !important; // O'ng tugma
     }
   }
 }
 
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.thumbs-wrapper {
+  padding-right: 50px !important;
+}
 .thumbs {
   padding: 0 !important;
   padding-left: 0 !important;
   margin: 0 !important;
-  overflow-x: auto;
+  overflow-x: auto !important;
   li {
     height: 100px !important;
     border-radius: 2px !important;

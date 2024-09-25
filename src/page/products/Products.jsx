@@ -72,7 +72,6 @@ const Products = () => {
   };
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const selectedCategoryId2 = null;
-  const textHeader = localStorage.getItem("activeButton") || "Kатегории";
   //////Product section navigation
   const grandParentString = localStorage.getItem("grandParent");
   const grandParent = grandParentString ? JSON.parse(grandParentString) : null;
@@ -176,7 +175,7 @@ const Products = () => {
               </span>
             </div>
 
-            <h2>{textHeader}</h2>
+            <h2> {t(`sidebar.categories`)}</h2>
 
             <h3>{t("categories.totalItems", { count: totalItems })}</h3>
           </div>

@@ -106,11 +106,23 @@
     "logout": "Chiqish",
     "languages": "Tilllar"
   },
+  "chart": {
+    "reviewTitle": "Sharhlar miqdori vaqt o‘tishi bilan",
+    "reviewer": "Sharhlar miqdori",
+    "ratingTitle": "Sotish reytingi vaqt o‘tishi bilan",
+    "rating": "Sotish reytingi",
+    "priceTitle": "Mahsulot narxi vaqt o‘tishi bilan",
+    "price": "Narx"
+  },
   "table": {
     "image": "Rasm",
     "title": "Sarlavha",
     "rating": "Reyting",
     "order": "Buyurtma",
-    "description": "Tavsif"
+    "description": "Tavsif",
+    "back": "Orqaga",
+    "remain": "Qolgan mahsulotlar",
+    "noProduct": "Mahsulot mavjud emas",
+    "sold": "Sotilgan"
   }
 }

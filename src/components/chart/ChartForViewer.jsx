@@ -2,8 +2,10 @@
 import ReactECharts from "echarts-for-react";
 import { eachDayOfInterval, format } from "date-fns";
 import "./Chart.scss";
+import { useTranslation } from "react-i18next";
 
 const ChartForViewer = ({ product }) => {
+  const { t } = useTranslation();
   if (!product || !product.skuList) {
     return <p>No data available</p>;
   }
@@ -35,13 +37,13 @@ const ChartForViewer = ({ product }) => {
 
   const option = {
     title: {
-      text: "Reviews Amount Over Time",
+      text: t("chart.reviewTitle"),
     },
     tooltip: {
       trigger: "axis",
     },
     legend: {
-      data: ["Reviews Amount"],
+      data: [t("chart.reviewer")],
       top: 20,
     },
     xAxis: {
@@ -51,11 +53,11 @@ const ChartForViewer = ({ product }) => {
     },
     yAxis: {
       type: "value",
-      name: "Reviews Amount",
+      name: t("chart.reviewer"),
     },
     series: [
       {
-        name: "Reviews Amount",
+        name: t("chart.reviewer"),
         type: "line",
         data: chartData.map(() => reviewsAmount), // Constant reviews amount
         smooth: true,
@@ -67,7 +69,7 @@ const ChartForViewer = ({ product }) => {
   return (
     <div
       className="chart-container"
-      style={{ width: "80%", maxHeight: "250px" }}>
+      style={{ width: "90%", maxHeight: "250px" }}>
       <ReactECharts option={option} />
     </div>
   );

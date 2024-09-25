@@ -9,6 +9,7 @@ import Slider from "../slider/Slider";
 import Loading from "../loader/Loading";
 import ChartForViewer from "../chart/ChartForViewer";
 import ChartForRating from "../chart/ChartForRating";
+import { useTranslation } from "react-i18next";
 
 // URL'larni chiqarib olish va tavsifdan olib tashlash funksiyasi
 const extractAndRemoveUrls = (description) => {
@@ -19,6 +20,7 @@ const extractAndRemoveUrls = (description) => {
 };
 
 const ProductDetail = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   console.log("Product ID:", id);
 
@@ -73,6 +75,10 @@ const ProductDetail = () => {
   };
   console.log("images massive", urls);
 
+  const remainingAmount = product?.totalAvailableAmount
+    ? product.totalAvailableAmount - product.ordersAmount
+    : 0;
+
   return (
     <div className="productDetail">
       {loading ? (
@@ -88,7 +94,7 @@ const ProductDetail = () => {
               color: "#fff",
               marginLeft: "10px",
             }}>
-            back
+            {t("table.back")}
           </Button>
           {product ? (
             <div className="product_card">
@@ -102,39 +108,23 @@ const ProductDetail = () => {
               <div className="product_text">
                 <h1>{product.title}</h1>
 
+                <h3>
+                  {remainingAmount > 0 ? (
+                    <p>
+                      {" "}
+                      {t("table.remain")}: {remainingAmount}
+                    </p>
+                  ) : (
+                    <p>{t("table.noProduct")}</p>
+                  )}
+                </h3>
+
                 <div className="line"></div>
 
-                {/* <span>
-                  {product.rating > 0 ? (
-                    <span>
-                      Rating: <b>{product.rating}</b>
-                    </span>
-                  ) : (
-                    <span>No ratings yet.</span>
-                  )}
-                </span>
-
-                <span>
-                  Reviews:
-                  {product.reviewsAmount > 0 ? (
-                    <span>{product.reviewsAmount}</span>
-                  ) : (
-                    <span>No reviews yet.</span>
-                  )}
-                </span>
-
-                <span>
-                  Available:
-                  {product.skuList?.length > 0 ? (
-                    product.skuList[0]?.availableAmount
-                  ) : (
-                    <span>Not available</span>
-                  )}
-                </span> */}
-
                 <Chart product={product} />
-                <ChartForViewer product={product} />
                 <ChartForRating product={product} />
+
+                <ChartForViewer product={product} className="chart1" />
               </div>
             </div>
           ) : (

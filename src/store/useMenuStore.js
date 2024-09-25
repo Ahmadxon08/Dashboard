@@ -7,8 +7,8 @@ const useMenuStore = create((set) => ({
   grandParents: [],
   parents: [],
   selectedParentId: null,
-  categoryTitle: null,
-  categoryChildTitle: null,
+  categoryTitle: {},
+  categoryChildTitle: {},
 
   setCategoryTitle: (title) => set({ categoryTitle: title }),
   setCategoryChildTitle: (title) => set({ categoryChildTitle: title }),

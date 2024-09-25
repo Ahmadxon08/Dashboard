@@ -2,8 +2,10 @@
 import ReactECharts from "echarts-for-react";
 import { eachDayOfInterval, format } from "date-fns";
 import "./Chart.scss";
+import { useTranslation } from "react-i18next";
 
 const ChartForRating = ({ product }) => {
+  const { t } = useTranslation();
   if (!product || !product.skuList) {
     return <p>No data available</p>;
   }
@@ -28,23 +30,28 @@ const ChartForRating = ({ product }) => {
   const sellerRating = product.rating || product.seller.rating;
   const reviewsAmount = product.seller.reviews || 0;
 
+  // Orders amount - har bir kunga mos keladigan sotilgan mahsulotlar
+  const ordersAmount = product.ordersAmount || [];
+
   // Prepare chart data
   const chartData = dates.map((date) => ({
     date,
-    sellerRating: sellerRating,
-    reviewsAmount: reviewsAmount,
+    sellerRating,
+    reviewsAmount,
+    sold: ordersAmount || 0,
   }));
 
   const option = {
     title: {
-      text: "Seller Rating Over Time",
+      text: t("chart.ratingTitle"),
     },
     tooltip: {
       trigger: "axis",
     },
     legend: {
-      data: ["Seller Rating"],
+      data: [t("chart.rating"), t("table.sold")],
       top: 20,
+      left: "center", // Markazda joylashtirish
     },
     xAxis: {
       type: "category",
@@ -54,16 +61,30 @@ const ChartForRating = ({ product }) => {
     yAxis: [
       {
         type: "value",
-        name: "Seller Rating",
+        name: t("chart.rating"),
+      },
+      {
+        type: "value",
+        name: t("chart.sold"),
+        offset: 60, // Ikkinchi y o'qi uchun offset qo'shiladi
       },
     ],
     series: [
       {
-        name: "Seller Rating",
+        name: t("chart.rating"),
         type: "line",
-        data: chartData.map(() => sellerRating), // Constant rating value
+        data: chartData.map(() => sellerRating),
         smooth: true,
         color: "#ff7300",
+        yAxisIndex: 0,
+      },
+      {
+        name: t("table.sold"),
+        type: "line",
+        data: chartData.map((data) => data.sold),
+        smooth: true,
+        color: "#ffbb00",
+        yAxisIndex: 0,
       },
     ],
   };
@@ -71,7 +92,7 @@ const ChartForRating = ({ product }) => {
   return (
     <div
       className="chart-container"
-      style={{ width: "80%", maxHeight: "250px" }}>
+      style={{ width: "90%", maxHeight: "250px" }}>
       <ReactECharts option={option} />
     </div>
   );
