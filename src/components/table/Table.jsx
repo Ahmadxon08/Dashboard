@@ -11,37 +11,8 @@ const itemsPerPage = 20;
 const Table1 = ({ products }) => {
   const { t } = useTranslation();
 
-  // const [maxLetter, setMaxLetter] = useState(160);
+  const [loading, setLoading] = useState(true);
 
-  // const startsWithUrl = (description) => {
-  //   const urlRegex = /^(https?:\/\/[^\s]+)/;
-  //   return urlRegex.test(description);
-  // };
-
-  // const extractAndRemoveUrls = (description) => {
-  //   const urlPattern = /https:\/\/[^\s]+\.jpg/g;
-  //   const urls = description.match(urlPattern) || [];
-  //   const cleanedDescription = description.replace(urlPattern, "").trim();
-  //   return { cleanedDescription, urls };
-  // };
-
-  // const handleResize = () => {
-  //   if (window.innerWidth <= 425) {
-  //     setMaxLetter(50);
-  //   } else if (window.innerWidth <= 768) {
-  //     setMaxLetter(100);
-  //   } else {
-  //     setMaxLetter(160);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleResize();
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
-  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (event, pageNumber) => {
@@ -93,11 +64,18 @@ const Table1 = ({ products }) => {
                   {indexOfFirstProduct + index + 1}
                 </td>
                 <td data-cell="Image">
+                  {loading && <div>Loading...</div>}
                   <img
                     src={category.photo}
                     alt="photo"
                     width={30}
                     height={30}
+                    onLoad={() => setLoading(false)}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "path/to/placeholder/image.png";
+                      setLoading(false);
+                    }}
                   />
                 </td>
                 <td data-cell="Title">

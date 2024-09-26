@@ -67,7 +67,7 @@ const Select1 = () => {
     } catch (error) {
       console.error("Ma'lumotlarni olishda xato:", error);
     }
-  }, 300); // Debouncing the API calls
+  }, 300);
 
   useEffect(() => {
     fetchProducts("", 1);
