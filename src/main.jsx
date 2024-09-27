@@ -5,6 +5,7 @@ import "./styles/Main.scss";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { SnackbarProvider } from "notistack";
+
 import "./i18n.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

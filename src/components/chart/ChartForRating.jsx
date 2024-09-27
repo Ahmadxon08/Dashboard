@@ -62,11 +62,12 @@ const ChartForRating = ({ product }) => {
       {
         type: "value",
         name: t("chart.rating"),
+        offset: -5,
       },
       {
         type: "value",
-        name: t("chart.sold"),
-        offset: 60, // Ikkinchi y o'qi uchun offset qo'shiladi
+        name: t("table.sold"),
+        offset: -60,
       },
     ],
     series: [
@@ -90,9 +91,7 @@ const ChartForRating = ({ product }) => {
   };
 
   return (
-    <div
-      className="chart-container"
-      style={{ width: "90%", maxHeight: "250px" }}>
+    <div className="chart-container">
       <ReactECharts option={option} />
     </div>
   );

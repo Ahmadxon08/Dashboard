@@ -59,7 +59,7 @@ const ChartForViewer = ({ product }) => {
       {
         name: t("chart.reviewer"),
         type: "line",
-        data: chartData.map(() => reviewsAmount), // Constant reviews amount
+        data: chartData.map(() => reviewsAmount),
         smooth: true,
         color: "#ff0000",
       },
@@ -67,9 +67,7 @@ const ChartForViewer = ({ product }) => {
   };
 
   return (
-    <div
-      className="chart-container"
-      style={{ width: "90%", maxHeight: "250px" }}>
+    <div className="chart-container">
       <ReactECharts option={option} />
     </div>
   );

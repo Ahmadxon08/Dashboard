@@ -6,14 +6,11 @@ import Login from "./auth/login/Login";
 import Register from "./auth/register/Register";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./page/home/Home";
-import Categories from "./page/categories/Categories";
 import NotFound from "./page/not-found/NotFound";
-import SearchProducts from "./page/searchProducts/SearchProducts";
 import ProductsByType from "./page/productsByType/ProductsByType";
 import ProductsSearch from "./page/productsSearch/ProductsSearch";
 import Products from "./page/products/Products";
 import Backtop from "./components/backtop/Backtop";
-import Slider from "./components/slider/Slider";
 import ProductDetail from "./components/productDetails/ProductDetail";
 const App = () => {
   let isLogened = false;
@@ -34,13 +31,10 @@ const App = () => {
           <Route element={<Private isLogened={isLogened} />}>
             <Route path="/" element={<Router />}>
               <Route index element={<Home />} />
-              <Route path="/categories" element={<Categories />} />
-              <Route path="/slider" element={<Slider />} />
               <Route path="/productsByType" element={<ProductsByType />} />
               <Route path="/productsSearch" element={<ProductsSearch />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/products" element={<Products />} />
-              <Route path="/searchpro" element={<SearchProducts />} />
               <Route path="/typeby" element={<ProductsByType />} />
             </Route>
           </Route>

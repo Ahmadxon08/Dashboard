@@ -75,7 +75,7 @@ const ProductsByType = () => {
   ];
 
   const totalPages = Math.ceil(total / 20);
-  console.log(products);
+  console.log("by type", products);
 
   return (
     <section className="byType">

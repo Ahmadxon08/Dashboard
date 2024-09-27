@@ -1,9 +1,17 @@
 /* eslint-disable react/prop-types */
-// Private.js
 import { Navigate, Outlet } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Private = ({ isLogened }) => {
-  return isLogened ? <Outlet /> : <Navigate to="/login" />;
+  if (!isLogened) {
+    return <Navigate to="/login" />;
+  }
+  return <Outlet />;
+};
+
+// PropTypes qo'shish
+Private.propTypes = {
+  isLogened: PropTypes.bool.isRequired,
 };
 
 export default Private;

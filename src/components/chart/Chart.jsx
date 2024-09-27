@@ -56,6 +56,7 @@ const LineChartCostume = ({ product }) => {
     yAxis: {
       type: "value",
       name: t("chart.price"),
+      offset: -10,
     },
     series: [
       {
@@ -69,9 +70,7 @@ const LineChartCostume = ({ product }) => {
   };
 
   return (
-    <div
-      className="chart-container"
-      style={{ width: "90%", maxHeight: "250px" }}>
+    <div className="chart-container">
       <ReactECharts option={option} />
     </div>
   );

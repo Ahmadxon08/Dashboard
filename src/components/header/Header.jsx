@@ -56,7 +56,7 @@ const Header = () => {
                 alt="logo"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "./assets/img/logo.png";
+                  e.target.src = "/assets/img/logo.png";
                 }}
               />
               <span>Datasuperman</span>

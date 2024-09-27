@@ -121,10 +121,12 @@ const ProductDetail = () => {
 
                 <div className="line"></div>
 
-                <Chart product={product} />
-                <ChartForRating product={product} />
+                <div className="box_chart">
+                  <Chart product={product} />
+                  <ChartForRating product={product} />
 
-                <ChartForViewer product={product} className="chart1" />
+                  <ChartForViewer product={product} />
+                </div>
               </div>
             </div>
           ) : (

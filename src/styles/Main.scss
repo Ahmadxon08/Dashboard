@@ -30,10 +30,9 @@
     opacity: 0.8 !important;
     z-index: 10 !important;
     position: absolute !important;
-    top: 100%; // Tugmalarni vertikal markazga joylashtirish
+    top: 100%;
     transform: translateY(-50%);
 
-    // Tugmalarni chap va o'ngga joylashtirish
     &:first-of-type {
       left: 3% !important; // Chap tugma
     }
