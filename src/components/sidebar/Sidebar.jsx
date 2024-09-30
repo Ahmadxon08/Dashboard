@@ -192,7 +192,10 @@ const Sidebar = () => {
               <span>Datasuperman</span>
             </Button>
           </Link>
-          <Link to="/" onClick={() => handleButtonClick(t("sidebar.home"))}>
+          <Link
+            to="/"
+            className="btnhome"
+            onClick={() => handleButtonClick(t("sidebar.home"))}>
             <Button
               style={{
                 background:
@@ -216,6 +219,7 @@ const Sidebar = () => {
           </Link>
 
           <Button
+            className="btnhome1"
             sx={{ borderRadius: "0" }}
             onClick={() => {
               handleButtonClick(t("sidebar.categories"));
@@ -246,7 +250,7 @@ const Sidebar = () => {
                 size={22}
                 style={{
                   position: "absolute",
-                  right: "30px",
+                  right: "5px",
                   color: activeButton === "categories" ? "#7000ff" : "#fff",
                 }}
               />
@@ -255,7 +259,7 @@ const Sidebar = () => {
                 size={22}
                 style={{
                   position: "absolute",
-                  right: "30px",
+                  right: "5px",
                   color: activeButton === "categories" ? "#7000ff" : "#fff",
                 }}
               />
@@ -308,7 +312,7 @@ const Sidebar = () => {
                             size={22}
                             style={{
                               position: "absolute",
-                              left: "20px",
+                              left: "5px",
                               color:
                                 activeButton === p.title ? "#7000ff" : "#fff",
                             }}
@@ -319,7 +323,7 @@ const Sidebar = () => {
                             color:
                               activeButton === p.title ? "#7000ff" : "#fff",
                           }}>
-                          {p.title}
+                          {p.title.slice(0, 25)}
                         </span>
                       </Button>
                     </Link>
@@ -365,7 +369,7 @@ const Sidebar = () => {
                                             ? "#7000ff"
                                             : "#fff",
                                       }}>
-                                      {parent.title}
+                                      {parent.title.slice(0, 25)}
                                     </span>
                                   </Button>
                                 </Link>

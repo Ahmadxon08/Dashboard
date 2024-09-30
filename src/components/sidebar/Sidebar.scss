@@ -24,6 +24,7 @@
       gap: 10px;
       button {
         text-transform: none;
+
         img {
           width: 50px;
           height: 50px;
@@ -36,20 +37,35 @@
           text-align: left;
           color: #eaeaeb;
         }
+        &:hover {
+          background-color: #6000ee !important;
+          color: #eaeaeb !important;
+        }
       }
     }
     .first {
-      width: 101%;
-
+      width: 100%;
+      padding-left: 20px;
+      .btnhome {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        width: 95%;
+      }
+      .btnhome1 {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        width: 90% !important;
+      }
       button {
         display: flex;
         align-items: center;
         justify-content: start;
-        width: 100%;
-
+        width: 80%;
         border: 0;
         text-transform: none;
-        border-radius: 3px;
+        border-radius: 12px !important;
         width: inherit;
         height: 35px;
         gap: 10px;
@@ -62,6 +78,10 @@
         color: #1f2026;
         background-color: inherit;
         transition: all 0.4s;
+      }
+      button:hover {
+        background: hsl(266, 100%, 70%) !important;
+        color: #eaeaeb !important;
       }
       ::-webkit-scrollbar {
         width: 8px;
@@ -88,11 +108,14 @@
         overflow-y: auto !important;
         max-height: 400px;
         padding-bottom: 29px;
+        padding-right: 10px;
         .action {
           display: flex;
           align-items: center;
           flex-direction: column;
-          width: 100%;
+          width: 90%;
+
+          border-radius: 18px;
           a {
             display: flex;
             width: 100%;
@@ -103,8 +126,9 @@
               justify-content: flex-start;
               width: 100%;
               padding: 0;
-              height: 30px;
-              padding-left: 15px;
+              padding: 4px 0;
+              border-radius: 12px !important;
+              padding-left: 10px;
               span {
                 font-family: Roboto;
                 font-size: 14px;
@@ -112,7 +136,7 @@
                 line-height: 14.52px;
                 text-align: left;
                 width: 100%;
-                padding-left: 40px;
+                padding-left: 31px;
                 margin-bottom: 0px;
               }
             }
@@ -147,9 +171,11 @@
                   align-items: center;
                   justify-content: flex-start;
                   width: 100%;
-                  padding: 0;
+                  padding: 6px 0;
                   height: 30px;
-                  padding-left: 15px;
+                  border-radius: 12px !important;
+
+                  padding-left: 16px !important;
                   span {
                     font-family: Roboto;
                     font-size: 14px;
@@ -157,7 +183,8 @@
                     line-height: 14.52px;
                     text-align: left;
                     width: 100%;
-                    padding-left: 40px;
+                    padding: 10px 0 !important;
+                    padding-left: 24px !important;
                     margin-bottom: 0px;
                   }
                 }

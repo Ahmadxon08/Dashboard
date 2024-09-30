@@ -170,7 +170,7 @@ const Products = () => {
                 {grandParent?.title}
               </span>
               <small> {parent?.title ? "/" : ""}</small>
-              <span onClick={() => handleParentClick(parent?.id)}>
+              <span onClick={() => handleParentClick()} className="none">
                 {parent?.title}
               </span>
             </div>
