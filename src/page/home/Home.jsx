@@ -7,13 +7,12 @@ import Loading from "../../components/loader/Loading";
 import { IoSearch } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 
-const notfound = "/assets/img/noProduct.jpg"; // Not found rasm manzili
-
+const notfound = "/assets/img/noProduct.jpg";
 const Home = () => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
-  const [searched, setSearched] = useState(false); // Qidiruv tugallanganmi flag
-  const [showImage, setShowImage] = useState(false); // 3 sekunddan keyin rasmni ko'rsatish uchun flag
+  const [searched, setSearched] = useState(false);
+  const [showImage, setShowImage] = useState(false);
 
   const { products, loading, fetchProducts, setSearchText } = useSearchStore(
     (state) => ({
@@ -29,8 +28,8 @@ const Home = () => {
     debounce((value) => {
       setSearchText(value);
       fetchProducts(value, 1);
-      setSearched(true); // Qidiruv tugadi
-      setShowImage(false); // Qidiruvdan keyin rasm ko'rinmasligi uchun
+      setSearched(true);
+      setShowImage(false);
     }, 500),
     [setSearchText, fetchProducts]
   );
@@ -46,13 +45,12 @@ const Home = () => {
     };
   }, [searchTerm, debouncedFetchProducts]);
 
-  // Qidiruv natijasi bo'lmasa, 3 sekunddan keyin rasmni ko'rsatish
   useEffect(() => {
     if (searched && products.length === 0) {
       const timer = setTimeout(() => {
         setShowImage(true);
-      }, 500); // 3 sekund kutish
-      return () => clearTimeout(timer); // Timeoutni tozalash
+      }, 500);
+      return () => clearTimeout(timer);
     }
   }, [searched, products]);
 

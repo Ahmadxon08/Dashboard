@@ -757,9 +757,8 @@
 @media (max-width: 450px) {
   .reg {
     display: flex;
-    overflow: hidden;
 
-    height: 100vh !important;
+    min-height: 130vh !important;
     position: relative;
     width: 100%;
     overflow-y: scroll !important;
