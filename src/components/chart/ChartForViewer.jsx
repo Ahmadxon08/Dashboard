@@ -28,11 +28,13 @@ const ChartForViewer = ({ product }) => {
 
   // Extract seller rating and reviews
   const reviewsAmount = product.seller.reviews || 0;
+  const ordersAmount = product.ordersAmount || [];
 
   // Prepare chart data
   const chartData = dates.map((date) => ({
     date,
     reviewsAmount: reviewsAmount,
+    sold: ordersAmount || 0,
   }));
 
   const option = {
@@ -43,7 +45,7 @@ const ChartForViewer = ({ product }) => {
       trigger: "axis",
     },
     legend: {
-      data: [t("chart.reviewer")],
+      data: [t("chart.reviewer"), t("table.sold")],
       top: 20,
     },
     xAxis: {
@@ -51,10 +53,18 @@ const ChartForViewer = ({ product }) => {
       data: chartData.map((data) => data.date),
       name: "",
     },
-    yAxis: {
-      type: "value",
-      name: t("chart.reviewer"),
-    },
+    yAxis: [
+      {
+        type: "value",
+        name: t("chart.reviewer"),
+        offset: -5,
+      },
+      {
+        type: "value",
+        name: t("table.sold"),
+        offset: -60,
+      },
+    ],
     series: [
       {
         name: t("chart.reviewer"),
@@ -62,6 +72,15 @@ const ChartForViewer = ({ product }) => {
         data: chartData.map(() => reviewsAmount),
         smooth: true,
         color: "#ff0000",
+        yAxisIndex: 0,
+      },
+      {
+        name: t("table.sold"),
+        type: "line",
+        data: chartData.map((data) => data.sold),
+        smooth: true,
+        color: "#ffbb00",
+        yAxisIndex: 0,
       },
     ],
   };

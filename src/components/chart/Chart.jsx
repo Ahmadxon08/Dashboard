@@ -56,7 +56,7 @@ const LineChartCostume = ({ product }) => {
     yAxis: {
       type: "value",
       name: t("chart.price"),
-      offset: -10,
+      offset: -5,
     },
     series: [
       {

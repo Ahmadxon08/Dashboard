@@ -36,10 +36,10 @@ const Products = () => {
     filterSelects,
     uniqueItems,
     productDetails,
-    selectedParentId,
+    // selectedParentId,
     selectedGrandParentId,
     setSelectedGrandParentId,
-    setSelectedParentId,
+    // setSelectedParentId,
   } = useCategoryStore((state) => ({
     filterSelects: state.filterSelects,
     setIsCategoriesOpen: state.setIsCategoriesOpen,
@@ -112,15 +112,15 @@ const Products = () => {
     }
   };
   // Ota kategoriyasini bosganda nima bo'lishini hal qilish
-  const handleParentClick = (parentId) => {
-    if (selectedParentId === parentId) {
-      setSelectedParentId(null);
-      console.log("parent  siddebar", parentId);
-    } else {
-      setSelectedCategoryId(parentId);
-      fetchProductsByCategoryId(parentId);
-    }
-  };
+  // const handleParentClick = (parentId) => {
+  //   if (selectedParentId === parentId) {
+  //     setSelectedParentId(null);
+  //     console.log("parent  siddebar", parentId);
+  //   } else {
+  //     setSelectedCategoryId(parentId);
+  //     fetchProductsByCategoryId(parentId);
+  //   }
+  // };
   const handleHomeClick = () => {
     setSelectedCategoryId(null);
     setIsCategoriesOpen(false);
@@ -170,9 +170,7 @@ const Products = () => {
                 {grandParent?.title}
               </span>
               <small> {parent?.title ? "/" : ""}</small>
-              <span onClick={() => handleParentClick()} className="none">
-                {parent?.title}
-              </span>
+              <span className="none">{parent?.title}</span>
             </div>
 
             <h2> {t(`sidebar.categories`)}</h2>

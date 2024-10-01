@@ -31,14 +31,12 @@ const ChartForRating = ({ product }) => {
   const reviewsAmount = product.seller.reviews || 0;
 
   // Orders amount - har bir kunga mos keladigan sotilgan mahsulotlar
-  const ordersAmount = product.ordersAmount || [];
 
   // Prepare chart data
   const chartData = dates.map((date) => ({
     date,
     sellerRating,
     reviewsAmount,
-    sold: ordersAmount || 0,
   }));
 
   const option = {
@@ -49,7 +47,7 @@ const ChartForRating = ({ product }) => {
       trigger: "axis",
     },
     legend: {
-      data: [t("chart.rating"), t("table.sold")],
+      data: [t("chart.rating")],
       top: 20,
       left: "center", // Markazda joylashtirish
     },
@@ -64,11 +62,6 @@ const ChartForRating = ({ product }) => {
         name: t("chart.rating"),
         offset: -5,
       },
-      {
-        type: "value",
-        name: t("table.sold"),
-        offset: -60,
-      },
     ],
     series: [
       {
@@ -77,14 +70,6 @@ const ChartForRating = ({ product }) => {
         data: chartData.map(() => sellerRating),
         smooth: true,
         color: "#ff7300",
-        yAxisIndex: 0,
-      },
-      {
-        name: t("table.sold"),
-        type: "line",
-        data: chartData.map((data) => data.sold),
-        smooth: true,
-        color: "#ffbb00",
         yAxisIndex: 0,
       },
     ],
