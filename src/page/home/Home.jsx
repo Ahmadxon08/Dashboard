@@ -1,10 +1,10 @@
-import { TextField } from "@mui/material";
 import "./Home.scss";
 import Table1 from "../../components/table/Table";
 import { useCallback, useEffect, useState } from "react";
 import useSearchStore from "../../store/useSearchStore";
 import debounce from "lodash.debounce";
 import Loading from "../../components/loader/Loading";
+import { IoSearch } from "react-icons/io5";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -62,35 +62,22 @@ const Home = () => {
       <section className="content_header">
         <div className="items">
           <div className="item">
-            <span>Search Product</span>
-            <TextField
+            <label htmlFor="search">
+              {" "}
+              <IoSearch />
+            </label>
+
+            <input
               type="search"
-              className="input"
-              label="Search..."
-              id="filled-basic"
-              variant="filled"
-              value={searchTerm}
+              id="search"
               onChange={handleSearchChange}
-              InputProps={{
-                style: {
-                  width: "100%",
-                  height: "40px",
-                },
-              }}
+              value={searchTerm}
             />
           </div>
         </div>
       </section>
       <section className="content_body">
-        {loading ? (
-          // <div className="loadingSpinner">
-          //   <CircularProgress color="primary" className="load" />
-          //   <span>Loading...</span>
-          // </div>
-          <Loading />
-        ) : (
-          <Table1 products={products} />
-        )}
+        {loading ? <Loading /> : <Table1 products={products} />}
       </section>
     </div>
   );
