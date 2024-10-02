@@ -7,7 +7,6 @@ import { useSnackbar } from "notistack";
 import { registerValidationSchema } from "../validation";
 import { motion } from "framer-motion";
 import axios from "axios";
-import { main_url } from "../../utils/api";
 
 const rg = "./assets/img/register.jpg";
 const Register = () => {
@@ -25,7 +24,7 @@ const Register = () => {
     onSubmit: async (values) => {
       try {
         console.log("Sending request to API...");
-        const res = await axios.post(`${main_url}adduser`, {
+        const res = await axios.post(`http://65.1.136.0:5050/api/adduser`, {
           userName: values.username,
           passWord: values.password,
         });
