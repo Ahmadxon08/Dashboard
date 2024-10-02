@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick-theme.css";
 import useMenuStore from "../../store/useMenuStore";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/loader/Loading";
+import Backtop from "../../components/backtop/Backtop";
 
 const Products = () => {
   const { t } = useTranslation();
@@ -66,10 +67,18 @@ const Products = () => {
       fetchProductsByCategoryId(selectedCategoryId, pageNum);
     }
   }, [selectedCategoryId, pageNum]);
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   const handlePageChange = (e, page) => {
     e.preventDefault();
     setPage(page);
+    // Scroll to top after the page has been set
+    scrollToTop();
   };
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const selectedCategoryId2 = null;
@@ -198,6 +207,7 @@ const Products = () => {
               />
             </Stack>
           </div>
+          <Backtop />
         </>
       )}
     </section>

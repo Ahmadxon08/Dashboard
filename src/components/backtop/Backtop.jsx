@@ -16,8 +16,8 @@ const Backtop = () => {
   }, []);
 
   const scrollToTop = (e) => {
-    e.stopPropagation(); // Tashqi elementlarga hodisani yuborishni to'xtatadi
-    e.preventDefault(); // Brauzerning default hodisasini to'xtatadi (masalan, form submit)
+    e.stopPropagation();
+    e.preventDefault();
 
     window.scrollTo({
       top: 0,
