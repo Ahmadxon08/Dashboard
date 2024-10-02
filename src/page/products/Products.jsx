@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -111,16 +112,7 @@ const Products = () => {
       fetchProductsByCategoryId(grandParentId);
     }
   };
-  // Ota kategoriyasini bosganda nima bo'lishini hal qilish
-  // const handleParentClick = (parentId) => {
-  //   if (selectedParentId === parentId) {
-  //     setSelectedParentId(null);
-  //     console.log("parent  siddebar", parentId);
-  //   } else {
-  //     setSelectedCategoryId(parentId);
-  //     fetchProductsByCategoryId(parentId);
-  //   }
-  // };
+
   const handleHomeClick = () => {
     setSelectedCategoryId(null);
     setIsCategoriesOpen(false);
@@ -135,8 +127,6 @@ const Products = () => {
     activeButton: state.activeButton,
     categoryTitle: state.categoryTitle,
   }));
-  // const activeButton = localStorage.getItem("activeButton"); // Kalit bo'yicha qiymatni olish
-  // const categoryTitle = activeButton; // Olingan qiymatni ishlatish
 
   console.log("filtering products", filterSelects);
 
