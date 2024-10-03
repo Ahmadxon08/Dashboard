@@ -24,10 +24,11 @@ const Register = () => {
     onSubmit: async (values) => {
       try {
         console.log("Sending request to API...");
-        const res = await axios.post(`https://65.1.136.0:5050/api/adduser`, {
+        const res = await axios.post(`http://65.1.136.0:5050/api/adduser`, {
           userName: values.username,
           passWord: values.password,
         });
+        console.log("Submitting values:", values);
 
         console.log("Response received:", res.data);
 

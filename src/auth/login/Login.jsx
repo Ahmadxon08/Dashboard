@@ -29,17 +29,16 @@ const Login = () => {
 
     onSubmit: async (values) => {
       try {
-        const res = await axios.post(`https://65.1.136.0:5050/api/verifyuser`, {
+        const res = await axios.post(`http://65.1.136.0:5050/api/verifyuser`, {
           userName: values.username,
           passWord: values.password,
         });
+        console.log("Submitting values:", values);
 
         if (res.data?.verifyResult === "passed" && res.data?.token) {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("user", JSON.stringify(values));
           console.log(res.data);
-          // Sahifani qayta yuklash
-          // window.location.reload();
 
           console.log(res.data.token, JSON.stringify(values));
 
@@ -51,9 +50,21 @@ const Login = () => {
           });
         }
       } catch (error) {
-        enqueueSnackbar("Something went wrong, please try again.", {
-          variant: "error",
-        });
+        alert("Error occurred: " + error.message); // Foydalanuvchiga xato haqida ma'lumot berish
+
+        if (error.response) {
+          enqueueSnackbar(
+            error.response.data.message ||
+              "Something went wrong, please try again.",
+            {
+              variant: "error",
+            }
+          );
+        } else {
+          enqueueSnackbar("Network error. Please check your connection.", {
+            variant: "error",
+          });
+        }
       }
     },
   });
