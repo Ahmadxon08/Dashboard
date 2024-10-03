@@ -75,9 +75,9 @@ const ProductDetail = () => {
   };
   console.log("images massive", urls);
 
-  const remainingAmount = product?.totalAvailableAmount
-    ? product.totalAvailableAmount - product.ordersAmount
-    : 0;
+  console.log("bor tovar", product?.totalAvailableAmount);
+
+  const totalAvialableAmount = product?.totalAvailableAmount;
 
   return (
     <div className="productDetail">
@@ -109,10 +109,10 @@ const ProductDetail = () => {
                 <h1>{product.title}</h1>
 
                 <h3>
-                  {remainingAmount > 0 ? (
+                  {totalAvialableAmount > 0 ? (
                     <p>
                       {" "}
-                      {t("table.remain")}: {remainingAmount}
+                      {t("table.remain")}: {totalAvialableAmount}
                     </p>
                   ) : (
                     <p>{t("table.noProduct")}</p>

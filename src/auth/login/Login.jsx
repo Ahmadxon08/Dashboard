@@ -29,7 +29,7 @@ const Login = () => {
 
     onSubmit: async (values) => {
       try {
-        const res = await axios.post(`http://65.1.136.0:5050/api/verifyuser`, {
+        const res = await axios.post(`https://65.1.136.0:5050/api/verifyuser`, {
           userName: values.username,
           passWord: values.password,
         });
