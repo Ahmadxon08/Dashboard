@@ -33,7 +33,6 @@ const Login = () => {
           userName: values.username,
           passWord: values.password,
         });
-        console.log("Submitting values:", values);
 
         if (res.data?.verifyResult === "passed" && res.data?.token) {
           localStorage.setItem("token", res.data.token);
@@ -50,7 +49,7 @@ const Login = () => {
           });
         }
       } catch (error) {
-        alert("Error occurred: " + error.message); // Foydalanuvchiga xato haqida ma'lumot berish
+        alert("Error occurred: " + error.message);
 
         if (error.response) {
           enqueueSnackbar(

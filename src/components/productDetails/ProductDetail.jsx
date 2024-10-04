@@ -69,13 +69,14 @@ const ProductDetail = () => {
   console.log(urls);
   console.log("lohhhh", cleanedDescription);
   console.log(product);
+  console.log("bor tovar", product);
 
   const handleBack = () => {
     navigate(-1);
   };
   console.log("images massive", urls);
 
-  console.log("bor tovar", product?.totalAvailableAmount);
+  console.log("bor tovar miqdori", product?.totalAvailableAmount);
 
   const totalAvialableAmount = product?.totalAvailableAmount;
 

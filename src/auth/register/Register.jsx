@@ -28,11 +28,10 @@ const Register = () => {
           userName: values.username,
           passWord: values.password,
         });
-        console.log("Submitting values:", values);
 
         console.log("Response received:", res.data);
 
-        if (res.data.acknowledged) {
+        if (res?.data?.acknowledged) {
           enqueueSnackbar("Registration successful!", { variant: "success" });
           navigate("/login");
         } else if (res.data.error) {
