@@ -35,9 +35,9 @@ const Products = () => {
     selectedCategoryId,
     fetchProductsByCategoryId,
     setPage,
-    filterSelects,
-    uniqueItems,
-    productDetails,
+    // filterSelects,
+    // uniqueItems,
+    // productDetails,
     // selectedParentId,
     selectedGrandParentId,
     setSelectedGrandParentId,
@@ -131,23 +131,23 @@ const Products = () => {
     fetchProductsByCategoryId(null, 1);
     navigate("/");
   };
-  const { categoryTitle } = useMenuStore((state) => ({
-    setActiveButton: state.setActiveButton,
-    activeButton: state.activeButton,
-    categoryTitle: state.categoryTitle,
-  }));
+  // const { categoryTitle } = useMenuStore((state) => ({
+  //   setActiveButton: state.setActiveButton,
+  //   activeButton: state.activeButton,
+  //   categoryTitle: state.categoryTitle,
+  // }));
 
-  console.log("filtering products", filterSelects);
+  // console.log("filtering products", filterSelects);
 
-  console.log("grandparent", grandParent);
+  // console.log("grandparent", grandParent);
 
-  console.log("this is link ", products);
+  console.log("this is linssssssssssssk ", products);
 
-  console.log("loading...", loading);
+  // console.log("loading...", loading);
 
-  console.log("llllllllj", uniqueItems);
-  console.log("selectedss", productDetails);
-  console.log("produceeeee", categoryTitle);
+  // console.log("llllllllj", uniqueItems);
+  // console.log("selectedss", productDetails);
+  // console.log("produceeeee", categoryTitle);
 
   return (
     <section className="allProducts">

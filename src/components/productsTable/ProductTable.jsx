@@ -1,47 +1,45 @@
 /* eslint-disable react/no-unescaped-entities */
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useCategoryStore from "../../store/useCategoryStore";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import useRelativeStore from "../../store/useRelativeStore";
 
 const ProductTable = ({ categories }) => {
+  const { id } = useParams();
   const { t } = useTranslation();
+  const { setSelectedCategoryId, fetchProductsByTypeId } = useRelativeStore(
+    (state) => ({
+      products: state.products,
+      selectedCategoryId: state.selectedCategoryId,
+      setSelectedCategoryId: state.setSelectedCategoryId,
+      fetchProductsByTypeId: state.fetchProductsByTypeId,
+    })
+  );
   const { uniqueItems } = useCategoryStore((state) => ({
     uniqueItems: state.uniqueItems,
   }));
+  const { productDetails, fetchProductDetails } = useCategoryStore((state) => ({
+    productDetails: state.productDetails,
+    fetchProductDetails: state.fetchProductDetails,
+  }));
 
-  // const startsWithUrl = (description) => {
-  //   if (!description) return false;
+  useEffect(() => {
+    if (id) {
+      fetchProductDetails(id);
+    }
+  }, [id, fetchProductDetails]);
+  // handleClick function
+  const handleRelativeType = () => {
+    const productsRelativeId = productDetails[0]?.category?.id;
+    if (productsRelativeId) {
+      setSelectedCategoryId(productsRelativeId);
+      fetchProductsByTypeId(); // Fetch products based on selected category
+    }
+  };
 
-  //   const urlRegex = /^(https?:\/\/[^\s]+)/;
-  //   return urlRegex.test(description);
-  // };
-
-  // const extractAndRemoveUrls = (description) => {
-  //   if (!description) return { cleanedDescription: "", urls: [] };
-
-  //   const urlPattern = /https:\/\/[^\s]+\.jpg/g;
-  //   const urls = description.match(urlPattern) || [];
-  //   const cleanedDescription = description.replace(urlPattern, "").trim();
-  //   return { cleanedDescription, urls };
-  // };
-
-  // const handleResize = () => {
-  //   if (window.innerWidth <= 425) {
-  //     setMaxLetter(50);
-  //   } else if (window.innerWidth <= 768) {
-  //     setMaxLetter(100);
-  //   } else {
-  //     setMaxLetter(160);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleResize();
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-  console.log("cateee", categories);
+  console.log("ddddddddcs89899", categories);
   console.log("filteres proo", uniqueItems);
 
   return (
@@ -78,6 +76,7 @@ const ProductTable = ({ categories }) => {
                 {category?.seller?.title.slice(0, 15)}...
                 <br />
                 <Link
+                  onClick={handleRelativeType}
                   to={`/product/${category.id}`}
                   style={{
                     color: "#007bff",

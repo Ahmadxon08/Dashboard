@@ -10,6 +10,8 @@ import Loading from "../loader/Loading";
 import ChartForViewer from "../chart/ChartForViewer";
 import ChartForRating from "../chart/ChartForRating";
 import { useTranslation } from "react-i18next";
+import useRelativeStore from "../../store/useRelativeStore";
+import RelativeProducts from "./RelativeProducts";
 
 // URL'larni chiqarib olish va tavsifdan olib tashlash funksiyasi
 const extractAndRemoveUrls = (description) => {
@@ -22,16 +24,38 @@ const extractAndRemoveUrls = (description) => {
 const ProductDetail = () => {
   const { t } = useTranslation();
   const { id } = useParams();
-  console.log("Product ID:", id);
+  // console.log("Product ID:", id);
+  const {
+    setSelectedCategoryId,
+    fetchProductsByTypeId,
+    selectedCategoryId,
+    products,
+  } = useRelativeStore((state) => ({
+    products: state.products,
+    selectedCategoryId: state.selectedCategoryId,
+    setSelectedCategoryId: state.setSelectedCategoryId,
+    fetchProductsByTypeId: state.fetchProductsByTypeId,
+  }));
 
-  const { productDetails, filterSelects, fetchProductDetails, loading, error } =
-    useCategoryStore((state) => ({
-      filterSelects: state.filterSelects,
-      productDetails: state.productDetails,
-      fetchProductDetails: state.fetchProductDetails,
-      loading: state.loading,
-      error: state.error,
-    }));
+  const {
+    productDetails,
+    filterSelects,
+    // setSelectedCategoryId,
+    fetchProductDetails,
+    // fetchProductsByCategoryId,
+    loading,
+    error,
+    // products,
+  } = useCategoryStore((state) => ({
+    // products: state.products,
+    fetchProductsByCategoryId: state.fetchProductsByCategoryId,
+    setSelectedCategoryId: state.setSelectedCategoryId,
+    filterSelects: state.filterSelects,
+    productDetails: state.productDetails,
+    fetchProductDetails: state.fetchProductDetails,
+    loading: state.loading,
+    error: state.error,
+  }));
   const navigate = useNavigate();
 
   const [cleanedDescription, setCleanedDescription] = useState("");
@@ -56,8 +80,26 @@ const ProductDetail = () => {
         setCleanedDescription(cleanedDescription);
         setUrls(urls);
       }
+      const productsRelativeId = product?.category?.id;
+
+      console.log("dd", productsRelativeId);
+      console.log("productId", product.id);
+
+      console.log("dsssssd", selectedCategoryId);
+      if (productsRelativeId) {
+        setSelectedCategoryId(productsRelativeId);
+        fetchProductsByTypeId();
+      }
     }
-  }, [productDetails]);
+  }, [productDetails, setSelectedCategoryId, fetchProductsByTypeId]);
+
+  // useEffect(() => {
+  //   if (product.category.id) {
+  //     // Agar productsRelativeId mavjud bo'lsa
+  //     setSelectedRelativeId(product?.category?.id);
+  //     fetchRelativeProducts();
+  //   }
+  // }, [productsRelativeId, fetchRelativeProducts]);
 
   console.log(filterSelects);
 
@@ -67,18 +109,22 @@ const ProductDetail = () => {
     ? productDetails[0]
     : productDetails;
   console.log(urls);
-  console.log("lohhhh", cleanedDescription);
+  console.log("lohhhh", cleanedDescription.slice(0, 100));
   console.log(product);
-  console.log("bor tovar", product);
+  ``;
+  // console.log("bor tovar", product);
 
   const handleBack = () => {
+    setSelectedCategoryId(null);
     navigate(-1);
   };
-  console.log("images massive", urls);
 
-  console.log("bor tovar miqdori", product?.totalAvailableAmount);
+  // console.log("images massive", urls);
+
+  // console.log("bor tovar miqdori", product?.totalAvailableAmount);
 
   const totalAvialableAmount = product?.totalAvailableAmount;
+  console.log("releted to products" + "   ", products.payLoad);
 
   return (
     <div className="productDetail">
@@ -86,7 +132,6 @@ const ProductDetail = () => {
         <Loading />
       ) : (
         <>
-          {" "}
           <Button
             variant="text"
             onClick={handleBack}
@@ -97,38 +142,42 @@ const ProductDetail = () => {
             }}>
             {t("table.back")}
           </Button>
+
           {product ? (
-            <div className="product_card">
-              <div className="imgWrapper">
-                {urls.length > 0 ? (
-                  <Slider urls={urls} />
-                ) : (
-                  <img src={product.photo} alt={product.title} />
-                )}
-              </div>
-              <div className="product_text">
-                <h1>{product.title}</h1>
-
-                <h3>
-                  {totalAvialableAmount > 0 ? (
-                    <p>
-                      {" "}
-                      {t("table.remain")}: {totalAvialableAmount}
-                    </p>
+            <div className="productBody">
+              <div className="product_card">
+                <div className="imgWrapper">
+                  {urls.length > 0 ? (
+                    <Slider urls={urls} />
                   ) : (
-                    <p>{t("table.noProduct")}</p>
+                    <img src={product.photo} alt={product.title} />
                   )}
-                </h3>
+                </div>
+                <div className="product_text">
+                  <h1>{product.title}</h1>
 
-                <div className="line"></div>
+                  <h3>
+                    {totalAvialableAmount > 0 ? (
+                      <p>
+                        {" "}
+                        {t("table.remain")}: {totalAvialableAmount}
+                      </p>
+                    ) : (
+                      <p>{t("table.noProduct")}</p>
+                    )}
+                  </h3>
 
-                <div className="box_chart">
-                  <Chart product={product} />
-                  <ChartForRating product={product} />
+                  <div className="line"></div>
 
-                  <ChartForViewer product={product} />
+                  <div className="box_chart">
+                    <Chart product={product} />
+                    <ChartForRating product={product} />
+
+                    <ChartForViewer product={product} />
+                  </div>
                 </div>
               </div>
+              <RelativeProducts />
             </div>
           ) : (
             <p>Product not found.</p>
