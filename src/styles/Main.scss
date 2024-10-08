@@ -79,6 +79,27 @@ canvas {
     }
   }
 }
+
+.carousel-control-next-icon {
+  position: absolute !important;
+  right: 0 !important;
+  .carousel-control-next-icon {
+    color: #7000ff !important;
+  }
+}
+/* Tugmalarni yanada chap va o'ngga ko'chirish */
+.swiper-button-next {
+  right: 40px; /* Tugmani o'ngga joylash */
+}
+
+.swiper-button-prev {
+  left: 40px; /* Tugmani chapga joylash */
+}
+
+.carousel-control-next-icon {
+  position: relative !important;
+  right: 0 !important;
+}
 .app {
   display: flex;
   flex-direction: column;
@@ -91,6 +112,16 @@ canvas {
   scroll-behavior: smooth;
   scrollbar-width: thin;
 }
+.mySwiper {
+  width: 100%;
+  height: 400px; /* Karusel balandligini belgilash */
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff; /* Tugma rangini o'zgartirish */
+}
+
 @media (max-width: 768px) {
   .app {
     display: flex;

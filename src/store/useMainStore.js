@@ -1,8 +1,11 @@
 import { create } from "zustand";
 
 const useMainStore = create((set) => ({
+  openModalCarousel: false,
   openSidebar: false,
   activeButton: "",
+
+  handleModalCarousel: (isOpen) => set({ openModalCarousel: isOpen }),
 
   // Method to open the sidebar
   handleOpenSidebar: () => set({ openSidebar: true }),

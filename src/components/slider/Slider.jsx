@@ -3,8 +3,14 @@
 // Slider.js
 import { Carousel } from "react-responsive-carousel";
 import "./Slider.scss";
+import useMainStore from "../../store/useMainStore";
+import ModalCarousel from "./ModalCarousel";
 
 const Slider = ({ urls }) => {
+  const { handleModalCarousel, openModalCarousel } = useMainStore((state) => ({
+    handleModalCarousel: state.handleModalCarousel,
+    openModalCarousel: state.openModalCarousel,
+  }));
   const imageUrls = Array.isArray(urls)
     ? urls[0].split("][").map((url) => url.replace(/[\[\]]/g, ""))
     : urls.split("][").map((url) => url.replace(/[\[\]]/g, ""));
@@ -33,12 +39,16 @@ const Slider = ({ urls }) => {
           onClickItem={onClickItem}
           onClickThumb={onClickThumb}>
           {limitedImageUrls.map((url, index) => (
-            <div key={index} className="image_wrapper">
+            <div
+              key={index}
+              className="image_wrapper"
+              onClick={() => handleModalCarousel(true)}>
               <img src={url} alt={`Image ${index + 1}`} />
             </div>
           ))}
         </Carousel>
       </div>
+      {openModalCarousel && <ModalCarousel imgs={imageUrls} />}
     </>
   );
 };

@@ -5,13 +5,13 @@ import useCategoryStore from "../../store/useCategoryStore";
 import "./ProductDetail.scss";
 import { Button } from "@mui/material";
 import Chart from "../chart/Chart";
-import Slider from "../slider/Slider";
 import Loading from "../loader/Loading";
 import ChartForViewer from "../chart/ChartForViewer";
 import ChartForRating from "../chart/ChartForRating";
 import { useTranslation } from "react-i18next";
 import useRelativeStore from "../../store/useRelativeStore";
 import RelativeProducts from "./RelativeProducts";
+import Slider1 from "../slider/Slider";
 
 // URL'larni chiqarib olish va tavsifdan olib tashlash funksiyasi
 const extractAndRemoveUrls = (description) => {
@@ -119,10 +119,6 @@ const ProductDetail = () => {
     navigate(-1);
   };
 
-  // console.log("images massive", urls);
-
-  // console.log("bor tovar miqdori", product?.totalAvailableAmount);
-
   const totalAvialableAmount = product?.totalAvailableAmount;
   console.log("releted to products" + "   ", products.payLoad);
 
@@ -147,8 +143,8 @@ const ProductDetail = () => {
             <div className="productBody">
               <div className="product_card">
                 <div className="imgWrapper">
-                  {urls.length > 0 ? (
-                    <Slider urls={urls} />
+                  {urls.length > 0 && urls.length > 1 ? (
+                    <Slider1 urls={urls} />
                   ) : (
                     <img src={product.photo} alt={product.title} />
                   )}
