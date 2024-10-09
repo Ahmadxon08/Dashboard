@@ -9,7 +9,17 @@
 
   button {
     margin-bottom: 20px;
+    margin-left: 10px;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+    color: #7000ff;
+    border: 1px solid #7000ff;
+    &:hover {
+      background-color: #7000ff;
+      color: #fff;
+    }
   }
+
   .productBody {
     display: flex;
     align-items: center;
@@ -35,13 +45,7 @@
           max-width: 100%;
           height: 100% !important;
           object-fit: cover;
-          height: auto;
           border-radius: 8px;
-          position: sticky;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 222;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
           transition: transform 0.3s ease-in-out;
         }

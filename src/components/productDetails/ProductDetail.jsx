@@ -128,14 +128,7 @@ const ProductDetail = () => {
         <Loading />
       ) : (
         <>
-          <Button
-            variant="text"
-            onClick={handleBack}
-            style={{
-              backgroundColor: "#7000ff",
-              color: "#fff",
-              marginLeft: "10px",
-            }}>
+          <Button variant="text" onClick={handleBack}>
             {t("table.back")}
           </Button>
 

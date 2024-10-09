@@ -42,7 +42,7 @@ const Slider = ({ urls }) => {
             <div
               key={index}
               className="image_wrapper"
-              onClick={() => handleModalCarousel(true)}>
+              onClick={() => handleModalCarousel(!openModalCarousel)}>
               <img src={url} alt={`Image ${index + 1}`} />
             </div>
           ))}

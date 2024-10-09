@@ -23,11 +23,7 @@ const RelativeProducts = () => {
     fetchRelativeProducts();
   }, [fetchProductsByTypeId]);
 
-  // console.log("Testing", products.payload);
-
   console.log("id for relative", selectedCategoryId);
-
-  // fetchProductsByTypeId o'zgarishi bilan chaqiriladi
 
   return (
     <>
@@ -46,6 +42,7 @@ const RelativeProducts = () => {
             }}>
             {t("similars")}
           </h1>
+          <h1>Total {products.total}</h1>
 
           <div className="relativeCards">
             {products.payLoad &&

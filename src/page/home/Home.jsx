@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./Home.scss";
 import Table1 from "../../components/table/Table";
 import { useCallback, useEffect, useState } from "react";
@@ -6,7 +7,6 @@ import debounce from "lodash.debounce";
 import Loading from "../../components/loader/Loading";
 import { IoSearch } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
-import LazyLoad from "../../components/slider/ModalCarousel";
 
 const notfound = "/assets/img/noProduct.jpg";
 const Home = () => {
@@ -72,13 +72,11 @@ const Home = () => {
               type="search"
               id="search"
               onChange={handleSearchChange}
-              value={searchTerm}
               placeholder={t("searching")}
             />
           </div>
         </div>
       </section>
-      <LazyLoad />
 
       <section className="content_body">
         {loading ? (
